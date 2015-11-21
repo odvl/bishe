@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/register_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.iocm.freetime.wedgets.CommonToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:isLeftImage="true"
+        app:leftImageResource="@drawable/back_image"
+        app:toolbarTitle="注册"></com.iocm.freetime.wedgets.CommonToolBar>
+
+    <RelativeLayout
+        android:id="@+id/view_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <com.iocm.freetime.wedgets.InputEditText
+            android:id="@+id/mobile"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:hint="手机"
+            app:inputType="phoneNumber"></com.iocm.freetime.wedgets.InputEditText>
+
+        <com.iocm.freetime.wedgets.InputEditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/mobile"
+            android:layout_alignRight="@+id/mobile"
+            android:layout_below="@+id/mobile"
+            android:layout_marginTop="30dp"
+            app:hint="昵称"></com.iocm.freetime.wedgets.InputEditText>
+
+        <com.iocm.freetime.wedgets.InputEditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/mobile"
+            android:layout_alignRight="@+id/mobile"
+            android:layout_below="@+id/username"
+            android:layout_marginTop="30dp"
+            app:hint="密码"
+            app:inputType="password"></com.iocm.freetime.wedgets.InputEditText>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/clickable_deep_orange500_700_btn_bg"
+        android:text="注册"
+        android:textColor="@color/white"
+        android:textSize="19sp" />
+
+
+</RelativeLayout>

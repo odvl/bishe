@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.iocm.administrator.yunxuan">
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="22" />
+
+    <application
+        android:name="com.iocm.freetime.activity.UserLoginApp"
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2"></action>
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="vRGkXndhBtBr4vLsse32zi4M" />
+
+        <activity
+            android:name="com.iocm.freetime.activity.MainActivity"
+            android:label="@string/app_name"
+            android:configChanges="mcc|"
+            android:windowSoftInputMode="adjustNothing">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.iocm.freetime.activity.LoginActivity"
+            android:label="Yunxuan"></activity>
+        <activity
+            android:name="com.iocm.freetime.activity.RegisterActivity"
+            android:theme="@style/Translation_Theme"
+            android:label="Yunxuan"></activity>
+
+        <activity
+            android:name="com.iocm.freetime.activity.TaskDetailActivity"
+            android:label="@string/yunxuan"></activity>
+        <activity
+            android:name="com.iocm.freetime.activity.FindTaskActivity"
+            android:label="@string/yunxuan"></activity>
+        <activity
+            android:name="com.iocm.freetime.activity.ChangeUserNameActivity"
+            android:label="@string/yunxuan"></activity>
+
+        <activity
+            android:name="com.iocm.freetime.activity.UserApplyedActivity"
+            android:label="@string/yunxuan"></activity>
+
+        <activity
+            android:name="com.iocm.freetime.activity.UserReleasedActivity"
+            android:label="@string/yunxuan"></activity>
+
+        <activity
+            android:name="com.iocm.freetime.user_service.Msg"
+            android:label="@string/yunxuan"></activity>
+
+        <activity
+            android:name="com.iocm.freetime.activity.MapActivity"
+            android:label="@string/yunxuan"></activity>
+
+        <activity
+            android:name="com.iocm.freetime.activity.SetLocationActivity"
+            android:label="@string/app_name"></activity>
+        <activity android:name="com.iocm.freetime.activity.MessageCenterActivity"
+            android:theme="@style/Translation_Theme"/>
+
+        <activity android:name="com.iocm.freetime.user_service.guide.DemoMainActivity" />
+
+        <activity android:name="com.iocm.freetime.user_service.guide.RouteGuideDemo" />
+
+        <activity
+            android:name="com.iocm.freetime.user_service.guide.BNavigatorActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden" />
+        <activity android:name="com.iocm.freetime.activity.SearchTaskActivity"/>
+        <activity android:name="com.iocm.freetime.activity.CreateNewTaskActivity"/>
+
+        <!--创建任务-->
+        <activity android:name="com.iocm.freetime.activity.CreateTaskActivity"
+            android:screenOrientation="portrait"/>
+
+    </application>
+
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!--使用导航功能所需权限  -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+
+</manifest>

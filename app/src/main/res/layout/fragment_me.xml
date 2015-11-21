@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f8f8f8">
+
+    <com.iocm.freetime.wedgets.CommonToolBar
+        android:id="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:toolbarTitle="个人中心"></com.iocm.freetime.wedgets.CommonToolBar>
+
+    <ScrollView
+        android:id="@+id/me_content_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/user_message_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/theme_color">
+
+                <com.ozn.circleimage.CircleImageView
+                    android:id="@+id/user_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    app:src="@drawable/school_task" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/user_photo"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/user_photo"
+                    android:singleLine="true"
+                    android:text="测试帐号"
+                    android:textSize="19sp" />
+
+                <TextView
+                    android:id="@+id/user_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/username"
+                    android:layout_below="@+id/username"
+                    android:layout_marginTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:text="123456789012"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/user_release"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_message_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/clickable_btn_bg"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="发布的任务"
+                android:textSize="16sp" />
+
+
+            <View
+                android:id="@+id/cut_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/user_release"
+                android:layout_marginTop="5dp"
+                android:background="#f6f6f6" />
+
+            <View
+                android:id="@+id/cut_line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/cut_line"
+                android:layout_marginTop="5dp"
+                android:background="#f6f6f6" />
+
+
+            <View
+                android:id="@+id/cut_line3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/user_release" />
+
+            <TextView
+                android:id="@+id/user_apply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cut_line3"
+                android:background="@drawable/clickable_btn_bg"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="申请的任务"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/cut_line5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/user_apply"
+                android:background="#f6f6f6" />
+
+            <TextView
+                android:id="@+id/user_collect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cut_line5"
+                android:background="@drawable/clickable_btn_bg"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="收藏的任务"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/cut_line4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/user_collect"
+                android:layout_marginTop="20dp"
+                android:background="#f6f6f6" />
+
+            <TextView
+                android:id="@+id/login_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cut_line4"
+                android:background="@drawable/clickable_btn_bg"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="退出"
+
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/login_out"
+                android:background="#f6f6f6" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

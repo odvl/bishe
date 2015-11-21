@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <com.iocm.freetime.wedgets.InputEditText
+            android:layout_width="match_parent"
+            app:hint="搜索"
+            android:layout_toLeftOf="@+id/search_btn"
+            android:layout_height="?attr/actionBarSize"></com.iocm.freetime.wedgets.InputEditText>
+        <Button
+            android:id="@+id/search_btn"
+            android:text="搜索"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/clickable_orange500_700_btn_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <com.ozn.mylibrary.FlowLayout
+        android:id="@+id/flowLayout"
+        android:layout_below="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/title"
+            android:text="热门搜索"
+            android:gravity="center"
+            android:textSize="19sp"
+            android:textColor="@color/theme_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.ozn.mylibrary.FlowLayout>
+
+</RelativeLayout>

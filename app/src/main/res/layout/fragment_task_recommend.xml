@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+    <com.iocm.freetime.wedgets.CommonToolBar
+        android:id="@+id/toolbar"
+        app:toolbarTitle="任务推荐"
+        app:isLeftImage="true"
+        app:leftImageResource="@drawable/school_task"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"></com.iocm.freetime.wedgets.CommonToolBar>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="精彩活动"
+            android:textSize="20sp" />
+
+        <ExpandableListView
+            android:id="@+id/message_layout_activity_body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ExpandableListView>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/task_recommend_recycler_view"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

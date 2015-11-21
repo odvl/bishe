@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.iocm.freetime"
+        minSdkVersion 15
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile files('libs/android-async-http-1.4.6.jar')
+    compile files('libs/jackson-all-1.6.4.jar')
+    compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/galaxy_mini.jar')
+    compile files('libs/BaiduNaviSDK_no_tts_v1_1_0.jar')
+    compile files('libs/lbsCoreSDK.jar')
+    compile files('libs/android_api_1.1_forsdk.jar')
+    compile 'com.pnikosis:materialish-progress:1.5'
+    compile project(':mylibrary')
+    compile project(':circleimage')
+    compile 'com.android.support:design:22.2.0'
+    compile 'com.android.support:recyclerview-v7:+'
+}

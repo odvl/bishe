@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">CircleImage</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    
+    
+    <attr name="borderRadius" format="dimension"/>
+    <attr name="circleType" format="enum">
+        <enum name="circle" value="0"/>
+        <enum name="round" value="1"/>
+    </attr>
+    <attr name="src" format="reference"/>
+    <declare-styleable name="CircleImageView">
+        <attr name="borderRadius"/>
+        <attr name="circleType"/>
+        <attr name="src"/>
+    </declare-styleable>
+</resources>

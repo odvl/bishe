@@ -1,0 +1,44 @@
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <TextView
+        android:id="@+id/txv_user_msg_child2_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No data"
+        android:textSize="15sp"
+        />
+
+    <Button
+
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/btn_bg"
+        android:id="@+id/btn_user_msg_child2_wel"
+        android:text="欢迎"
+        android:layout_width="wrap_content"
+        style="?android:attr/buttonStyleSmall"
+        android:minHeight="20dp"
+        android:layout_below="@+id/txv_user_msg_child2_show"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_user_msg_child2_refuse"
+        android:minHeight="20dp"
+        android:layout_below="@+id/txv_user_msg_child2_show"
+        android:layout_alignParentRight="true"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/btn_bg"
+        android:text="残忍拒绝"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+
+
+
+</RelativeLayout>

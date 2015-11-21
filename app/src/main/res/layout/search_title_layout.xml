@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_color">
+
+    <ImageView
+        android:id="@+id/scan_qr_code"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/input_edit_text"
+        android:layout_width="match_parent"
+        android:layout_alignTop="@+id/scan_qr_code"
+        android:layout_alignBottom="@+id/scan_qr_code"
+        android:text="搜索"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/message_center"
+        android:layout_toRightOf="@+id/scan_qr_code" />
+
+    <ImageView
+        android:id="@+id/message_center"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/ic_launcher" />
+    <TextView
+        android:text="消息"
+        android:layout_below="@+id/message_center"
+        android:textSize="10sp"
+        android:layout_alignLeft="@+id/message_center"
+        android:paddingLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

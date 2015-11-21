@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="logurl">http://39.181.19.92:8080/testGet/log.do</string>
+    <string name="regurl">http://39.181.19.92:8080/testGet/reg.do</string>
+    <string name="issurl">http://39.181.19.92:8080/testGet/iss.do</string>
+    <string name="getacturl">http://39.181.19.92:8080/testGet/getact.do</string>
+    <string name="searchurl">http://39.181.19.92:8080/testGet/search.do</string>
+    <string name="regActurl">http://39.181.19.92:8080/testGet/registerActivity.do</string>
+    <string name="getJoinurl">http://39.181.19.92:8080/testGet/getJoin.do</string>
+    <string name="deleteJoinurl">http://39.181.19.92:8080/testGet/deleteJoin.do</string>
+    <string name="getIssueurl">http://39.181.19.92:8080/testGet/getIssue.do</string>
+    <string name="deleteIssueurl">http://39.181.19.92:8080/testGet/deleteIssue.do</string>
+    <string name="getMsgurl">http://39.181.19.92:8080/testGet/getMsg.do</string>
+    <string name="getIssMsgurl">http://39.181.19.92:8080/testGet/getIssMsg.do</string>
+    <string name="updateurl">http://39.181.19.92:8080/testGet/update.do</string>
+</resources>
