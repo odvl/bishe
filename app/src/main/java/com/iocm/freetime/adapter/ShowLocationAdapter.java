@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.bean.LocationInfo;
 
 

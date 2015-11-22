@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.bean.MsgType;
 import com.iocm.freetime.bean.UserMsg;
 import com.loopj.android.http.AsyncHttpClient;

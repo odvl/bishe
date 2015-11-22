@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 22
     buildToolsVersion "21.1.2"
-
     defaultConfig {
         applicationId "com.iocm.freetime"
         minSdkVersion 15
@@ -34,6 +33,7 @@ dependencies {
     compile 'com.pnikosis:materialish-progress:1.5'
     compile project(':mylibrary')
     compile project(':circleimage')
+    compile project(':library-circular')
     compile 'com.android.support:design:22.2.0'
     compile 'com.android.support:recyclerview-v7:+'
 }

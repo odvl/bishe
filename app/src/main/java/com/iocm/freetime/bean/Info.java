@@ -1,6 +1,6 @@
 package com.iocm.freetime.bean;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 
 import java.util.ArrayList;
 import java.util.List;

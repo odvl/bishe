@@ -1,1 +1,1 @@
-include ':app', ':mylibrary', ':circleimage', ':scrolldatepick'
+include ':app', ':mylibrary', ':circleimage', ':scrolldatepick', ':circleprogress', ':library-circular'

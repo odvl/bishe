@@ -1,6 +1,5 @@
 package com.iocm.freetime.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
@@ -8,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.common.Constant;
 
 /**

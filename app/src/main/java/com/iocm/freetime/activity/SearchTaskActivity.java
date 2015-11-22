@@ -5,8 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.iocm.administrator.yunxuan.R;
-import com.iocm.freetime.base.TaskActivity;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.util.TLog;
 import com.ozn.mylibrary.FlowLayout;
 
@@ -15,7 +14,7 @@ import java.util.Random;
 /**
  * Created by liubo on 15/7/27.
  */
-public class SearchTaskActivity extends TaskActivity implements View.OnClickListener {
+public class SearchTaskActivity extends BaseActivity{
 
     private static final String TAG = SearchTaskActivity.class.getName();
 
@@ -32,6 +31,21 @@ public class SearchTaskActivity extends TaskActivity implements View.OnClickList
 
         init();
         setupView();
+    }
+
+    @Override
+    void initView() {
+
+    }
+
+    @Override
+    void initListener() {
+
+    }
+
+    @Override
+    void loadData() {
+
     }
 
     private void setupView() {
@@ -66,5 +80,15 @@ public class SearchTaskActivity extends TaskActivity implements View.OnClickList
         String string = strings[random];
 
         TLog.i(TAG, "string" + string);
+    }
+
+    @Override
+    public void leftClickListener() {
+
+    }
+
+    @Override
+    public void rightClickListener() {
+
     }
 }

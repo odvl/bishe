@@ -13,7 +13,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.adapter.ExpandAdapter;
 import com.iocm.freetime.activity.TaskDetailActivity;
 import com.iocm.freetime.common.Constant;

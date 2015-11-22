@@ -1,4 +1,4 @@
-package com.iocm.administrator.yunxuan;
+package com.iocm.administrator.freetime;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

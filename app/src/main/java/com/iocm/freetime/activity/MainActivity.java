@@ -1,14 +1,12 @@
 package com.iocm.freetime.activity;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.base.TaskFragments;
 import com.iocm.freetime.fragment.LoginFragment;
 import com.iocm.freetime.fragment.MeFragment;
@@ -27,7 +25,7 @@ public class MainActivity extends BaseActivity implements LoginFragment.OnLoginB
         MeFragment.LogoutClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    
+
     /**
      * 定义任务中心，个人中心的fragment
      */

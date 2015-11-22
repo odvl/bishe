@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.UserApplyedActivity;
 import com.iocm.freetime.activity.UserReleasedActivity;
 import com.iocm.freetime.base.TaskFragments;

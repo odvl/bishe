@@ -12,7 +12,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.RegisterActivity;
 import com.iocm.freetime.base.TaskFragments;
 import com.iocm.freetime.bean.User;

@@ -1,17 +1,15 @@
 package com.iocm.freetime.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.util.CustomUtils;
 import com.iocm.freetime.wedgets.CommonToolBar;
 import com.loopj.android.http.AsyncHttpClient;

@@ -12,16 +12,14 @@ import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.base.RecyclerArray;
-import com.iocm.freetime.base.TaskActivity;
 import com.iocm.freetime.wedgets.CommonToolBar;
 
 /**
  * Created by liubo on 15/7/19.
  */
-public class MessageCenterActivity extends TaskActivity implements View.OnClickListener,
-        CommonToolBar.OnCommonToolBarClickListener {
+public class MessageCenterActivity extends BaseActivity{
     private static final int TYPE_FROM_APPLY = 0;
     private static final int TYPE_TO_APPLY = 1;
     private CommonToolBar mToolbar;
@@ -48,6 +46,21 @@ public class MessageCenterActivity extends TaskActivity implements View.OnClickL
                 }
             });
         }
+    }
+
+    @Override
+    void initView() {
+
+    }
+
+    @Override
+    void initListener() {
+
+    }
+
+    @Override
+    void loadData() {
+
     }
 
     private void setupView() {

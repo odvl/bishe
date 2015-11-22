@@ -1,13 +1,12 @@
 package com.iocm.freetime.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.adapter.UserjoinAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -27,7 +26,7 @@ import java.util.Map;
 /**用户发布的任务
  * Created by Administrator on 2015/2/4.
  */
-public class UserReleasedActivity extends Activity {
+public class UserReleasedActivity extends BaseActivity {
 
     private ListView listView;
     private TextView loading;
@@ -41,6 +40,21 @@ public class UserReleasedActivity extends Activity {
         getDatas();
         initViews();
         initDatas();
+    }
+
+    @Override
+    void initView() {
+
+    }
+
+    @Override
+    void initListener() {
+
+    }
+
+    @Override
+    void loadData() {
+
     }
 
     private void getDatas() {
@@ -100,5 +114,20 @@ public class UserReleasedActivity extends Activity {
     private void initViews() {
         loading = (TextView) findViewById(R.id.loading2);
         listView = (ListView) findViewById(R.id.ltv_userIssue_showAct);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void leftClickListener() {
+
+    }
+
+    @Override
+    public void rightClickListener() {
+
     }
 }

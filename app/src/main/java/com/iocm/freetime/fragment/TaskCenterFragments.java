@@ -12,9 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.CreateTaskActivity;
 import com.iocm.freetime.activity.MessageCenterActivity;
 import com.iocm.freetime.activity.SearchTaskActivity;
@@ -24,7 +23,6 @@ import com.iocm.freetime.base.RecyclerArray;
 import com.iocm.freetime.base.TaskFragments;
 import com.iocm.freetime.bean.Tasks;
 import com.iocm.freetime.common.Constant;
-import com.iocm.freetime.util.CustomUtils;
 import com.iocm.freetime.util.TLog;
 
 import java.io.Serializable;

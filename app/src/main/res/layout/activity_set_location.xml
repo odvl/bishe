@@ -1,79 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-    <TextView
-        android:id="@+id/text_view1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="9dp"
-        android:paddingRight="15dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="9dp"
-        android:text="所在城市"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/text_view1"
-        android:layout_alignTop="@+id/text_view1"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="20dp"
-        android:layout_toRightOf="@+id/text_view1"
-        android:background="@drawable/input_edit_bg" />
-
-    <TextView
-        android:id="@+id/text_view2"
-        android:layout_alignLeft="@+id/text_view1"
-        android:layout_alignRight="@+id/text_view1"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:paddingBottom="9dp"
-        android:paddingTop="9dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_view1"
-        android:layout_marginTop="15dp"
-        android:text="附近建筑物" />
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditText
         android:id="@+id/key_words"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/city"
-        android:layout_alignTop="@+id/text_view2"
-        android:layout_alignBottom="@id/text_view2"
         android:background="@drawable/input_edit_bg"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/text_view2" />
+        android:layout_marginLeft="20dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        android:hint="地址"
+        android:paddingLeft="5dp" />
 
     <Button
         android:id="@+id/begin_search"
         android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/clickable_deep_orange500_700_btn_bg"
-        android:textColor="@color/white"
-        android:textSize="19sp"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/key_words"
-        android:text="开始搜索" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_common_btn"
+        android:text="开始搜索"
+        android:textColor="@color/white"
+        android:textSize="19sp" />
 
     <TextView
         android:id="@+id/result_show"
-        android:textSize="19sp"
-        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/begin_search"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="" />
+        android:text=""
+        android:textSize="19sp" />
 
     <ListView
         android:id="@+id/list_show_location"

@@ -1,6 +1,5 @@
 package com.iocm.freetime.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,7 +38,7 @@ import com.baidu.mapapi.search.route.TransitRoutePlanOption;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.baidu.nplatform.comapi.basestruct.GeoPoint;
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.bean.LocationInfo;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/3/17.
  */
-public class MapActivity extends Activity {
+public class MapActivity extends BaseActivity {
     private MapView mapView = null;
     private BaiduMap baiduMap;
     private Button getMarkerLocation;
@@ -222,6 +221,11 @@ public class MapActivity extends Activity {
 
     }
 
+    @Override
+    void initView() {
+
+    }
+
     private void initDatas() {
         Intent intent = getIntent();
         locationInfo.setAddress(intent.getStringExtra("address"));
@@ -271,7 +275,8 @@ public class MapActivity extends Activity {
 
     }
 
-    private void initListener() {
+    @Override
+    public void initListener() {
 
 
         getMarkerLocation.setOnClickListener(new View.OnClickListener() {
@@ -333,6 +338,11 @@ public class MapActivity extends Activity {
 //        });
     }
 
+    @Override
+    void loadData() {
+
+    }
+
     private void initViews() {
         getMarkerLocation  = (Button) findViewById(R.id.btn_get_myloca);
     }
@@ -378,6 +388,21 @@ public class MapActivity extends Activity {
     protected void onPause() {
         super.onPause();
         mapView.onPause();
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void leftClickListener() {
+
+    }
+
+    @Override
+    public void rightClickListener() {
+
     }
 
     private class MyLocationListener implements BDLocationListener {

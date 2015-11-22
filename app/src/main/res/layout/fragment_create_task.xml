@@ -142,6 +142,8 @@
             android:layout_above="@+id/text_view5"
             android:layout_alignLeft="@+id/mobile"
             android:layout_alignRight="@+id/mobile"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
             android:layout_alignTop="@+id/text_view4"
             android:layout_marginBottom="10dp"
             android:background="@drawable/edt_bg"
@@ -185,7 +187,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/clickable_deep_orange500_700_btn_bg"
+            android:background="@drawable/selector_common_btn"
             android:text="发布"
             android:textSize="19sp" />
 

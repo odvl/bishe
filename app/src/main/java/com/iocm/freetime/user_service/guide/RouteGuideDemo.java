@@ -20,7 +20,7 @@ import com.baidu.navisdk.BaiduNaviManager;
 import com.baidu.navisdk.BNaviPoint;
 import com.baidu.navisdk.BaiduNaviManager.OnStartNavigationListener;
 import com.baidu.navisdk.comapi.routeplan.RoutePlanParams.NE_RoutePlan_Mode;
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 
 /**
  * GPS导航Demo

@@ -12,8 +12,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 
-import com.iocm.administrator.yunxuan.R;
-import com.iocm.freetime.base.TaskActivity;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.bean.User;
 import com.iocm.freetime.common.Constant;
 import com.iocm.freetime.wedgets.CommonToolBar;
@@ -24,8 +23,7 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2015/1/21.
  */
-public class RegisterActivity extends TaskActivity implements View.OnClickListener,
-        CommonToolBar.OnCommonToolBarClickListener {
+public class RegisterActivity extends BaseActivity{
 
     private InputEditText mMobileInput;
     private InputEditText mUsernameInput;
@@ -76,6 +74,21 @@ public class RegisterActivity extends TaskActivity implements View.OnClickListen
 //        });
 //
 //        register.setOnClickListener(new ResgisterLis());
+    }
+
+    @Override
+    void initView() {
+
+    }
+
+    @Override
+    void initListener() {
+
+    }
+
+    @Override
+    void loadData() {
+
     }
 
     @Override

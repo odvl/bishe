@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.UserLoginApp;
 import com.iocm.freetime.adapter.UserMsgAdapter;
 import com.iocm.freetime.bean.MsgType;

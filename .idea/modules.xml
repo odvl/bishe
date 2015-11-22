@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/Yunxuan.iml" filepath="$PROJECT_DIR$/Yunxuan.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/circleimage/circleimage.iml" filepath="$PROJECT_DIR$/circleimage/circleimage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/circleprogress/circleprogress.iml" filepath="$PROJECT_DIR$/circleprogress/circleprogress.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library-circular/library-circular.iml" filepath="$PROJECT_DIR$/library-circular/library-circular.iml" />
       <module fileurl="file://$PROJECT_DIR$/mylibrary/mylibrary.iml" filepath="$PROJECT_DIR$/mylibrary/mylibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/scrolldatepick/scrolldatepick.iml" filepath="$PROJECT_DIR$/scrolldatepick/scrolldatepick.iml" />
     </modules>

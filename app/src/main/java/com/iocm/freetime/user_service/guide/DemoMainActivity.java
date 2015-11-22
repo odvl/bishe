@@ -26,7 +26,7 @@ import com.baidu.lbsapi.auth.LBSAuthManagerListener;
 import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.baidu.navisdk.util.verify.BNKeyVerifyListener;
-import com.iocm.administrator.yunxuan.R;
+import com.iocm.administrator.freetime.R;
 
 public class DemoMainActivity extends ListActivity {
     /** SDK验证密钥 */

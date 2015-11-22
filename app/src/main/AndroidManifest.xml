@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.iocm.administrator.yunxuan">
+    package="com.iocm.administrator.freetime">
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="21"
         android:targetSdkVersion="22" />
 
     <application
@@ -23,12 +23,12 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="vRGkXndhBtBr4vLsse32zi4M" />
+            android:value="dAjr1hktZjLYhqqQV0UaPhwd" />
 
         <activity
             android:name="com.iocm.freetime.activity.MainActivity"
-            android:label="@string/app_name"
             android:configChanges="mcc|"
+            android:label="@string/app_name"
             android:windowSoftInputMode="adjustNothing">
 
             <intent-filter>
@@ -42,8 +42,8 @@
             android:label="Yunxuan"></activity>
         <activity
             android:name="com.iocm.freetime.activity.RegisterActivity"
-            android:theme="@style/Translation_Theme"
-            android:label="Yunxuan"></activity>
+            android:label="Yunxuan"
+            android:theme="@style/Translation_Theme"></activity>
 
         <activity
             android:name="com.iocm.freetime.activity.TaskDetailActivity"
@@ -74,8 +74,9 @@
         <activity
             android:name="com.iocm.freetime.activity.SetLocationActivity"
             android:label="@string/app_name"></activity>
-        <activity android:name="com.iocm.freetime.activity.MessageCenterActivity"
-            android:theme="@style/Translation_Theme"/>
+        <activity
+            android:name="com.iocm.freetime.activity.MessageCenterActivity"
+            android:theme="@style/Translation_Theme" />
 
         <activity android:name="com.iocm.freetime.user_service.guide.DemoMainActivity" />
 
@@ -84,12 +85,12 @@
         <activity
             android:name="com.iocm.freetime.user_service.guide.BNavigatorActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden" />
-        <activity android:name="com.iocm.freetime.activity.SearchTaskActivity"/>
-        <activity android:name="com.iocm.freetime.activity.CreateNewTaskActivity"/>
+        <activity android:name="com.iocm.freetime.activity.SearchTaskActivity" />
 
         <!--创建任务-->
-        <activity android:name="com.iocm.freetime.activity.CreateTaskActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.iocm.freetime.activity.CreateTaskActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
