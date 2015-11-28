@@ -10,9 +10,6 @@ import com.iocm.freetime.activity.BaseActivity;
  */
 public abstract class BaseFragment extends Fragment implements View.OnClickListener {
 
-    public BaseActivity getBaseActivity() {
-        return (BaseActivity) getActivity();
-    }
 
     abstract void initView();
 

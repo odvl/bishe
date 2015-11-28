@@ -26,6 +26,7 @@ public class CommonToolBar extends RelativeLayout implements View.OnClickListene
 
     ImageView mLeftView;
     ImageView mRightView;
+
     public CommonToolBar(Context context) {
         super(context);
     }
@@ -84,9 +85,11 @@ public class CommonToolBar extends RelativeLayout implements View.OnClickListene
     public interface OnCommonToolBarClickListener {
 
         void leftClickListener();
+
         void rightClickListener();
 
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -107,11 +110,11 @@ public class CommonToolBar extends RelativeLayout implements View.OnClickListene
     }
 
 
-    public String getmTitleStr() {
+    public String getTitleStr() {
         return mTitleStr;
     }
 
-    public void setmTitleStr(String mTitleStr) {
+    public void setTitleStr(String mTitleStr) {
         this.mTitleStr = mTitleStr;
         this.mTitleView.setText(mTitleStr);
     }

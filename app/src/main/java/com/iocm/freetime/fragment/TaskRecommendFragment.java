@@ -23,7 +23,6 @@ import com.iocm.freetime.bean.TaskTypeName;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,7 +70,7 @@ public class TaskRecommendFragment extends Fragment implements View.OnClickListe
         setupViews(messageLayout);
         activity_msg = (ExpandableListView) messageLayout.findViewById(R.id.message_layout_activity_body);
 
-        getact();
+        //getact();
         System.out.println("test " + get_job_activity.size());
 
 
@@ -242,90 +241,90 @@ public class TaskRecommendFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    private void getact() {
-        final AsyncHttpClient client = new AsyncHttpClient();
-        String url = getResources().getString(R.string.getacturl);
-        client.get(url, new JsonHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-                Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                super.onSuccess(statusCode, headers, response);
-
-                if (statusCode == 200) {
-//                    List<String> objects = new ArrayList<String>();
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            if (new String(jsonObject.getString("type").getBytes(), "utf-8").equals("PLAY")) {
-                                Map<String, String> map = new HashMap<String, String>();
-//                                System.out.println("name is "+ new String(jsonObject.getString("body").getBytes(),"utf-8"));
-                                //存入活动的相关信息
-                                map.put("name", new String(jsonObject.getString("name").getBytes(), "utf-8"));
-                                map.put("type", new String(jsonObject.getString("type").getBytes(), "utf-8"));
-                                map.put("begin_time", new String(jsonObject.getString("begin_time").getBytes(), "utf-8"));
-                                map.put("end_time", new String(jsonObject.getString("end_time").getBytes(), "utf-8"));
-                                map.put("phonenumber", new String(jsonObject.getString("phonenumber").getBytes(), "utf-8"));
-                                map.put("title", new String(jsonObject.getString("title").getBytes(), "utf-8"));
-                                map.put("body", new String(jsonObject.getString("msg").getBytes(), "utf-8") != null ? new String(jsonObject.getString("msg").getBytes(), "utf-8") : "null");
-                                map.put("loca", new String(jsonObject.getString("body").getBytes(), "utf-8"));
-                                map.put("id", "" + jsonObject.getInt("id"));
-                                map.put("build", new String(jsonObject.getString("build").getBytes(), "utf-8"));
-                                map.put("latitude", new String(jsonObject.getString("latitude").getBytes(), "utf-8"));
-                                map.put("longitude", new String(jsonObject.getString("longitude").getBytes(), "utf-8"));
-
-                                Log.i("tag", jsonObject.getString("latitude"));
-                                System.out.println("hell" + get_job_activity.size());
-                                get_job_activity.add(map);
-                            } else if (new String(jsonObject.getString("type").getBytes(), "utf-8").equals("MATCH")) {
-                                Map<String, String> map = new HashMap<String, String>();
-                                map.put("name", new String(jsonObject.getString("name").getBytes(), "utf-8"));
-                                map.put("type", new String(jsonObject.getString("type").getBytes(), "utf-8"));
-                                map.put("begin_time", new String(jsonObject.getString("begin_time").getBytes(), "utf-8"));
-                                map.put("end_time", new String(jsonObject.getString("end_time").getBytes(), "utf-8"));
-                                map.put("phonenumber", new String(jsonObject.getString("phonenumber").getBytes(), "utf-8"));
-                                map.put("title", new String(jsonObject.getString("title").getBytes(), "utf-8"));
-                                map.put("body", new String(jsonObject.getString("msg").getBytes(), "utf-8") != null ? new String(jsonObject.getString("msg").getBytes(), "utf-8") : "null");
-                                map.put("loca", new String(jsonObject.getString("body").getBytes(), "utf-8"));
-                                map.put("id", "" + jsonObject.getInt("id"));
-                                map.put("build", new String(jsonObject.getString("build").getBytes(), "utf-8"));
-                                map.put("latitude", new String(jsonObject.getString("latitude").getBytes(), "utf-8"));
-                                map.put("longitude", new String(jsonObject.getString("longitude").getBytes(), "utf-8"));
-
-                                contest_activity.add(map);
-                            } else if (new String(jsonObject.getString("type").getBytes(), "utf-8").equals("SCIENCE")) {
-                                Map<String, String> map = new HashMap<String, String>();
-                                map.put("name", new String(jsonObject.getString("name").getBytes(), "utf-8"));
-                                map.put("type", new String(jsonObject.getString("type").getBytes(), "utf-8"));
-                                map.put("begin_time", new String(jsonObject.getString("begin_time").getBytes(), "utf-8"));
-                                map.put("end_time", new String(jsonObject.getString("end_time").getBytes(), "utf-8"));
-                                map.put("phonenumber", new String(jsonObject.getString("phonenumber").getBytes(), "utf-8"));
-                                map.put("title", new String(jsonObject.getString("title").getBytes(), "utf-8"));
-                                map.put("body", new String(jsonObject.getString("msg").getBytes(), "utf-8") != null ? new String(jsonObject.getString("msg").getBytes(), "utf-8") : "null");
-                                map.put("loca", new String(jsonObject.getString("body").getBytes(), "utf-8"));
-                                map.put("id", "" + jsonObject.getInt("id"));
-                                map.put("build", new String(jsonObject.getString("build").getBytes(), "utf-8"));
-                                map.put("latitude", new String(jsonObject.getString("latitude").getBytes(), "utf-8"));
-                                map.put("longitude", new String(jsonObject.getString("longitude").getBytes(), "utf-8"));
-
-                                meeting_activity.add(map);
-                            }
-//                            objects.add(jsonObject.getString("name"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        });
-        //  System.out.println("ddddddffddddddddddddddddddd"+get_job_activity.size());
-    }
+//    private void getact() {
+//        final AsyncHttpClient client = new AsyncHttpClient();
+//        String url = getResources().getString(R.string.getacturl);
+//        client.get(url, new JsonHttpResponseHandler() {
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                super.onFailure(statusCode, headers, throwable, errorResponse);
+//                Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+//                super.onSuccess(statusCode, headers, response);
+//
+//                if (statusCode == 200) {
+////                    List<String> objects = new ArrayList<String>();
+//                    for (int i = 0; i < response.length(); i++) {
+//                        try {
+//                            JSONObject jsonObject = response.getJSONObject(i);
+//                            if (new String(jsonObject.getString("type").getBytes(), "utf-8").equals("PLAY")) {
+//                                Map<String, String> map = new HashMap<String, String>();
+////                                System.out.println("name is "+ new String(jsonObject.getString("body").getBytes(),"utf-8"));
+//                                //存入活动的相关信息
+//                                map.put("name", new String(jsonObject.getString("name").getBytes(), "utf-8"));
+//                                map.put("type", new String(jsonObject.getString("type").getBytes(), "utf-8"));
+//                                map.put("begin_time", new String(jsonObject.getString("begin_time").getBytes(), "utf-8"));
+//                                map.put("end_time", new String(jsonObject.getString("end_time").getBytes(), "utf-8"));
+//                                map.put("phonenumber", new String(jsonObject.getString("phonenumber").getBytes(), "utf-8"));
+//                                map.put("title", new String(jsonObject.getString("title").getBytes(), "utf-8"));
+//                                map.put("body", new String(jsonObject.getString("msg").getBytes(), "utf-8") != null ? new String(jsonObject.getString("msg").getBytes(), "utf-8") : "null");
+//                                map.put("loca", new String(jsonObject.getString("body").getBytes(), "utf-8"));
+//                                map.put("id", "" + jsonObject.getInt("id"));
+//                                map.put("build", new String(jsonObject.getString("build").getBytes(), "utf-8"));
+//                                map.put("latitude", new String(jsonObject.getString("latitude").getBytes(), "utf-8"));
+//                                map.put("longitude", new String(jsonObject.getString("longitude").getBytes(), "utf-8"));
+//
+//                                Log.i("tag", jsonObject.getString("latitude"));
+//                                System.out.println("hell" + get_job_activity.size());
+//                                get_job_activity.add(map);
+//                            } else if (new String(jsonObject.getString("type").getBytes(), "utf-8").equals("MATCH")) {
+//                                Map<String, String> map = new HashMap<String, String>();
+//                                map.put("name", new String(jsonObject.getString("name").getBytes(), "utf-8"));
+//                                map.put("type", new String(jsonObject.getString("type").getBytes(), "utf-8"));
+//                                map.put("begin_time", new String(jsonObject.getString("begin_time").getBytes(), "utf-8"));
+//                                map.put("end_time", new String(jsonObject.getString("end_time").getBytes(), "utf-8"));
+//                                map.put("phonenumber", new String(jsonObject.getString("phonenumber").getBytes(), "utf-8"));
+//                                map.put("title", new String(jsonObject.getString("title").getBytes(), "utf-8"));
+//                                map.put("body", new String(jsonObject.getString("msg").getBytes(), "utf-8") != null ? new String(jsonObject.getString("msg").getBytes(), "utf-8") : "null");
+//                                map.put("loca", new String(jsonObject.getString("body").getBytes(), "utf-8"));
+//                                map.put("id", "" + jsonObject.getInt("id"));
+//                                map.put("build", new String(jsonObject.getString("build").getBytes(), "utf-8"));
+//                                map.put("latitude", new String(jsonObject.getString("latitude").getBytes(), "utf-8"));
+//                                map.put("longitude", new String(jsonObject.getString("longitude").getBytes(), "utf-8"));
+//
+//                                contest_activity.add(map);
+//                            } else if (new String(jsonObject.getString("type").getBytes(), "utf-8").equals("SCIENCE")) {
+//                                Map<String, String> map = new HashMap<String, String>();
+//                                map.put("name", new String(jsonObject.getString("name").getBytes(), "utf-8"));
+//                                map.put("type", new String(jsonObject.getString("type").getBytes(), "utf-8"));
+//                                map.put("begin_time", new String(jsonObject.getString("begin_time").getBytes(), "utf-8"));
+//                                map.put("end_time", new String(jsonObject.getString("end_time").getBytes(), "utf-8"));
+//                                map.put("phonenumber", new String(jsonObject.getString("phonenumber").getBytes(), "utf-8"));
+//                                map.put("title", new String(jsonObject.getString("title").getBytes(), "utf-8"));
+//                                map.put("body", new String(jsonObject.getString("msg").getBytes(), "utf-8") != null ? new String(jsonObject.getString("msg").getBytes(), "utf-8") : "null");
+//                                map.put("loca", new String(jsonObject.getString("body").getBytes(), "utf-8"));
+//                                map.put("id", "" + jsonObject.getInt("id"));
+//                                map.put("build", new String(jsonObject.getString("build").getBytes(), "utf-8"));
+//                                map.put("latitude", new String(jsonObject.getString("latitude").getBytes(), "utf-8"));
+//                                map.put("longitude", new String(jsonObject.getString("longitude").getBytes(), "utf-8"));
+//
+//                                meeting_activity.add(map);
+//                            }
+////                            objects.add(jsonObject.getString("name"));
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        } catch (UnsupportedEncodingException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            }
+//        });
+//        //  System.out.println("ddddddffddddddddddddddddddd"+get_job_activity.size());
+//    }
 
 
     @Override

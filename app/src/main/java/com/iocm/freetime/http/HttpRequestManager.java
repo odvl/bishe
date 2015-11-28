@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class HttpRequestManager {
 
-    private static final String TAG = HttpRequestManager.class.getName();
+    private static final String TAG = HttpRequestManager.class.getSimpleName();
 
     private static HttpRequestManager sHttpRequestManager;
     private RequestQueue mQueue;
@@ -45,6 +45,7 @@ public class HttpRequestManager {
     private RequestQueue getQueue() {
         return this.mQueue;
     }
+
     private int obtainTaskId() {
         return sTaskId++;
     }

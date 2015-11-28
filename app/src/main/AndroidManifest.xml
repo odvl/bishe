@@ -60,7 +60,7 @@
             android:label="@string/yunxuan"></activity>
 
         <activity
-            android:name="com.iocm.freetime.activity.UserReleasedActivity"
+            android:name="com.iocm.freetime.activity.CreatedTaskListActivity"
             android:label="@string/yunxuan"></activity>
 
         <activity
@@ -90,6 +90,11 @@
         <!--创建任务-->
         <activity
             android:name="com.iocm.freetime.activity.CreateTaskActivity"
+            android:screenOrientation="portrait" />
+        <!--收藏任务列表-->
+        <activity
+            android:name="com.iocm.freetime.activity.CollectionsTaskActivity"
+            android:label="收藏中心"
             android:screenOrientation="portrait" />
 
     </application>

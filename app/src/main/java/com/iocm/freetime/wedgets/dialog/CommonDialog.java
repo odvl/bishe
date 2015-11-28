@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.iocm.administrator.freetime.R;
+import com.iocm.freetime.activity.BaseActivity;
 
 /**
  * Created by liubo on 15/11/21.
@@ -31,6 +32,5 @@ public class CommonDialog extends AlertDialog {
 
     @Override
     public void onBackPressed() {
-
     }
 }

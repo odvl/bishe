@@ -70,23 +70,23 @@ containing a value of this type.
         public static int cpb_sweep_speed=0x7f010006;
     }
     public static final class color {
-        public static int cpb_default_color=0x7f020000;
+        public static int cpb_default_color=0x7f030000;
     }
     public static final class dimen {
-        public static int cpb_default_stroke_width=0x7f030000;
+        public static int cpb_default_stroke_width=0x7f040000;
     }
     public static final class integer {
-        public static int cpb_default_max_sweep_angle=0x7f040000;
-        public static int cpb_default_min_sweep_angle=0x7f040001;
+        public static int cpb_default_max_sweep_angle=0x7f050000;
+        public static int cpb_default_min_sweep_angle=0x7f050001;
     }
     public static final class string {
-        public static int cpb_default_rotation_speed=0x7f050000;
-        public static int cpb_default_sweep_speed=0x7f050001;
+        public static int cpb_default_rotation_speed=0x7f060000;
+        public static int cpb_default_sweep_speed=0x7f060001;
     }
     public static final class style {
-        public static int CPB=0x7f060000;
-        public static int CircularProgressBar=0x7f060001;
-        public static int Theme_SmoothProgressBarDefaults=0x7f060002;
+        public static int CPB=0x7f020000;
+        public static int CircularProgressBar=0x7f020001;
+        public static int Theme_SmoothProgressBarDefaults=0x7f020002;
     }
     public static final class styleable {
         /** Attributes that can be used with a CircularProgressBar.

@@ -31,7 +31,7 @@ import java.io.Serializable;
  * Created by liubo on 15/7/13.
  */
 public class TaskCenterFragments extends TaskFragments
-        implements View.OnClickListener{
+        implements View.OnClickListener {
 
     private static final String TAG = TaskCenterFragments.class.getSimpleName();
 

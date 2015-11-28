@@ -14,8 +14,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.iocm.administrator.freetime.R;
+import com.iocm.freetime.activity.CollectionsTaskActivity;
 import com.iocm.freetime.activity.UserApplyedActivity;
-import com.iocm.freetime.activity.UserReleasedActivity;
+import com.iocm.freetime.activity.CreatedTaskListActivity;
 import com.iocm.freetime.base.TaskFragments;
 import com.iocm.freetime.bean.User;
 import com.iocm.freetime.util.Setting;
@@ -34,6 +35,7 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
     private TextView mLoginOutBtn;
     private TextView mUserReleaseBtn;
     private TextView mUserApplyBtn;
+    private TextView mUserCollect;
 
     private View mMeContent;
     private User mUser;
@@ -58,7 +60,7 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
         mSetting = Setting.getInstance(getActivity());
         mUser = mSetting.getCache();
         mUpdateUserInfoTask = new UpdateUserInfoTask();
-        mUpdateUserInfoTask.execute(mUser.getUserPhoto() == null ?R.drawable.bestican_teaser : Integer.parseInt(mUser.getUserPhoto()));
+        mUpdateUserInfoTask.execute(mUser.getUserPhoto() == null ? R.drawable.bestican_teaser : Integer.parseInt(mUser.getUserPhoto()));
 
     }
 
@@ -74,6 +76,8 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
         mLoginOutBtn = (TextView) root.findViewById(R.id.login_out);
         mLoginOutBtn.setOnClickListener(MeFragment.this);
 
+        mUserCollect = (TextView) root.findViewById(R.id.user_collect);
+        mUserCollect.setOnClickListener(MeFragment.this);
 
 
         mUserMobile.setText(mUser.getPhoneNumber());
@@ -121,7 +125,7 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
             }
             //用户发布
             case R.id.user_release: {
-                jumpActivity(UserReleasedActivity.class);
+                jumpActivity(CreatedTaskListActivity.class);
                 break;
             }
             //用户退出
@@ -142,6 +146,10 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
                 builder.setNegativeButton("取消", null);
                 builder.create();
                 builder.show();
+                break;
+            }
+            case R.id.user_collect: {
+                jumpActivity(CollectionsTaskActivity.class);
                 break;
             }
         }

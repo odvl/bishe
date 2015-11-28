@@ -70,4 +70,8 @@ public final class Constant {
         public static final int ResultOk = 1;
     }
 
+    public static final class SharedPreferences {
+        public static final String Name = "free_time";
+    }
+
 }

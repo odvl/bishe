@@ -25,7 +25,8 @@
                 android:id="@+id/user_message_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/theme_color">
+                android:background="@color/theme_color"
+                android:paddingBottom="20dp">
 
                 <com.ozn.circleimage.CircleImageView
                     android:id="@+id/user_photo"
@@ -42,7 +43,6 @@
                     android:layout_alignTop="@+id/user_photo"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="30dp"
-                    android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/user_photo"
                     android:singleLine="true"
                     android:text="测试帐号"
@@ -54,8 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/username"
                     android:layout_below="@+id/username"
-                    android:layout_marginTop="20dp"
-                    android:paddingBottom="20dp"
+                    android:layout_marginTop="10dp"
                     android:text="123456789012"
                     android:textSize="16sp" />
             </RelativeLayout>

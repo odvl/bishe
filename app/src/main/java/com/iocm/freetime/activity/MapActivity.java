@@ -2,7 +2,6 @@ package com.iocm.freetime.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
@@ -57,7 +56,7 @@ public class MapActivity extends BaseActivity {
 
     //添加覆盖物
 //    private BitmapDescriptor mBitmapDescriptor;
-   private LocationInfo locationInfo = new LocationInfo();
+    private LocationInfo locationInfo = new LocationInfo();
     private LinearLayout mMarkerLayout;
     private Context context;
 
@@ -67,7 +66,7 @@ public class MapActivity extends BaseActivity {
 
     //定位核心类
     private LocationClient mLocationClient = null;
-    private MyLocationListener myLocationListener  = null;
+    private MyLocationListener myLocationListener = null;
 
     //用于存放用户第一次进入的经纬度
     private static double mLatitude;
@@ -78,19 +77,19 @@ public class MapActivity extends BaseActivity {
     private Handler handler = new Handler();
 
     private RoutePlanSearch mSearch;
-    private PoiSearch poiSearch ;
-
+    private PoiSearch poiSearch;
 
     OnGetRoutePlanResultListener listener = new OnGetRoutePlanResultListener() {
         public void onGetWalkingRouteResult(WalkingRouteResult result) {
             //
         }
+
         public void onGetTransitRouteResult(TransitRouteResult result) {
-            if (result == null ) {
-            //    Toast.makeText(MapActivity.this, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+            if (result == null) {
+                //    Toast.makeText(MapActivity.this, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
             }
-            if( result.error != SearchResult.ERRORNO.NO_ERROR){
-            //    Toast.makeText(MapActivity.this, "抱歉，未果", Toast.LENGTH_SHORT).show();
+            if (result.error != SearchResult.ERRORNO.NO_ERROR) {
+                //    Toast.makeText(MapActivity.this, "抱歉，未果", Toast.LENGTH_SHORT).show();
             }
             if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
                 //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
@@ -102,25 +101,25 @@ public class MapActivity extends BaseActivity {
                 List<String> hotelName = new ArrayList<String>();
                 List<GeoPoint> JWpoints = new ArrayList<GeoPoint>();
                 List<TransitRouteLine> line = result.getRouteLines();
-                for(int i = 0;i<1;i++) {
+                for (int i = 0; i < 1; i++) {
                     List<TransitRouteLine.TransitStep> line2 = line.get(i).getAllStep();
-                    for(int k = 0; k<line2.size();k++) {
-                       System.out.println("1：：："+line2.get(k).getInstructions());
-                       System.out.println("2：：："+line2.get(k).getEntrace());
-                       System.out.println("3：：："+line2.get(k).getExit());
-                       System.out.println("4：：："+line2.get(k).getStepType());
-                       System.out.println("5：：："+line2.get(k).getVehicleInfo());
-                       System.out.println("6：：："+line2.get(k).getWayPoints());
-                       System.out.println("7：：："+line2.get(k).toString());
+                    for (int k = 0; k < line2.size(); k++) {
+                        System.out.println("1：：：" + line2.get(k).getInstructions());
+                        System.out.println("2：：：" + line2.get(k).getEntrace());
+                        System.out.println("3：：：" + line2.get(k).getExit());
+                        System.out.println("4：：：" + line2.get(k).getStepType());
+                        System.out.println("5：：：" + line2.get(k).getVehicleInfo());
+                        System.out.println("6：：：" + line2.get(k).getWayPoints());
+                        System.out.println("7：：：" + line2.get(k).toString());
                         System.out.println("________________________________________");
                         lineList.add(line2.get(k).getInstructions());
 
                     }
 
                     TextView s = (TextView) findViewById(R.id.text_show_location_msg);
-                    if(lineList.size()!=0){
+                    if (lineList.size() != 0) {
                         s.setText(lineList.toString());
-                    }else {
+                    } else {
                         s.setText("未找到合适线路");
                     }
 //                    Toast.makeText(MapActivity.this,"luxian:"+lineList.toString(),Toast.LENGTH_SHORT).show();
@@ -147,11 +146,13 @@ public class MapActivity extends BaseActivity {
                 overlay.zoomToSpan();
             }
         }
+
         public void onGetDrivingRouteResult(DrivingRouteResult result) {
             //
 
         }
     };
+
     OnGetPoiSearchResultListener onGetPoiSearchResultListener = new OnGetPoiSearchResultListener() {
         @Override
         public void onGetPoiResult(PoiResult poiResult) {
@@ -161,9 +162,9 @@ public class MapActivity extends BaseActivity {
             }
             //遍历所有POI，找到类型为公交线路的POI
             for (PoiInfo poi : poiResult.getAllPoi()) {
-                if (poi.type == PoiInfo.POITYPE.BUS_LINE ||poi.type == PoiInfo.POITYPE.SUBWAY_LINE) {
+                if (poi.type == PoiInfo.POITYPE.BUS_LINE || poi.type == PoiInfo.POITYPE.SUBWAY_LINE) {
                     //说明该条POI为公交信息，获取该条POI的UID
-                //    Toast.makeText(context,poi.uid+"",Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(context,poi.uid+"",Toast.LENGTH_SHORT).show();
                     break;
                 }
             }
@@ -176,8 +177,9 @@ public class MapActivity extends BaseActivity {
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    void initView() {
+
+
         SDKInitializer.initialize(getApplicationContext());
 //        mMapView = BaiduNaviManager.getInstance().createNMapView(this);
 
@@ -187,15 +189,13 @@ public class MapActivity extends BaseActivity {
         //获取地图控件的引用
         getMap();
         initDatas();
-        initViews();
         initLocation();
-        initListener();
         initMarker();
         findViewById(R.id.btn_to_here).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(MapActivity.this,"正在获取线路，请稍等。",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapActivity.this, "正在获取线路，请稍等。", Toast.LENGTH_SHORT).show();
                 mSearch = RoutePlanSearch.newInstance();
                 poiSearch = PoiSearch.newInstance();
                 poiSearch.setOnGetPoiSearchResultListener(onGetPoiSearchResultListener);
@@ -218,22 +218,17 @@ public class MapActivity extends BaseActivity {
             }
         });
 
-
-    }
-
-    @Override
-    void initView() {
-
+        getMarkerLocation = (Button) findViewById(R.id.btn_get_myloca);
     }
 
     private void initDatas() {
         Intent intent = getIntent();
-        locationInfo.setAddress(intent.getStringExtra("address"));
-        locationInfo.setName(intent.getStringExtra("name"));
-        locationInfo.setLatitude(Double.parseDouble(intent.getStringExtra("latitude")));
-        locationInfo.setLongitude(Double.parseDouble(intent.getStringExtra("longitude")));
-        endMsg = locationInfo.getAddress();
-       // Toast.makeText(context,"address:"+locationInfo.getAddress(),Toast.LENGTH_SHORT).show();
+        locationInfo.setAddress("sss");
+        locationInfo.setName("fff");
+        locationInfo.setLatitude(10.001);
+        locationInfo.setLongitude(100.100);
+        endMsg = "hahh ";
+        // Toast.makeText(context,"address:"+locationInfo.getAddress(),Toast.LENGTH_SHORT).show();
     }
 
     private void initMarker() {
@@ -272,18 +267,16 @@ public class MapActivity extends BaseActivity {
         mLocationClient.setLocOption(option);
 
 
-
     }
 
     @Override
     public void initListener() {
 
-
         getMarkerLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(MapActivity.this,"实现定位到我的位置",Toast.LENGTH_SHORT).show();
-                LatLng latLng = new LatLng(mLatitude,mLongitude);
+                LatLng latLng = new LatLng(mLatitude, mLongitude);
                 MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLng(latLng);
                 baiduMap.animateMapStatus(mapStatusUpdate);
             }
@@ -343,9 +336,6 @@ public class MapActivity extends BaseActivity {
 
     }
 
-    private void initViews() {
-        getMarkerLocation  = (Button) findViewById(R.id.btn_get_myloca);
-    }
 
     private void getMap() {
         mapView = (MapView) findViewById(R.id.mapView);
@@ -359,7 +349,7 @@ public class MapActivity extends BaseActivity {
 
         super.onStart();
         baiduMap.setMyLocationEnabled(true);
-        if(!mLocationClient.isStarted()){
+        if (!mLocationClient.isStarted()) {
             mLocationClient.start();
         }
     }
@@ -421,14 +411,14 @@ public class MapActivity extends BaseActivity {
             mLongitude = bdLocation.getLongitude();
 
 
-            if(isFirstIn) {
-                LatLng latLng = new LatLng(bdLocation.getLatitude(),bdLocation.getLongitude());
-                MapStatusUpdate mapStatusUpdate =  MapStatusUpdateFactory.newLatLng(latLng);
+            if (isFirstIn) {
+                LatLng latLng = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
+                MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLng(latLng);
                 baiduMap.animateMapStatus(mapStatusUpdate);
                 mCity = bdLocation.getCity();
                 mLocationMsg = bdLocation.getAddrStr();
-                System.out.println(bdLocation.getCity()+"coty");
-                Toast.makeText(MapActivity.this,"我的位置"+bdLocation.getAddrStr(),Toast.LENGTH_SHORT).show();
+                System.out.println(bdLocation.getCity() + "coty");
+                Toast.makeText(MapActivity.this, "我的位置" + bdLocation.getAddrStr(), Toast.LENGTH_SHORT).show();
                 isFirstIn = false;
 
             }

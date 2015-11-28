@@ -19,8 +19,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -110,27 +108,27 @@ public class UserMsgAdapter extends BaseExpandableListAdapter {
             final Button wel = (Button) convertView.findViewById(R.id.btn_user_msg_child2_wel);
             Button refuse = (Button) convertView.findViewById(R.id.btn_user_msg_child2_refuse);
             wel.setText("欢迎");
-            wel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                  //  Toast.makeText(context,"dianjil",Toast.LENGTH_SHORT).show();
-                    welMsg(userMsg.getId(), context.getResources().getString(R.string.updateurl), "1");
-                  //  Toast.makeText(context,groupPosition+":"+childPosition,Toast.LENGTH_SHORT).show();
-                    childList.get(groupPosition).remove(childPosition);
-                     notifyDataSetChanged();
-                }
-            });
-            refuse.setText("残忍拒绝");
-            refuse.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    welMsg(userMsg.getId(),context.getResources().getString(R.string.updateurl),"-1");
-                    childList.get( groupPosition).remove(childPosition);
-                    notifyDataSetChanged();
-               //     Toast.makeText(context,groupPosition+":"+childPosition,Toast.LENGTH_SHORT).show();
-
-                }
-            });
+//            wel.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                  //  Toast.makeText(context,"dianjil",Toast.LENGTH_SHORT).show();
+//                    welMsg(userMsg.getId(), context.getResources().getString(R.string.updateurl), "1");
+//                  //  Toast.makeText(context,groupPosition+":"+childPosition,Toast.LENGTH_SHORT).show();
+//                    childList.get(groupPosition).remove(childPosition);
+//                     notifyDataSetChanged();
+//                }
+//            });
+//            refuse.setText("残忍拒绝");
+//            refuse.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    welMsg(userMsg.getId(),context.getResources().getString(R.string.updateurl),"-1");
+//                    childList.get( groupPosition).remove(childPosition);
+//                    notifyDataSetChanged();
+//               //     Toast.makeText(context,groupPosition+":"+childPosition,Toast.LENGTH_SHORT).show();
+//
+//                }
+//            });
             show_msg.setText(name + "用户:" + userMsg.getUserJoin() + "想要参加您的活动.活动【" + userMsg.getName() + "】");
             return  convertView;
         }
@@ -142,10 +140,10 @@ public class UserMsgAdapter extends BaseExpandableListAdapter {
             ref.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    welMsg(userMsg.getId(),context.getResources().getString(R.string.updateurl),"-1");
-//                    ref.setText("yishanchu");
-               //     childList.remove(groupPosition).remove(childPosition);
-//                    notifyDataSetChanged();
+//                    welMsg(userMsg.getId(),context.getResources().getString(R.string.updateurl),"-1");
+////                    ref.setText("yishanchu");
+//               //     childList.remove(groupPosition).remove(childPosition);
+////                    notifyDataSetChanged();
                 }
             });
             show_msg.setText(name+"用户"+userMsg.getUserJoin()+"已参加您的活动.活动【"+userMsg.getName()+"】");
@@ -154,23 +152,23 @@ public class UserMsgAdapter extends BaseExpandableListAdapter {
 //return convertView;
     }
 
-    private void welMsg(int id,String url,String agree) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.add("id",String.valueOf(id));
-        params.add("agree",agree);
-        client.post(url, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-            }
-
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                Toast.makeText(context,"操作失败",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
+//    private void welMsg(int id,String url,String agree) {
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        RequestParams params = new RequestParams();
+//        params.add("id",String.valueOf(id));
+//        params.add("agree",agree);
+//        client.post(url, params, new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+//            }
+//
+//            @Override
+//            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+//                Toast.makeText(context,"操作失败",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
 
 
     public Object getGroup(int groupPosition) {

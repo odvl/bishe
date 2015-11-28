@@ -16,7 +16,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
 
 import java.util.List;
 import java.util.Map;
@@ -80,10 +79,10 @@ public class UserjoinAdapter extends BaseAdapter {
                 public void onClick(View v) {
               //      Toast.makeText(context,"点击了"+mDatas.get(arg0).get("id"),Toast.LENGTH_SHORT).show();
                     id = Integer.parseInt(mDatas.get(arg0).get("id"));
-                   if( deleteAct(id)){
-                       mDatas.remove(arg0);
-                       notifyDataSetChanged();
-                   }
+//                   if( deleteAct(id)){
+//                       mDatas.remove(arg0);
+//                       notifyDataSetChanged();
+//                   }
                 }
             });
 
@@ -96,26 +95,26 @@ public class UserjoinAdapter extends BaseAdapter {
         return arg1;
     }
 
-    private boolean deleteAct(int id) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        String url = this.url;
-        params.put("id",id);
-        client.post(url,params,new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                Toast.makeText(context,"删除成功",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                Toast.makeText(context,"删除失败",Toast.LENGTH_SHORT).show();
-                tag = false;
-                throwable.printStackTrace();
-            }
-        });
-return tag;
-    }
+//    private boolean deleteAct(int id) {
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        RequestParams params = new RequestParams();
+//        String url = this.url;
+//        params.put("id",id);
+//        client.post(url,params,new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+//                Toast.makeText(context,"删除成功",Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+//                Toast.makeText(context,"删除失败",Toast.LENGTH_SHORT).show();
+//                tag = false;
+//                throwable.printStackTrace();
+//            }
+//        });
+//return tag;
+//    }
 
     private final class ViewHoldr {
         TextView title;

@@ -1,5 +1,6 @@
 package com.iocm.freetime.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.input.InputManager;
@@ -8,16 +9,17 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.wedgets.CommonToolBar;
 import com.iocm.freetime.wedgets.dialog.CommonDialog;
 
 /**
  * Created by liubo on 15/11/12.
  */
-public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener,
-        CommonToolBar.OnCommonToolBarClickListener{
+public abstract class BaseActivity extends Activity implements View.OnClickListener,
+        CommonToolBar.OnCommonToolBarClickListener {
 
-    protected CommonDialog mDialog ;
+    protected CommonDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,15 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
 
     abstract void loadData();
 
+    public void jumpActivity(Class clazz) {
+        this.startActivity(new Intent(this, clazz));
+    }
+
     public void jumpActivityForResult(Class clazz, int code) {
         Intent intent = new Intent(this, clazz);
         this.startActivityForResult(intent, code);
     }
+
 
     public BaseActivity getActivity() {
         return this;
@@ -45,6 +52,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
 
     /**
      * 获取焦点
+     *
      * @param v
      */
     public void getFocus(View v) {
@@ -53,8 +61,16 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         v.requestFocus();
     }
 
-    public void hideSoft() {
+    /**
+     * 隐藏键盘
+     */
+    public void hideSoftInputMethod() {
         InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(null, 0);
+        View view = getActivity().getCurrentFocus();
+        if (null == view) {
+            return;
+        }
+        inputManager.hideSoftInputFromInputMethod(view.getWindowToken(), 0);
     }
+
 }

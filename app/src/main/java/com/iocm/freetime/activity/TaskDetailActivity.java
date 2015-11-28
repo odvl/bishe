@@ -16,7 +16,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
 
 import java.util.Calendar;
 
@@ -58,7 +57,7 @@ public class TaskDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
 
-        mContext = this;
+        mContext = TaskDetailActivity.this;
 
         initViews();
         initDatas();
@@ -80,42 +79,42 @@ public class TaskDetailActivity extends BaseActivity {
     }
 
 
-    private void registerAct() {
-        UserLoginApp userLoginApp = (UserLoginApp) getApplication();
-
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.add("activity_publish_people", aname);
-        params.add("register_user", userLoginApp.getUserName());
-        params.add("activity_name", atitle);
-        params.add("register_time", beginYear + "-" + beginMonth + "-" + beginDay);
-        params.add("activity_id", "" + activity_id);
-        params.add("build",build);
-        params.add("latitude",latitude);
-        params.add("longitude",longitude);
-
-        String url = getResources().getString(R.string.regActurl);
-        client.post(url, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                String get = new String(bytes);
-                if (get.equals("1")) {
-                    Toast.makeText(TaskDetailActivity.this, "请求已发送，等待同意", Toast.LENGTH_SHORT).show();
-                } else if (get.equals("2")) {
-                    Toast.makeText(TaskDetailActivity.this, "您已报名，请不要重复报名", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                throwable.printStackTrace();
-                Toast.makeText(TaskDetailActivity.this, "请求失败，请稍后重试", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-    }
-
+//    private void registerAct() {
+//        UserLoginApp userLoginApp = (UserLoginApp) getApplication();
+//
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        RequestParams params = new RequestParams();
+//        params.add("activity_publish_people", aname);
+//        params.add("register_user", userLoginApp.getUserName());
+//        params.add("activity_name", atitle);
+//        params.add("register_time", beginYear + "-" + beginMonth + "-" + beginDay);
+//        params.add("activity_id", "" + activity_id);
+//        params.add("build", build);
+//        params.add("latitude", latitude);
+//        params.add("longitude", longitude);
+//
+//        String url = getResources().getString(R.string.regActurl);
+//        client.post(url, params, new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+//                String get = new String(bytes);
+//                if (get.equals("1")) {
+//                    Toast.makeText(TaskDetailActivity.this, "请求已发送，等待同意", Toast.LENGTH_SHORT).show();
+//                } else if (get.equals("2")) {
+//                    Toast.makeText(TaskDetailActivity.this, "您已报名，请不要重复报名", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+//                throwable.printStackTrace();
+//                Toast.makeText(TaskDetailActivity.this, "请求失败，请稍后重试", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//
+//    }
+//
     private void initDatas() {
         Intent intent = getIntent();
 
@@ -164,6 +163,7 @@ public class TaskDetailActivity extends BaseActivity {
         if (id == iv_call.getId()) {
             CustomUtils.makeCall(mContext, tv_mobile.getText().toString().trim());
         } else if (id == iv_location.getId()) {
+            jumpActivity(MapActivity.class);
 
         } else if (id == btn_add_collection.getId()) {
 

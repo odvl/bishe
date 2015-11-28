@@ -16,7 +16,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +51,7 @@ public class FindTaskActivity extends BaseActivity {
         setContentView(R.layout.activity_find_task);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        List<Map<String, String>> ll = find(bundle.getString("type"), bundle.getString("distance"), bundle.getString("phonenumber"));
+//        List<Map<String, String>> ll = find(bundle.getString("type"), bundle.getString("distance"), bundle.getString("phonenumber"));
         initViews();
         initDatas();
         initListeners();
@@ -119,56 +118,56 @@ public class FindTaskActivity extends BaseActivity {
         textView = (TextView) findViewById(R.id.text);
     }
 
-    private List<Map<String, String>> find(final String type, String distance, final String phonenumber) {
-
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        String url = getResources().getString(R.string.searchurl);
-        params.add("type", type);
-        params.add("distance", distance);
-        params.add("phonenumber", phonenumber);
-
-        client.get(url, params, new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                super.onSuccess(statusCode, headers, response);
-                if (statusCode == 200) {
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            Map<String, String> map = new HashMap<String, String>();
-                            //存入活动的相关信息
-                            map.put("name", new String(jsonObject.getString("name").getBytes(), "utf-8"));
-                            map.put("type", new String(jsonObject.getString("type").getBytes(), "utf-8"));
-                            map.put("begin_time", new String(jsonObject.getString("begin_time").getBytes(), "utf-8"));
-                            map.put("end_time", new String(jsonObject.getString("end_time").getBytes(), "utf-8"));
-                            map.put("phonenumber", new String(jsonObject.getString("phonenumber").getBytes(), "utf-8"));
-                            map.put("title", new String(jsonObject.getString("title").getBytes(), "utf-8"));
-                            map.put("body", new String(jsonObject.getString("body").getBytes(), "utf-8") != null ? new String(jsonObject.getString("body").getBytes(), "utf-8") : "null");
-                            map.put("loca", new String(jsonObject.getString("loca").getBytes(), "utf-8"));
-                            map.put("id", "" + jsonObject.getInt("id"));
-
-
-                            get_job_activity.add(map);
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                        if (get_job_activity.size() == response.length()) {
-                            simAdapter.notifyDataSetChanged();
-                            progressBar.setVisibility(View.GONE);
-                            textView.setVisibility(View.GONE);
-                        }
-                    }
-                }
-            }
-        });
-        return get_job_activity;
-    }
+//    private List<Map<String, String>> find(final String type, String distance, final String phonenumber) {
+//
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        RequestParams params = new RequestParams();
+//        String url = getResources().getString(R.string.searchurl);
+//        params.add("type", type);
+//        params.add("distance", distance);
+//        params.add("phonenumber", phonenumber);
+//
+//        client.get(url, params, new JsonHttpResponseHandler() {
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+//                super.onSuccess(statusCode, headers, response);
+//                if (statusCode == 200) {
+//                    for (int i = 0; i < response.length(); i++) {
+//                        try {
+//                            JSONObject jsonObject = response.getJSONObject(i);
+//                            Map<String, String> map = new HashMap<String, String>();
+//                            //存入活动的相关信息
+//                            map.put("name", new String(jsonObject.getString("name").getBytes(), "utf-8"));
+//                            map.put("type", new String(jsonObject.getString("type").getBytes(), "utf-8"));
+//                            map.put("begin_time", new String(jsonObject.getString("begin_time").getBytes(), "utf-8"));
+//                            map.put("end_time", new String(jsonObject.getString("end_time").getBytes(), "utf-8"));
+//                            map.put("phonenumber", new String(jsonObject.getString("phonenumber").getBytes(), "utf-8"));
+//                            map.put("title", new String(jsonObject.getString("title").getBytes(), "utf-8"));
+//                            map.put("body", new String(jsonObject.getString("body").getBytes(), "utf-8") != null ? new String(jsonObject.getString("body").getBytes(), "utf-8") : "null");
+//                            map.put("loca", new String(jsonObject.getString("loca").getBytes(), "utf-8"));
+//                            map.put("id", "" + jsonObject.getInt("id"));
+//
+//
+//                            get_job_activity.add(map);
+//                        } catch (UnsupportedEncodingException e) {
+//                            e.printStackTrace();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//
+//                        if (get_job_activity.size() == response.length()) {
+//                            simAdapter.notifyDataSetChanged();
+//                            progressBar.setVisibility(View.GONE);
+//                            textView.setVisibility(View.GONE);
+//                        }
+//                    }
+//                }
+//            }
+//        });
+//        return get_job_activity;
+//    }
 
     @Override
     public void onClick(View v) {

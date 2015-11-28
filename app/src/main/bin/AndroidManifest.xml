@@ -31,7 +31,7 @@
         <activity android:name="com.iocm.freetime.activity.UserApplyedActivity"
             android:label="@string/yunxuan"></activity>
 
-        <activity android:name="com.iocm.freetime.activity.UserReleasedActivity"
+        <activity android:name="com.iocm.freetime.activity.CreatedTaskListActivity"
             android:label="@string/yunxuan"></activity>
 
         <activity android:name="com.iocm.freetime.user_service.Msg"
