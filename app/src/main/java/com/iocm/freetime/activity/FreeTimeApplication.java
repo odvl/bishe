@@ -2,10 +2,12 @@ package com.iocm.freetime.activity;
 
 import android.app.Application;
 
+import com.activeandroid.ActiveAndroid;
+
 /**
  * Created by Administrator on 2015/2/13.
  */
-public class UserLoginApp extends Application {
+public class FreeTimeApplication extends Application {
     private String userName;
     private String passWord;
     private String phoneNumber;
@@ -32,5 +34,22 @@ public class UserLoginApp extends Application {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ActiveAndroid.initialize(this);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        ActiveAndroid.dispose();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
     }
 }

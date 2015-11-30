@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.FindTaskActivity;
-import com.iocm.freetime.activity.UserLoginApp;
+import com.iocm.freetime.activity.FreeTimeApplication;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -81,8 +81,8 @@ public class ThirdFragment extends Fragment{
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserLoginApp userLoginApp = (UserLoginApp) getActivity().getApplication();
-                if(userLoginApp.getUserName() == null) {
+                FreeTimeApplication freeTimeApplication = (FreeTimeApplication) getActivity().getApplication();
+                if(freeTimeApplication.getUserName() == null) {
                     Toast.makeText(getActivity(),"请前往我的世界登录",Toast.LENGTH_SHORT).show();
                 }
                 else {

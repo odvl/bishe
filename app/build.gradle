@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 22
     buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId "com.iocm.freetime"
@@ -17,6 +17,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 
@@ -37,4 +43,5 @@ dependencies {
     compile 'com.android.support:design:22.2.0+'
     compile 'com.android.support:recyclerview-v7:+'
     compile 'com.squareup.okhttp:okhttp:2.6.0'
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 }

@@ -38,7 +38,6 @@
 
     <Button
         android:id="@+id/login"
-        android:background="@drawable/clickable_deep_orange500_700_btn_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/password"
@@ -46,21 +45,22 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="40dp"
+        android:background="@drawable/selector_common_btn"
         android:text="登录" />
 
     <TextView
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
         android:layout_alignRight="@+id/login"
         android:layout_below="@+id/login"
         android:layout_marginBottom="20dp"
-        android:text="注册" />
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="注册"
+        android:textSize="15sp" />
 
 
 </RelativeLayout>

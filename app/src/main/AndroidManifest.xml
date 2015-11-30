@@ -7,7 +7,7 @@
         android:targetSdkVersion="22" />
 
     <application
-        android:name="com.iocm.freetime.activity.UserLoginApp"
+        android:name="com.iocm.freetime.activity.FreeTimeApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
@@ -24,6 +24,9 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="dAjr1hktZjLYhqqQV0UaPhwd" />
+
+        <meta-data android:name="AA_DB_NAME" android:value="freetime.db"/>
+        <meta-data android:name="AA_DB_VERSION" android:value="1"/>
 
         <activity
             android:name="com.iocm.freetime.activity.MainActivity"

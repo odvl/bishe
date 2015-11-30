@@ -4,10 +4,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.annotation.PluralsRes;
+import android.util.TypedValue;
+import android.view.View;
 
+import com.google.gson.Gson;
 import com.iocm.freetime.bean.NameValue;
+import com.iocm.freetime.bean.User;
 import com.iocm.freetime.common.Constant;
+import com.iocm.freetime.http.GsonUtils;
 
+import org.codehaus.jackson.annotate.JsonSubTypes;
+
+import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,9 +30,11 @@ public class Cache<T> {
 
     private static Cache cache;
 
+    private GsonUtils mGson;
+
     private SharedPreferences.Editor mEditor;
 
-    private static Cache getInstance(Context context) {
+    public static Cache getInstance(Context context) {
         if (cache == null) {
             cache = new Cache(context);
         }
@@ -60,5 +70,13 @@ public class Cache<T> {
 
     public Integer getIntValue(String name) {
         return mSharedPreferences.getInt(name, -1);
+    }
+
+    public void setClassValue(String name, Class clazz) {
+        mEditor.putString(name, mGson.getGson().toJson(clazz));
+    }
+
+    public T getClassValue(String name, Class clazz) {
+        return (T) mGson.getGson().fromJson(this.getStringValue(name), clazz);
     }
 }

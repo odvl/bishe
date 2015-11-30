@@ -13,9 +13,14 @@
         app:isLeftImage="true"
         android:layout_height="?android:attr/actionBarSize"></com.iocm.freetime.wedgets.CommonToolBar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_below="@+id/toolbar"
+        android:id="@+id/messageCenterSwipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

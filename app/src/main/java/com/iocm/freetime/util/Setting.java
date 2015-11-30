@@ -26,6 +26,7 @@ public class Setting {
         }
         return sSetting;
     }
+
     private Setting(Context context) {
         load(context);
     }
@@ -73,8 +74,6 @@ public class Setting {
     private void saveIntValue(NameValue value) {
         mSharePreferences.edit().putInt(value.getName(), (Integer) value.getValue()).apply();
     }
-
-
 
 
 }

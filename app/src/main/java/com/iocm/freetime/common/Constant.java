@@ -74,4 +74,9 @@ public final class Constant {
         public static final String Name = "free_time";
     }
 
+    public static final class User {
+        public static final String username = "username";
+        public static final String password = "password";
+    }
+
 }

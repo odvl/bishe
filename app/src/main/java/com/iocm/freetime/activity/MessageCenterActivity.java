@@ -3,6 +3,7 @@ package com.iocm.freetime.activity;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,21 +20,22 @@ import com.iocm.freetime.wedgets.CommonToolBar;
 /**
  * Created by liubo on 15/7/19.
  */
-public class MessageCenterActivity extends BaseActivity{
+public class MessageCenterActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+    private static final String TAG = "MessageCenterActivity";
+
     private static final int TYPE_FROM_APPLY = 0;
     private static final int TYPE_TO_APPLY = 1;
+
+    private SwipeRefreshLayout messageCenterSwipeRefreshLayout;
+
     private CommonToolBar mToolbar;
     private RecyclerArray mItemArray;
     private RecyclerView mRecyclerView;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
         setContentView(R.layout.activity_message_center);
-
-        init();
-        setupView();
 
         if (savedInstanceState == null) {
             final View _view = findViewById(R.id.message_center_content);
@@ -46,33 +48,34 @@ public class MessageCenterActivity extends BaseActivity{
                 }
             });
         }
+
     }
 
     @Override
     void initView() {
+        mToolbar = (CommonToolBar) findViewById(R.id.toolbar);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        messageCenterSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.messageCenterSwipeRefreshLayout);
 
     }
 
     @Override
     void initListener() {
+        mToolbar.setOnCommonToolBarClickListener(this);
+
+        messageCenterSwipeRefreshLayout.setOnRefreshListener(this);
+        
+
 
     }
 
     @Override
     void loadData() {
-
-    }
-
-    private void setupView() {
-        mToolbar = (CommonToolBar) findViewById(R.id.toolbar);
-        mToolbar.setOnCommonToolBarClickListener(this);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.setAdapter(new MessageCenterAdapter());
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    private void init() {
         mItemArray = new RecyclerArray();
+        mRecyclerView.setAdapter(new MessageCenterAdapter());
     }
 
     private void loadActivityAnimation(View _view) {
@@ -81,6 +84,11 @@ public class MessageCenterActivity extends BaseActivity{
                 ObjectAnimator.ofFloat(_view, "alpha", 0, 1.0f));
         set.setDuration(300);
         set.start();
+
+    }
+
+    @Override
+    public void onRefresh() {
 
     }
 

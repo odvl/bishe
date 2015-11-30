@@ -3,22 +3,13 @@ package com.iocm.freetime.user_service;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import com.iocm.administrator.freetime.R;
-import com.iocm.freetime.activity.UserLoginApp;
+import com.iocm.freetime.activity.FreeTimeApplication;
 import com.iocm.freetime.adapter.UserMsgAdapter;
 import com.iocm.freetime.bean.MsgType;
 import com.iocm.freetime.bean.UserMsg;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,9 +45,9 @@ public class Msg extends Activity{
         datas2.add(msgHashMap);
         all_datas.add(datas2);
         all_datas.add(datas3);
-        UserLoginApp userLoginApp = (UserLoginApp) getApplication();
+        FreeTimeApplication freeTimeApplication = (FreeTimeApplication) getApplication();
 
-        UserMsgAdapter userMsgAdapter  = new UserMsgAdapter(group,all_datas,this,userLoginApp.getUserName());
+        UserMsgAdapter userMsgAdapter  = new UserMsgAdapter(group,all_datas,this, freeTimeApplication.getUserName());
         expandableListView.setAdapter(userMsgAdapter);
     }
 
