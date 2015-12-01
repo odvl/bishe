@@ -67,7 +67,7 @@ public class MessageCenterActivity extends BaseActivity implements SwipeRefreshL
         mToolbar.setOnCommonToolBarClickListener(this);
 
         messageCenterSwipeRefreshLayout.setOnRefreshListener(this);
-        
+
 
 
     }

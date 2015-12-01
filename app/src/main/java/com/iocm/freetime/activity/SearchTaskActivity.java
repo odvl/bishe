@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  * Created by liubo on 15/7/27.
  */
-public class SearchTaskActivity extends BaseActivity{
+public class SearchTaskActivity extends BaseActivity {
 
     private static final String TAG = SearchTaskActivity.class.getName();
 
@@ -24,32 +24,14 @@ public class SearchTaskActivity extends BaseActivity{
 
     private FlowLayout mFlowLayout;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_task);
-
-        init();
-        setupView();
-    }
 
     @Override
     void initView() {
-
+        setContentView(R.layout.activity_search_task);
     }
 
     @Override
     void initListener() {
-
-    }
-
-    @Override
-    void loadData() {
-
-    }
-
-    private void setupView() {
-
         mFlowLayout = (FlowLayout) findViewById(R.id.flowLayout);
         TextView textView = new TextView(this);
         ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.MarginLayoutParams.WRAP_CONTENT,
@@ -67,12 +49,13 @@ public class SearchTaskActivity extends BaseActivity{
             textView1.setBackgroundResource(R.drawable.clikable_text_btn_bg);
             mFlowLayout.addView(textView1, params);
         }
+    }
+
+    @Override
+    void loadData() {
 
     }
 
-    private void init() {
-
-    }
 
     @Override
     public void onClick(View view) {
