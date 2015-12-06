@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/theme_color">
+    android:background="@color/theme_light_dark_color">
 
     <ImageView
         android:id="@+id/scan_qr_code"

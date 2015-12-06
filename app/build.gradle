@@ -20,16 +20,11 @@ android {
 }
 
 
-repositories {
-    mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-}
 
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.code.gson:gson:2.3.1'
-    compile files('libs/android-async-http-1.4.6.jar')
     compile files('libs/jackson-all-1.6.4.jar')
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/galaxy_mini.jar')
@@ -43,5 +38,5 @@ dependencies {
     compile 'com.android.support:design:22.2.0+'
     compile 'com.android.support:recyclerview-v7:+'
     compile 'com.squareup.okhttp:okhttp:2.6.0'
-    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    compile project(':ActiveAndroid-master')
 }

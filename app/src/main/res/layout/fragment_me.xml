@@ -25,7 +25,7 @@
                 android:id="@+id/user_message_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/theme_color"
+                android:background="@color/theme_light_dark_color"
                 android:paddingBottom="20dp">
 
                 <com.ozn.circleimage.CircleImageView

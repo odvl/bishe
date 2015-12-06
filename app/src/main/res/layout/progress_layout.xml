@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <com.pnikosis.materialishprogress.ProgressWheel
-        app:matProg_barColor="@color/theme_color"
+        app:matProg_barColor="@color/theme_light_dark_color"
         app:matProg_progressIndeterminate="true"
         android:id="@+id/progress"
         android:layout_height="50dp"

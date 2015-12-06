@@ -5,17 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.activeandroid.query.Select;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.CreateTaskActivity;
 import com.iocm.freetime.activity.MessageCenterActivity;
+import com.iocm.freetime.activity.PersonalHomePageActivity;
 import com.iocm.freetime.activity.SearchTaskActivity;
 import com.iocm.freetime.activity.TaskDetailActivity;
 import com.iocm.freetime.base.ItemData;
@@ -26,6 +31,7 @@ import com.iocm.freetime.common.Constant;
 import com.iocm.freetime.util.TLog;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by liubo on 15/7/13.
@@ -44,6 +50,8 @@ public class TaskCenterFragments extends TaskFragments
     private RecyclerView mRecyclerView;
     private RecyclerArray mItemArray;
 
+    private List<Tasks> mLikeList;
+
     private FloatingActionButton fabtn_show_action;
 
     @Nullable
@@ -53,7 +61,13 @@ public class TaskCenterFragments extends TaskFragments
         mContext = getActivity();
         init();
         setupViews(_root);
+        loadData();
         return _root;
+    }
+
+    private void loadData() {
+        mLikeList = new Select().from(Tasks.class).where("like = ?", true).execute();
+        Log.d("liubo", "mLikeList size" + mLikeList.size());
     }
 
     public void move2Top() {
@@ -95,6 +109,17 @@ public class TaskCenterFragments extends TaskFragments
                 break;
             }
 
+            case R.id.task_user_name:
+            case R.id.task_user_photo: {
+                TaskCenterRecyclerAdapter.TaskCenterItemViewHolder vh = (TaskCenterRecyclerAdapter.TaskCenterItemViewHolder) view.getTag();
+                ItemData<Tasks> itemData = mItemArray.get(vh.getAdapterPosition());
+                Tasks tasks = itemData.getData();
+                Bundle bundle = new Bundle();
+                bundle.putString(Constant.Key.UserId, tasks.getUserId());
+                jumpActivity(PersonalHomePageActivity.class, bundle);
+                break;
+            }
+
             case R.id.scan_qr_code: {
                 break;
             }
@@ -106,12 +131,12 @@ public class TaskCenterFragments extends TaskFragments
                 break;
             }
 
-            case R.id.task_center_content: {
+            case R.id.task_head_content: {
                 TaskCenterRecyclerAdapter.TaskCenterItemViewHolder vh = (TaskCenterRecyclerAdapter.TaskCenterItemViewHolder) view.getTag();
                 int position = vh.getAdapterPosition();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constant.Key.Task, (Serializable) mItemArray.get(position).getData());
-                jumpActivity(TaskDetailActivity.class, Constant.Key.Task, bundle);
+                jumpActivity(TaskDetailActivity.class, bundle);
                 break;
             }
 
@@ -120,6 +145,52 @@ public class TaskCenterFragments extends TaskFragments
                 break;
             }
 
+            case R.id.shareImageView: {
+                //分享
+                break;
+            }
+
+            case R.id.task_follow: {
+                //收藏
+                TaskCenterRecyclerAdapter.TaskCenterItemViewHolder viewHolder =
+                        (TaskCenterRecyclerAdapter.TaskCenterItemViewHolder) view.getTag();
+
+                ItemData<Tasks> itemData = mItemArray.get(viewHolder.getAdapterPosition());
+                Tasks tasks = itemData.getData();
+                if (tasks.isLike()) {
+                    tasks.setLike(false);
+                    //更新数据库
+                    updateDatabase(tasks);
+                    //更新列表
+                    viewHolder.mTaskFollow.setImageResource(R.drawable.unfollow);
+                    mRecyclerView.getAdapter().notifyItemChanged(viewHolder.getAdapterPosition());
+
+                } else {
+                    tasks.setLike(true);
+                    updateDatabase(tasks);
+                    viewHolder.mTaskFollow.setImageResource(R.drawable.follow);
+                    mRecyclerView.getAdapter().notifyItemChanged(viewHolder.getAdapterPosition());
+
+                }
+                break;
+            }
+
+
+
+        }
+    }
+
+    /**
+     * 更新数据库
+     *
+     * @param tasks
+     */
+    private void updateDatabase(Tasks tasks) {
+        tasks.save();
+        if (tasks.isLike()) {
+            mLikeList.add(tasks);
+        } else {
+            mLikeList.remove(tasks);
         }
     }
 
@@ -127,19 +198,17 @@ public class TaskCenterFragments extends TaskFragments
     @Override
     public void onPause() {
         super.onPause();
-        TLog.i(TAG, "onPause");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        TLog.i(TAG, "onResume");
     }
 
-    private void jumpActivity(Class clazz, String key, Bundle bundle) {
+    private void jumpActivity(Class clazz, Bundle bundle) {
         Intent intent = new Intent();
         intent.setClass(getActivity(), clazz);
-        intent.putExtra(key, bundle);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
@@ -157,6 +226,11 @@ public class TaskCenterFragments extends TaskFragments
             ItemData<Tasks> _data = mItemArray.get(position);
             Tasks _task = _data.getData();
 
+            if (mLikeList.contains(_task)) {
+                _vh.mTaskFollow.setImageResource(R.drawable.follow);
+            } else {
+                _vh.mTaskFollow.setImageResource(R.drawable.unfollow);
+            }
             _vh.mUsername.setText(_task.getName());
             _vh.mTaskName.setText(_task.getTitle());
             _vh.mTaskContent.setText(_task.getBody());
@@ -170,37 +244,42 @@ public class TaskCenterFragments extends TaskFragments
 
         class TaskCenterItemViewHolder extends RecyclerView.ViewHolder {
             private ImageView mUserPhoto;
-            private TextView mUsername;
             private ImageView mTaskFollow;
+            private ImageView shareImageView;
+
+            private TextView mUsername;
             private TextView mTaskName;
             private TextView mTaskContent;
             private TextView mTaskPeopleJoinNum;
-            private View mContent;
+
+            private RelativeLayout taskHeadContent;
 
             public TaskCenterItemViewHolder(View itemView) {
                 super(itemView);
 
-                mUserPhoto = (ImageView) itemView.findViewById(R.id.task_user_photo);
-                mUsername = (TextView) itemView.findViewById(R.id.task_user_name);
                 mTaskFollow = (ImageView) itemView.findViewById(R.id.task_follow);
+                mUserPhoto = (ImageView) itemView.findViewById(R.id.task_user_photo);
+                shareImageView = (ImageView) itemView.findViewById(R.id.shareImageView);
+
+                mUsername = (TextView) itemView.findViewById(R.id.task_user_name);
                 mTaskName = (TextView) itemView.findViewById(R.id.task_name);
                 mTaskContent = (TextView) itemView.findViewById(R.id.task_content);
                 mTaskPeopleJoinNum = (TextView) itemView.findViewById(R.id.task_people_joined_num);
-                mContent = itemView.findViewById(R.id.task_center_content);
 
+                taskHeadContent = (RelativeLayout) itemView.findViewById(R.id.task_head_content);
 
-                mContent.setOnClickListener(TaskCenterFragments.this);
-                mContent.setTag(this);
-                mUserPhoto.setTag(this);
                 mUserPhoto.setOnClickListener(TaskCenterFragments.this);
-                mUsername.setTag(this);
                 mUsername.setOnClickListener(TaskCenterFragments.this);
-                mTaskFollow.setTag(this);
+                mUserPhoto.setTag(this);
+                mUsername.setTag(this);
+
+                taskHeadContent.setOnClickListener(TaskCenterFragments.this);
+                taskHeadContent.setTag(this);
+
+                shareImageView.setOnClickListener(TaskCenterFragments.this);
+
                 mTaskFollow.setOnClickListener(TaskCenterFragments.this);
-                mTaskName.setTag(this);
-                mTaskName.setOnClickListener(TaskCenterFragments.this);
-                mTaskContent.setTag(this);
-                mTaskContent.setOnClickListener(TaskCenterFragments.this);
+                mTaskFollow.setTag(this);
             }
         }
     }

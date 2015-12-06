@@ -7,26 +7,34 @@
         android:targetSdkVersion="22" />
 
     <application
-        android:name="com.iocm.freetime.activity.FreeTimeApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:name="com.iocm.freetime.MyApplication"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="freetime.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+
+        <meta-data android:name="AA_MODELS" android:value="com.iocm.freetime.bean.Tasks"/>
         <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote">
+        android:name="com.baidu.location.f"
+        android:enabled="true"
+        android:process=":remote">
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2"></action>
             </intent-filter>
         </service>
 
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="dAjr1hktZjLYhqqQV0UaPhwd" />
 
-        <meta-data android:name="AA_DB_NAME" android:value="freetime.db"/>
-        <meta-data android:name="AA_DB_VERSION" android:value="1"/>
+        <meta-data
+        android:name="com.baidu.lbsapi.API_KEY"
+        android:value="dAjr1hktZjLYhqqQV0UaPhwd" />
+
 
         <activity
             android:name="com.iocm.freetime.activity.MainActivity"
@@ -99,6 +107,11 @@
             android:name="com.iocm.freetime.activity.CollectionsTaskActivity"
             android:label="收藏中心"
             android:screenOrientation="portrait" />
+
+        <!--个人主页-->
+        <activity android:name="com.iocm.freetime.activity.PersonalHomePageActivity"
+            android:screenOrientation="portrait"/>
+
 
     </application>
 

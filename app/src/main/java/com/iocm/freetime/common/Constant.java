@@ -35,6 +35,7 @@ public final class Constant {
         public static final String UserName = "username";
         public static final String AppName = "yunxuan";
         public static final String UserInfo = "user_info";
+        public static final String UserId = "id";
     }
 
     public static final class TASK {

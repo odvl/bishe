@@ -1,26 +1,84 @@
 package com.iocm.freetime.bean;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 2015/1/24.
+ * Created by liubo on 2015/1/24.
  */
-public class Tasks implements Serializable {
+@Table(name = "Tasks")
+public class Tasks  extends Model implements Serializable {
+
+    @Column(name = "userId")
+    public String userId;
 
 
-    private String title;
-    private String body;
-    private String beginTime;
-    private String endTime;
-    private String phoneNumber;
-    private String name;
-    private Type type;
-    private String msg;
-    private Double latitude;
-    private Double longitude;
-    private String build;
+    @Column(name = "title")
+    public String title;
+
+    @Column(name = "body")
+    public String body;
+
+    @Column(name = "beginTime")
+    public String beginTime;
+
+    @Column(name = "endTime")
+    public String endTime;
+
+    @Column(name = "phoneNumber")
+    public String phoneNumber;
+
+    @Column(name = "name")
+    public String name;
+
+    @Column(name = "type")
+    public Type type;
+
+    @Column(name = "msg")
+    public String msg;
+
+    @Column(name = "latitude")
+    public Double latitude;
+
+    @Column(name = "longitude")
+    public Double longitude;
+
+    @Column(name = "build")
+    public String build;
+
+    @Column(name = "like")
+    public boolean like;
+
+    public int joinedNum;
+
+    public int getJoinedNum() {
+        return joinedNum;
+    }
+
+    public void setJoinedNum(int joinedNum) {
+        this.joinedNum = joinedNum;
+    }
+
+    public boolean isLike() {
+        return like;
+    }
+
+    public void setLike(boolean like) {
+        this.like = like;
+    }
 
     public Tasks() {
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Tasks(String title, String body, String beginTime, String endTime, String phoneNumber,
@@ -92,8 +150,8 @@ public class Tasks implements Serializable {
         this.type = type;
     }
 
-    public enum Type{
-        MATCH,PLAY,SCIENCE
+    public enum Type {
+        MATCH, PLAY, SCIENCE
     }
 
     public String getName() {

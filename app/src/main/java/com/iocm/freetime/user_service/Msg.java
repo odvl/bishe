@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.ExpandableListView;
 
 import com.iocm.administrator.freetime.R;
-import com.iocm.freetime.activity.FreeTimeApplication;
 import com.iocm.freetime.adapter.UserMsgAdapter;
 import com.iocm.freetime.bean.MsgType;
 import com.iocm.freetime.bean.UserMsg;
@@ -45,10 +44,11 @@ public class Msg extends Activity{
         datas2.add(msgHashMap);
         all_datas.add(datas2);
         all_datas.add(datas3);
-        FreeTimeApplication freeTimeApplication = (FreeTimeApplication) getApplication();
 
-        UserMsgAdapter userMsgAdapter  = new UserMsgAdapter(group,all_datas,this, freeTimeApplication.getUserName());
-        expandableListView.setAdapter(userMsgAdapter);
+//        FreeTimeApplication freeTimeApplication = (FreeTimeApplication) getApplication();
+//
+//        UserMsgAdapter userMsgAdapter  = new UserMsgAdapter(group,all_datas,this, freeTimeApplication.getUserName());
+//        expandableListView.setAdapter(userMsgAdapter);
     }
 
     private void initViews() {

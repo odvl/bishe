@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.FindTaskActivity;
-import com.iocm.freetime.activity.FreeTimeApplication;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -78,7 +77,7 @@ public class ThirdFragment extends Fragment{
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+      /*  register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FreeTimeApplication freeTimeApplication = (FreeTimeApplication) getActivity().getApplication();
@@ -96,7 +95,7 @@ public class ThirdFragment extends Fragment{
                     getActivity().startActivity(intent);
                 }
             }
-        });
+        });*/
     }
 
 

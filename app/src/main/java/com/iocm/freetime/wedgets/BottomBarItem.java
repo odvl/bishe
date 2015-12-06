@@ -68,7 +68,7 @@ public class BottomBarItem extends RelativeLayout {
 
     public void changeColor(boolean enabled) {
         if (!enabled) {
-            mBottomBarTextView.setTextColor(getResources().getColor(R.color.theme_color));
+            mBottomBarTextView.setTextColor(getResources().getColor(R.color.theme_light_dark_color));
         } else {
             mBottomBarTextView.setTextColor(getResources().getColor(R.color.black));
         }

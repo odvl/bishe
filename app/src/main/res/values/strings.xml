@@ -16,6 +16,7 @@
     <string name="title_textSize">30sp</string>
     <string name="test_text">*********************************************************************************************************************</string>
     <string name="dialog_loading">正在加载</string>
+    <string name="joined_person_num">已有%1$3d人参加</string>
     <string-array name="activity_type">
         <item>科技</item>
         <item>比赛</item>

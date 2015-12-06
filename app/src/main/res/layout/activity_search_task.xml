@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="热门搜索"
-            android:textColor="@color/theme_color"
+            android:textColor="@color/theme_light_dark_color"
             android:textSize="19sp" />
     </com.ozn.mylibrary.FlowLayout>
 
