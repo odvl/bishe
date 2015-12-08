@@ -59,18 +59,14 @@ public class BottomBarItem extends RelativeLayout {
 
     }
 
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        mBottomBarTextView.setEnabled(enabled);
-        mBottomBarIconView.setEnabled(enabled);
-    }
 
     public void changeColor(boolean enabled) {
-        if (!enabled) {
-            mBottomBarTextView.setTextColor(getResources().getColor(R.color.theme_light_dark_color));
-        } else {
+        if (enabled) {
             mBottomBarTextView.setTextColor(getResources().getColor(R.color.black));
+            mBottomBarIconView.setEnabled(true);
+        } else {
+            mBottomBarTextView.setTextColor(getResources().getColor(R.color.red));
+            mBottomBarIconView.setEnabled(false);
         }
     }
 

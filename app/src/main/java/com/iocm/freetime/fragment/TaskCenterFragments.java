@@ -1,5 +1,9 @@
 package com.iocm.freetime.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 import com.iocm.administrator.freetime.R;
@@ -146,6 +151,7 @@ public class TaskCenterFragments extends TaskFragments
             }
 
             case R.id.shareImageView: {
+                Toast.makeText(getActivity(), "111", Toast.LENGTH_SHORT).show();
                 //分享
                 break;
             }
@@ -214,6 +220,8 @@ public class TaskCenterFragments extends TaskFragments
 
     class TaskCenterRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+        private int mPosition = -1;
+
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View _view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_center_item_layout, null);
@@ -225,6 +233,12 @@ public class TaskCenterFragments extends TaskFragments
             TaskCenterItemViewHolder _vh = (TaskCenterItemViewHolder) holder;
             ItemData<Tasks> _data = mItemArray.get(position);
             Tasks _task = _data.getData();
+            if (position > mPosition) {
+                mPosition = position;
+                _vh.set.start();
+            } else {
+                mPosition = position;
+            }
 
             if (mLikeList.contains(_task)) {
                 _vh.mTaskFollow.setImageResource(R.drawable.follow);
@@ -252,10 +266,17 @@ public class TaskCenterFragments extends TaskFragments
             private TextView mTaskContent;
             private TextView mTaskPeopleJoinNum;
 
+            AnimatorSet set;
+
             private RelativeLayout taskHeadContent;
 
             public TaskCenterItemViewHolder(View itemView) {
                 super(itemView);
+
+                set = new AnimatorSet();
+                set.playTogether(ObjectAnimator.ofFloat(itemView, View.TRANSLATION_Y, -250, 0),
+                        ObjectAnimator.ofFloat(itemView, View.ALPHA, 0f, 1f));
+                set.setDuration(300);
 
                 mTaskFollow = (ImageView) itemView.findViewById(R.id.task_follow);
                 mUserPhoto = (ImageView) itemView.findViewById(R.id.task_user_photo);
@@ -277,6 +298,7 @@ public class TaskCenterFragments extends TaskFragments
                 taskHeadContent.setTag(this);
 
                 shareImageView.setOnClickListener(TaskCenterFragments.this);
+                shareImageView.setTag(this);
 
                 mTaskFollow.setOnClickListener(TaskCenterFragments.this);
                 mTaskFollow.setTag(this);

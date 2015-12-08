@@ -15,10 +15,12 @@
 
     <TextView
         android:id="@+id/input_edit_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:drawablePadding="5dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/scan_qr_code"
         android:layout_alignTop="@+id/scan_qr_code"
+        android:drawableLeft="@drawable/ic_search"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:layout_toLeftOf="@+id/message_center"

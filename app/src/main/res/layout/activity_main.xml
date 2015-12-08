@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/content"
@@ -126,16 +126,16 @@
 
     <FrameLayout
         android:id="@+id/fragment_content"
-        android:layout_above="@+id/cut_line"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/cut_line"></FrameLayout>
 
     <View
         android:id="@+id/cut_line"
-        android:background="@color/cut_line"
-        android:layout_above="@+id/bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:layout_above="@+id/bottom_bar"
+        android:background="@color/cut_line" />
 
     <com.iocm.freetime.wedgets.BottomBar
         android:id="@+id/bottom_bar"
@@ -146,15 +146,17 @@
 
         <com.iocm.freetime.wedgets.BottomBarItem
             android:layout_width="0dp"
-            app:bottom_bar_text="任务中心"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            app:bottom_bar_text="任务中心"
+            app:bottom_bar_icon="@drawable/task_bottom_item"/>
 
         <com.iocm.freetime.wedgets.BottomBarItem
             android:layout_width="0dp"
-            app:bottom_bar_text="个人中心"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            app:bottom_bar_text="个人中心"
+            app:bottom_bar_icon="@drawable/account_bottom_item"/>
     </com.iocm.freetime.wedgets.BottomBar>
 
 </RelativeLayout>

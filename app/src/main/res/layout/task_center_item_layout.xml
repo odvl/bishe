@@ -31,12 +31,12 @@
             android:id="@+id/task_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="5dp"
             android:layout_toLeftOf="@+id/task_follow"
             android:layout_toRightOf="@+id/task_user_photo"
             android:paddingBottom="7dp"
+            android:paddingLeft="5dp"
             android:paddingTop="7dp"
             android:singleLine="true"
             android:text="测试帐号"
@@ -46,10 +46,10 @@
             android:id="@+id/task_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/task_user_photo"
             android:layout_marginRight="5dp"
+            android:padding="5dp"
             android:src="@drawable/unfollow" />
 
         <View
@@ -110,9 +110,10 @@
             <ImageView
                 android:id="@+id/shareImageView"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@android:drawable/ic_menu_share" />
+                android:padding="5dp"
+                android:src="@drawable/selector_share" />
 
             <View
                 android:layout_width="1dp"
@@ -131,7 +132,7 @@
                 android:gravity="center"
                 android:text="@string/joined_person_num"
                 android:textColor="@color/grey500"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
     </RelativeLayout>

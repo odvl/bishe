@@ -19,7 +19,6 @@
         android:gravity="left"
         android:paddingBottom="5dp"
         android:paddingLeft="20dp"
-
         android:text="title"
         android:textSize="14sp" />
 
