@@ -32,6 +32,8 @@ public class LoginActivity extends BaseActivity {
 
     private static final String TAG = "LoginActivity";
 
+    private static final int REQ_LOGIN_REGISTER_CODE = 100;
+
     private Cache cache;
 
     private CircleImageView userPhotoCircleImageView;
@@ -80,7 +82,7 @@ public class LoginActivity extends BaseActivity {
         if (id == loginButton.getId()) {
             login();
         } else if (id == registerTextView.getId()) {
-            jumpActivity(RegisterActivity.class);
+            startActivityForResult(new Intent(LoginActivity.this, RegisterActivity.class), REQ_LOGIN_REGISTER_CODE);
         }
 
     }
@@ -90,29 +92,17 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    /**
-     * 保存账号密码到cache
-     */
-    public void saveCache() {
-        if (isEmpty(usernameInputEditText.getText().toString().trim()) ||
-                isEmpty(passwordInputEditText.getText().toString().trim())) {
-            return;
-        }
-
-        NameValue<String> value = new NameValue<>(Constant.User.username,
-                usernameInputEditText.getText().toString().trim());
-        cache.saveValue(value);
-
-        NameValue<String> pvalue = new NameValue<>(Constant.User.password,
-                passwordInputEditText.getText().toString().trim());
-        cache.saveValue(pvalue);
-    }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if (requestCode == REQ_LOGIN_REGISTER_CODE && resultCode == RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            User user = (User) bundle.getSerializable(Constant.Key.UserInfo);
+            usernameInputEditText.setText(user.getPhoneNumber());
+            passwordInputEditText.setText(user.getPassword());
+        }
     }
 
     @Override

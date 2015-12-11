@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
+import com.avos.avoscloud.AVOSCloud;
 import com.iocm.freetime.bean.Tasks;
 
 /**
@@ -18,6 +19,9 @@ public class MyApplication extends Application {
         Configuration.Builder configurationBuilder = new Configuration.Builder(this);
         configurationBuilder.addModelClasses(Tasks.class);
         ActiveAndroid.initialize(configurationBuilder.create());
+
+        //引入leanclound
+        AVOSCloud.initialize(this, "ci8awJklYEVbfosUdXjYf0Yf-gzGzoHsz", "ehvubCVB9ORRfzdn1mXRnahD");
 
 
     }

@@ -23,7 +23,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="30dp"
-        app:hint="帐号" />
+        app:hint="手机" />
 
     <com.iocm.freetime.wedgets.InputEditText
         android:id="@+id/password"
@@ -45,6 +45,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="40dp"
+        android:textColor="@color/red"
         android:background="@drawable/selector_common_btn"
         android:text="登录" />
 

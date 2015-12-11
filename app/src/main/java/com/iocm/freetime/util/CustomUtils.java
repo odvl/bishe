@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by liubo on 15/10/16.
  */
@@ -55,5 +58,18 @@ public class CustomUtils {
         intent.setAction(Intent.ACTION_VIEW);
         intent.setData(Uri.parse("tel:" + mobile));
         context.startActivity(intent);
+    }
+
+    /**
+     * 验证手机号码
+     * @param mobiles
+     * @return
+     */
+    public static boolean isMobileNO(String mobiles) {
+        Pattern p = Pattern
+                .compile("^((13[0-9])|(15[^4,//D])|(18[0,5-9]))//d{8}$");
+        Matcher m = p.matcher(mobiles);
+        System.out.println(m.matches() + "---");
+        return m.matches();
     }
 }
