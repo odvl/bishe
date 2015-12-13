@@ -4,13 +4,16 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.activeandroid.util.Log;
 import com.avos.avoscloud.AVException;
@@ -23,10 +26,12 @@ import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.bean.NameValue;
 import com.iocm.freetime.bean.User;
 import com.iocm.freetime.common.Constant;
+import com.iocm.freetime.fragment.VerifyMobileFragment;
 import com.iocm.freetime.util.CustomUtils;
 import com.iocm.freetime.util.TLog;
 import com.iocm.freetime.wedgets.CommonToolBar;
 import com.iocm.freetime.wedgets.InputEditText;
+import com.iocm.freetime.wedgets.dialog.VerifiedCodeDialog;
 
 import java.io.Serializable;
 
@@ -35,20 +40,23 @@ import java.io.Serializable;
  */
 public class RegisterActivity extends BaseActivity {
 
-    private InputEditText mMobileInput;
     private InputEditText mUsernameInput;
     private InputEditText mPasswordInput;
-    private InputEditText codeInput;
 
-    private Button getCode;
     private Button mRegisterBtn;
+
     private CommonToolBar mToolbar;
+
     private View mRegisterLayoutView;
+    private Dialog dialog;
 
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        dialog = new Dialog(mContext);
+
         if (savedInstanceState == null) {
             mRegisterLayoutView = findViewById(R.id.register_content);
             mRegisterLayoutView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -65,12 +73,9 @@ public class RegisterActivity extends BaseActivity {
         }
 
 
-        mMobileInput = (InputEditText) findViewById(R.id.mobile);
         mUsernameInput = (InputEditText) findViewById(R.id.username);
         mPasswordInput = (InputEditText) findViewById(R.id.password);
-        codeInput = (InputEditText) findViewById(R.id.verityCode);
 
-        getCode = (Button) findViewById(R.id.getCode);
         mRegisterBtn = (Button) findViewById(R.id.register);
         mToolbar = (CommonToolBar) findViewById(R.id.toolbar);
     }
@@ -83,7 +88,7 @@ public class RegisterActivity extends BaseActivity {
     void initListener() {
         mToolbar.setOnCommonToolBarClickListener(this);
         mRegisterBtn.setOnClickListener(this);
-        getCode.setOnClickListener(this);
+
     }
 
     @Override
@@ -116,98 +121,34 @@ public class RegisterActivity extends BaseActivity {
                 break;
             }
 
-            case R.id.getCode: {
-                getCode();
-
-                break;
-            }
 
         }
     }
 
-    /**
-     * 获取验证码
-     */
-    private void getCode() {
-        if (TextUtils.isEmpty(mMobileInput.getText().toString().trim())) {
-            return;
-        }
-//        if (!CustomUtils.isMobileNO(mMobileInput.getText().toString().trim())) {
-//            return;
-//        }
-        TLog.d("liubo", mMobileInput.getText().toString());
-        //发送验证码
-        AVUser.requestMobilePhoneVerifyInBackground(mMobileInput.getText().trim(), new RequestMobileCodeCallback() {
-            @Override
-            public void done(AVException e) {
-                if (null == e) {
-                    CustomUtils.showToast(RegisterActivity.this, "发送成功，注意查收短信");
-                } else {
-                    TLog.e("liubo", e.getCode() + "" + " message " + e.getMessage());
-                    CustomUtils.showToast(RegisterActivity.this, "发送失败，请稍后重试");
-                }
-            }
-        });
-    }
 
-    boolean canRegister = false;
 
     private void register() {
 
-        canRegister = true;
-//        if (TextUtils.isEmpty(mUsernameInput.getText()) || TextUtils.isEmpty(mMobileInput.getText()) ||
-//                TextUtils.isEmpty(mPasswordInput.getText())) {
-//            return;
-//        }
-//
-//        if (TextUtils.isEmpty(codeInput.getText().toString().trim())) {
-//            CustomUtils.showToast(RegisterActivity.this, "请输入验证码!");
-//            return;
-//        }
-//
-//
-//        AVUser.verifyMobilePhoneInBackground(codeInput.getText().toString().trim(), new AVMobilePhoneVerifyCallback() {
-//            @Override
-//            public void done(AVException e) {
-//                if (null == e) {
-//                    AVOSCloud.verifyCodeInBackground(codeInput.getText().toString().trim(),
-//                            mMobileInput.getText().toString().trim(),
-//                            new AVMobilePhoneVerifyCallback() {
-//                                @Override
-//                                public void done(AVException e) {
-//                                    if (e == null) {
-//                                        canRegister = true;
-//                                    } else {
-//                                        canRegister = false;
-//                                    }
-//                                }
-//                            });
-//                } else {
-//                    canRegister = false;
-//                    CustomUtils.showToast(RegisterActivity.this, "验证码有误，请重新获取");
-//                }
-//            }
-//        });
+        if (TextUtils.isEmpty(mUsernameInput.getText()) || TextUtils.isEmpty(mPasswordInput.getText())) {
+            CustomUtils.showToast(mContext, "请填写完整注册信息!");
+            return;
+        }
 
-        if (canRegister) {
             AVUser user = new AVUser();
             user.setUsername(mUsernameInput.getText().toString().trim());
-            user.setMobilePhoneNumber(mMobileInput.getText().toString().trim());
             user.setPassword(mPasswordInput.getText().toString().trim());
-            user.put("phone", mMobileInput.getText().toString().trim());
             user.signUpInBackground(new SignUpCallback() {
                 @Override
                 public void done(AVException e) {
                     if (null == e) {
-                        CustomUtils.showToast(RegisterActivity.this, "恭喜您，注册成功!");
                         registerSuccessful();
-
                     } else {
+                        TLog.d("liubo", "err" + e.getMessage());
                         CustomUtils.showToast(RegisterActivity.this, "很遗憾，注册失败，请稍后再试。");
                     }
                 }
             });
-        }
+
 
     }
 
@@ -216,17 +157,43 @@ public class RegisterActivity extends BaseActivity {
      */
     private void registerSuccessful() {
 
-        saveCache();
-        Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        User user = new User();
-        user.setName(mUsernameInput.getText());
-        user.setPassword(mPasswordInput.getText());
-        user.setPhoneNumber(mMobileInput.getText());
-        bundle.putSerializable(Constant.Key.UserInfo, (Serializable) user);
-        intent.putExtras(bundle);
-        setResult(RESULT_OK, intent);
-        onBackPressed();
+        dialog.setContentView(R.layout.dialog_confirm_verify_mobile);
+        dialog.show();
+
+        Button no = (Button) dialog.findViewById(R.id.no);
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                saveCache();
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                User user = new User();
+                user.setName(mUsernameInput.getText());
+                user.setPassword(mPasswordInput.getText());
+                bundle.putSerializable(Constant.Key.UserInfo, (Serializable) user);
+                intent.putExtras(bundle);
+                TLog.d("liubo", "name" + mUsernameInput.getText());
+                setResult(Constant.ResultCode.ResultOk, intent);
+                onBackPressed();
+            }
+        });
+
+        Button yes = (Button) dialog.findViewById(R.id.yes);
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                VerifyMobileFragment fragment = new VerifyMobileFragment();
+                getFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_content, fragment).commit();
+
+            }
+        });
+
+
+
+
+
 
     }
 
@@ -244,9 +211,8 @@ public class RegisterActivity extends BaseActivity {
                 mPasswordInput.getText().toString().trim());
         cache.saveValue(pvalue);
 
-        NameValue<String> mValue = new NameValue<>(Constant.User.mobile,
-                mMobileInput.getText().toString().trim());
-        cache.saveValue(mValue);
+
+        TLog.d("liubo", cache.getStringValue(Constant.User.mobile));
     }
 
 

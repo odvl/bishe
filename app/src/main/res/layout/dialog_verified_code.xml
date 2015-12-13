@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="请稍等，验证码可能有延迟."
+        android:textColor="@color/red" />
+
+    <EditText
+        android:id="@+id/code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/input_edit_bg"
+        android:hint="输入验证码"
+        android:inputType="number"
+        android:maxLength="7"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey500" />
+
+    <Button
+        android:id="@+id/send_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/selector_common_btn"
+        android:text="发送"
+        android:textColor="@color/red"
+        android:textSize="12sp" />
+
+</LinearLayout>

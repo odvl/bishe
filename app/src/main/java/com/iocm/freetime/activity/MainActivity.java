@@ -11,6 +11,7 @@ import com.iocm.freetime.base.TaskFragments;
 import com.iocm.freetime.fragment.LoginFragment;
 import com.iocm.freetime.fragment.MeFragment;
 import com.iocm.freetime.fragment.TaskCenterFragments;
+import com.iocm.freetime.util.CustomUtils;
 import com.iocm.freetime.util.NotificationHelper;
 import com.iocm.freetime.util.Setting;
 import com.iocm.freetime.wedgets.BottomBar;
@@ -103,7 +104,7 @@ public class MainActivity extends BaseActivity implements LoginFragment.OnLoginB
                     break;
                 }
                 case 1: {
-                    if (mSetting.getCache() == null) {
+                    if (!CustomUtils.checkUserLogin(MainActivity.this)) {
                         _fragment = new LoginFragment();
                         LoginFragment loginFragment = (LoginFragment) _fragment;
                         loginFragment.setOnLoginBtnClickListener(MainActivity.this);

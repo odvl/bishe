@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.iocm.freetime.cache.Cache;
+import com.iocm.freetime.common.Constant;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,5 +74,10 @@ public class CustomUtils {
         Matcher m = p.matcher(mobiles);
         System.out.println(m.matches() + "---");
         return m.matches();
+    }
+
+    public static boolean checkUserLogin(Context context) {
+        Cache cache = Cache.getInstance(context);
+        return cache.getBooleanValue(Constant.User.login);
     }
 }

@@ -179,5 +179,6 @@ public class InputEditText extends RelativeLayout implements View.OnClickListene
 
     public void setText(String text) {
         mEditText.setText(text);
+        invalidate();
     }
 }

@@ -49,9 +49,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.iocm.freetime.activity.LoginActivity"
-            android:label="Yunxuan"></activity>
-        <activity
             android:name="com.iocm.freetime.activity.RegisterActivity"
             android:label="Yunxuan"
             android:theme="@style/Translation_Theme"></activity>

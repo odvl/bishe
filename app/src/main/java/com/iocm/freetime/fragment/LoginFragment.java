@@ -12,11 +12,18 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.RegisterActivity;
 import com.iocm.freetime.base.TaskFragments;
+import com.iocm.freetime.bean.NameValue;
 import com.iocm.freetime.bean.User;
+import com.iocm.freetime.cache.Cache;
 import com.iocm.freetime.common.Constant;
+import com.iocm.freetime.util.CustomUtils;
 import com.iocm.freetime.util.Setting;
 import com.iocm.freetime.wedgets.InputEditText;
 
@@ -26,7 +33,6 @@ import com.iocm.freetime.wedgets.InputEditText;
 public class LoginFragment extends TaskFragments implements View.OnClickListener {
     private static final String TAG = LoginFragment.class.getName();
 
-    private Setting mSetting;
 
     private View mLoginContent;
 
@@ -35,7 +41,7 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
 
     private Button mLoginBtn;
     private TextView mRegisterBtn;
-    private User mUser;
+    private String mUsername;
 
 
     @Nullable
@@ -48,7 +54,7 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
     }
 
     private void init() {
-        mSetting = Setting.getInstance(getActivity());
+
     }
 
     private void setupViewInLogin(View root) {
@@ -69,7 +75,6 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
     }
 
     private void loadLayoutAnimation() {
-
         mLoginContent.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
@@ -90,9 +95,7 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
         switch (view.getId()) {
 
             case R.id.login: {
-                accessNetWork();
-                saveCache();
-                jumpFragment();
+                login();
                 break;
             }
             case R.id.register: {
@@ -105,15 +108,34 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
         }
     }
 
+    private void login() {
+        accessNetWork();
+        AVUser.logInInBackground(mUsernameInput.getText().toString(), mPasswordInput.getText().toString(), new LogInCallback<AVUser>() {
+            @Override
+            public void done(AVUser avUser, AVException e) {
+                if (null != avUser) {
+                    saveCache();
+                    CustomUtils.showToast(getActivity(), "登陆成功");
+                    jumpFragment();
+                } else {
+                    CustomUtils.showToast(getActivity(), "用户名或密码错误");
+                    return;
+                }
+            }
+        });
+
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.RequestCode.RegisterCode &&
                 resultCode == Constant.ResultCode.ResultOk) {
-            Bundle bundle  = data.getBundleExtra(Constant.Key.UserInfo);
-            mUser = (User) bundle.getSerializable(Constant.Key.UserInfo);
-            mSetting.setCache(mUser);
+            Bundle bundle = data.getExtras();
+            User mUser = (User) bundle.getSerializable(Constant.Key.UserInfo);
+            mUsername  = mUser.getName();
+            saveCache();
 
             if (mOnLoginBtnClickListener != null) {
                 mOnLoginBtnClickListener.onLoginBtnClick();
@@ -125,8 +147,6 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
         if (mOnLoginBtnClickListener != null) {
             mOnLoginBtnClickListener.onLoginBtnClick();
         }
-
-
     }
 
     private void accessNetWork() {
@@ -134,10 +154,14 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
     }
 
     private void saveCache() {
-        User user = new User();
-        user.setName(mUsernameInput.getText());
-        user.setPassword(mPasswordInput.getText());
-        mSetting.setCache(user);
+        Cache cache = Cache.getInstance(getActivity());
+        NameValue nameValue = new NameValue(Constant.User.username, mUsername);
+        cache.saveValue(nameValue);
+
+        NameValue nameValue1 = new NameValue(Constant.User.login, true);
+        cache.saveValue(nameValue1);
+
+
     }
 
     private OnLoginBtnClickListener mOnLoginBtnClickListener;

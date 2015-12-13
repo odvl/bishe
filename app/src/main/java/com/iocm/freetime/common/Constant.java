@@ -79,6 +79,7 @@ public final class Constant {
         public static final String username = "username";
         public static final String password = "password";
         public static final String mobile = "mobile";
+        public static final String login = "login";
     }
 
 }

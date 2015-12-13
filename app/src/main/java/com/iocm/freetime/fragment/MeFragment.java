@@ -18,7 +18,10 @@ import com.iocm.freetime.activity.CollectionsTaskActivity;
 import com.iocm.freetime.activity.UserApplyedActivity;
 import com.iocm.freetime.activity.CreatedTaskListActivity;
 import com.iocm.freetime.base.TaskFragments;
+import com.iocm.freetime.bean.NameValue;
 import com.iocm.freetime.bean.User;
+import com.iocm.freetime.cache.Cache;
+import com.iocm.freetime.common.Constant;
 import com.iocm.freetime.util.Setting;
 import com.ozn.circleimage.CircleImageView;
 
@@ -27,7 +30,7 @@ import com.ozn.circleimage.CircleImageView;
  */
 public class MeFragment extends TaskFragments implements View.OnClickListener {
 
-    private Setting mSetting;
+
 
     private CircleImageView mUserPhoto;
     private TextView mUsername;
@@ -38,8 +41,9 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
     private TextView mUserCollect;
 
     private View mMeContent;
-    private User mUser;
 
+
+    Cache mCache;
     private CustomDialogFragment mProgressDialogFragment;
 
     private UpdateUserInfoTask mUpdateUserInfoTask;
@@ -56,11 +60,13 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
     }
 
     private void init() {
+        mCache = Cache.getInstance(getActivity());
 
-        mSetting = Setting.getInstance(getActivity());
-        mUser = mSetting.getCache();
+
+
+
         mUpdateUserInfoTask = new UpdateUserInfoTask();
-        mUpdateUserInfoTask.execute(mUser.getUserPhoto() == null ? R.drawable.bestican_teaser : Integer.parseInt(mUser.getUserPhoto()));
+        mUpdateUserInfoTask.execute(null == null ? R.drawable.bestican_teaser : Integer.parseInt("0"));
 
     }
 
@@ -80,8 +86,8 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
         mUserCollect.setOnClickListener(MeFragment.this);
 
 
-        mUserMobile.setText(mUser.getPhoneNumber());
-        mUsername.setText(mUser.getName());
+        mUserMobile.setText(mCache.getStringValue(Constant.User.username));
+        mUsername.setText(mCache.getStringValue(Constant.User.username));
     }
 
     /**
@@ -136,7 +142,8 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //清除用户信息，跳转界面
-                        mSetting.remooveCache();
+                        NameValue<Boolean> value = new NameValue<Boolean>(Constant.User.login, false);
+                        mCache.saveValue(value);
                         if (mLogoutClickListener != null) {
                             mLogoutClickListener.logoutClick();
                         }
