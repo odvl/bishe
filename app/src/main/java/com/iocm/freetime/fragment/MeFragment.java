@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.CollectionsTaskActivity;
 import com.iocm.freetime.activity.UserApplyedActivity;
@@ -144,6 +145,7 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
                         //清除用户信息，跳转界面
                         NameValue<Boolean> value = new NameValue<Boolean>(Constant.User.login, false);
                         mCache.saveValue(value);
+                        AVUser.logOut();
                         if (mLogoutClickListener != null) {
                             mLogoutClickListener.logoutClick();
                         }

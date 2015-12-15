@@ -80,6 +80,22 @@ public final class Constant {
         public static final String password = "password";
         public static final String mobile = "mobile";
         public static final String login = "login";
+        public static final String userId = "userId";
+    }
+
+    public static final class LeancloundTable {
+        public static final class TaskTable {
+            public static final String tableName = "TaskTable"; //表名
+            public static final String userId = "userId"; // 发布者的Id
+            public static final String taskTitle = "taskTitle"; //任务名称
+            public static final String taskDetail = "taskDetail"; //任务详情
+            public static final String taskBeginTime = "beginTime"; //开始时间
+            public static final String taskEndTime = "endTime"; //结束时间
+            public static final String taskLatitude = "latitude"; //经纬度
+            public static final String taskLongitude = "longitude";
+            public static final String taskMobile = "mobile"; //电话
+
+        }
     }
 
 }

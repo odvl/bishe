@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.avos.avoscloud.AVUser;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.base.TaskFragments;
 import com.iocm.freetime.fragment.LoginFragment;
@@ -14,6 +15,7 @@ import com.iocm.freetime.fragment.TaskCenterFragments;
 import com.iocm.freetime.util.CustomUtils;
 import com.iocm.freetime.util.NotificationHelper;
 import com.iocm.freetime.util.Setting;
+import com.iocm.freetime.util.TLog;
 import com.iocm.freetime.wedgets.BottomBar;
 
 /**

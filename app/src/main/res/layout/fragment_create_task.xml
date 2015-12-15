@@ -142,12 +142,12 @@
             android:layout_above="@+id/text_view5"
             android:layout_alignLeft="@+id/mobile"
             android:layout_alignRight="@+id/mobile"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
             android:layout_alignTop="@+id/text_view4"
             android:layout_marginBottom="10dp"
             android:background="@drawable/edt_bg"
-            android:gravity="left" />
+            android:gravity="left"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp" />
 
         <TextView
             android:id="@+id/text_view5"
@@ -164,14 +164,26 @@
             android:text="位置"
             android:textSize="15sp" />
 
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/text_view5"
+            android:layout_alignLeft="@+id/mobile"
+            android:maxLength="8"
+            android:maxLines="1"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
 
         <ImageView
             android:id="@+id/set_location"
-            android:layout_width="25dp"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_above="@+id/release_task"
             android:layout_alignBottom="@+id/text_view5"
-            android:layout_alignLeft="@+id/mobile"
             android:layout_alignRight="@+id/task_detail"
             android:layout_alignTop="@+id/text_view5"
             android:layout_toRightOf="@+id/text_view5"

@@ -29,6 +29,8 @@
             android:layout_alignLeft="@+id/mobile"
             android:layout_alignRight="@+id/mobile"
             android:layout_below="@+id/mobile"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
             android:background="@color/white"
             app:hint="昵称"></com.iocm.freetime.wedgets.InputEditText>
@@ -40,6 +42,8 @@
             android:layout_alignLeft="@+id/mobile"
             android:layout_alignRight="@+id/mobile"
             android:layout_below="@+id/username"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
             android:background="@color/white"
             app:hint="密码"

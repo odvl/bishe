@@ -7,9 +7,18 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.activeandroid.util.Log;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.SaveCallback;
 import com.iocm.administrator.freetime.R;
+import com.iocm.freetime.common.Constant;
+import com.iocm.freetime.util.CustomUtils;
+import com.iocm.freetime.util.TLog;
 
 import java.util.Calendar;
 
@@ -19,21 +28,22 @@ import java.util.Calendar;
 public class CreateTaskActivity extends BaseActivity {
 
     //初始化控件
-    
+
     private EditText taskNameEditText;
     private EditText mobileEditText;
     private EditText taskDetailEditText;
-    
+
     private Button setBeginTimeButton;
     private Button setEndTimeButton;
     private Button createTaskButton;
-    
+
     private ImageView setLocationImageView;
 
+    private TextView location;
+
     //活动属性
-    
+
     private String titleMsg = null;
-    private String bodyMsg = null;
     private String beginTimeMsg = null;
     private String endTimeMsg = null;
     private String phonenumberMsg = null;
@@ -42,8 +52,8 @@ public class CreateTaskActivity extends BaseActivity {
 
     private String locationName = null;
     private String locationAddress = null;
-    private Double locationLatitude;
-    private Double locationLongitude;
+    private Double locationLatitude = -1.0;
+    private Double locationLongitude = -1.0;
 
 
     private Calendar calendar = Calendar.getInstance();
@@ -60,16 +70,17 @@ public class CreateTaskActivity extends BaseActivity {
     @Override
     void initView() {
         setContentView(R.layout.fragment_create_task);
-        
+
         taskNameEditText = (EditText) findViewById(R.id.task_name);
         mobileEditText = (EditText) findViewById(R.id.mobile);
         taskDetailEditText = (EditText) findViewById(R.id.task_detail);
-        
+
         setBeginTimeButton = (Button) findViewById(R.id.set_start_time_btn);
         setEndTimeButton = (Button) findViewById(R.id.set_end_time_btn);
         createTaskButton = (Button) findViewById(R.id.release_task);
-        
+
         setLocationImageView = (ImageView) findViewById(R.id.set_location);
+        location = (TextView) findViewById(R.id.location);
 
 
     }
@@ -156,50 +167,47 @@ public class CreateTaskActivity extends BaseActivity {
         createTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean regTag = true;
 
-//                 titleMsg = title.getText().toString();
-//                 bodyMsg = body.getText().toString();
-//                 phonenumberMsg = phonenumber.getText().toString();
-//                Msgmsg = Msg.getText().toString();
-//
-//                if(titleMsg.equals("")||titleMsg == null) {
-//                    Toast.makeText(getActivity(),"活动名称不能为空",Toast.LENGTH_SHORT).show();
-//                    getFocus(title);
-//                    regTag = false;
-//                    return;
-//                }
-//
-//
-//                if(beginTimeMsg == null) {
-//                    Toast.makeText(getActivity(), "开始时间没有设置吧", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                if(endTimeMsg == null ) {
-//                    Toast.makeText(getActivity(),"结束时间忘了设置吧", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if(phonenumberMsg == null||phonenumberMsg.equals("")){
-//                    Toast.makeText(getActivity(),"请输入联系方式",Toast.LENGTH_SHORT).show();
-//                    getFocus(phonenumber);
-//                    regTag = false;
-//                    return;
-//                }
-//
-//                if(Msgmsg == null || Msgmsg.equals("")) {
-//                    Toast.makeText(getActivity(),"您的活动内容貌似为空吧",Toast.LENGTH_SHORT).show();;
-//                    getFocus(Msg);
-//                    regTag = false;
-//                    return;
-//                }
-//                if(regTag) {
-//                    //
-//                    Log.i("tag","dddd");
-//
-//                }
+                titleMsg = taskNameEditText.getText().toString();
+                Msgmsg = taskDetailEditText.getText().toString();
+                phonenumberMsg = mobileEditText.getText().toString();
+
+
+                if (titleMsg.equals("") || titleMsg == null) {
+                    Toast.makeText(getActivity(), "活动名称不能为空", Toast.LENGTH_SHORT).show();
+                    getFocus(taskNameEditText);
+                    return;
+                }
+
+
+                if (beginTimeMsg == null) {
+                    Toast.makeText(getActivity(), "开始时间没有设置吧", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (endTimeMsg == null) {
+                    Toast.makeText(getActivity(), "结束时间忘了设置吧", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (phonenumberMsg == null || phonenumberMsg.equals("")) {
+                    Toast.makeText(getActivity(), "请输入联系方式", Toast.LENGTH_SHORT).show();
+                    getFocus(mobileEditText);
+                    return;
+                }
+
+                if (Msgmsg == null || Msgmsg.equals("")) {
+                    Toast.makeText(getActivity(), "您的活动内容貌似为空吧", Toast.LENGTH_SHORT).show();
+                    getFocus(taskDetailEditText);
+                    return;
+                }
+
+                if (locationLatitude == -1.0 || locationLongitude == -1.0) {
+                    return;
+                }
+
                 IssueActivity();
-                Toast.makeText(getActivity(), "发布成功", Toast.LENGTH_SHORT).show();
+
+
             }
         });
 
@@ -207,6 +215,30 @@ public class CreateTaskActivity extends BaseActivity {
 
     //    发布活动
     private void IssueActivity() {
+
+        AVObject task = new AVObject(Constant.LeancloundTable.TaskTable.tableName);
+
+        task.put(Constant.LeancloundTable.TaskTable.taskTitle, taskNameEditText.getText().toString());
+        task.put(Constant.LeancloundTable.TaskTable.userId, cache.getStringValue(Constant.User.userId));
+        task.put(Constant.LeancloundTable.TaskTable.taskDetail, taskDetailEditText.getText().toString());
+        task.put(Constant.LeancloundTable.TaskTable.taskMobile, mobileEditText.getText().toString());
+        task.put(Constant.LeancloundTable.TaskTable.taskBeginTime, beginTimeMsg);
+        task.put(Constant.LeancloundTable.TaskTable.taskEndTime, endTimeMsg);
+        task.put(Constant.LeancloundTable.TaskTable.taskLatitude, locationLatitude);
+        task.put(Constant.LeancloundTable.TaskTable.taskLongitude, locationLongitude);
+
+        task.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if (null == e) {
+                    CustomUtils.showToast(mContext, "发布成功");
+                    finish();
+                } else {
+                    e.printStackTrace();
+                    CustomUtils.showToast(mContext, "发布失败");
+                }
+            }
+        });
 
     }
 
@@ -236,12 +268,12 @@ public class CreateTaskActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2 && resultCode == 2) {
 
+
             locationName = data.getStringExtra("name");
             locationAddress = data.getStringExtra("address");
+            location.setText(locationName + "附近");
             locationLatitude = data.getDoubleExtra("mlatitude", 0);
             locationLongitude = data.getDoubleExtra("mlongitude", 0);
-//            Toast.makeText(getActivity(),data.getStringExtra("name")+":"+data.getStringExtra("address")
-//                    +":"+data.getDoubleExtra("mlatitude",0)+":"+data.getDoubleExtra("mlongitude",0),Toast.LENGTH_SHORT).show();
         }
     }
 }

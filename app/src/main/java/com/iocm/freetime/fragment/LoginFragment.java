@@ -134,9 +134,20 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
                 resultCode == Constant.ResultCode.ResultOk) {
             Bundle bundle = data.getExtras();
             User mUser = (User) bundle.getSerializable(Constant.Key.UserInfo);
-            mUsername  = mUser.getName();
-            saveCache();
-
+            mUsername = mUser.getName();
+            AVUser.logInInBackground(mUser.getName(), mUser.getPassword(), new LogInCallback<AVUser>() {
+                @Override
+                public void done(AVUser avUser, AVException e) {
+                    if (null != avUser) {
+                        saveCache();
+                        CustomUtils.showToast(getActivity(), "登陆成功");
+                        jumpFragment();
+                    } else {
+                        CustomUtils.showToast(getActivity(), "用户名或密码错误");
+                        return;
+                    }
+                }
+            });
             if (mOnLoginBtnClickListener != null) {
                 mOnLoginBtnClickListener.onLoginBtnClick();
             }
@@ -161,6 +172,8 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
         NameValue nameValue1 = new NameValue(Constant.User.login, true);
         cache.saveValue(nameValue1);
 
+        NameValue nameValue2 = new NameValue(Constant.User.userId, AVUser.getCurrentUser().getObjectId());
+        cache.saveValue(nameValue2);
 
     }
 

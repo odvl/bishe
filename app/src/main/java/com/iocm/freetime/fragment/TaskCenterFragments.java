@@ -33,6 +33,7 @@ import com.iocm.freetime.base.RecyclerArray;
 import com.iocm.freetime.base.TaskFragments;
 import com.iocm.freetime.bean.Tasks;
 import com.iocm.freetime.common.Constant;
+import com.iocm.freetime.util.CustomUtils;
 import com.iocm.freetime.util.TLog;
 
 import java.io.Serializable;
@@ -108,6 +109,11 @@ public class TaskCenterFragments extends TaskFragments
 
     @Override
     public void onClick(View view) {
+        if (!CustomUtils.checkUserLogin(getActivity())) {
+            CustomUtils.showToast(getActivity(), "请先登陆。");
+            return;
+        }
+
         switch (view.getId()) {
             case R.id.input_edit_text: {
                 jumpActivity(SearchTaskActivity.class);
