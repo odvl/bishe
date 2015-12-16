@@ -1,5 +1,7 @@
 package com.iocm.freetime.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,10 +10,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.iocm.administrator.freetime.R;
+import com.iocm.freetime.base.ItemData;
 import com.iocm.freetime.bean.Tasks;
+import com.iocm.freetime.common.Constant;
+import com.iocm.freetime.util.TLog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by liubo on 15/12/5.
@@ -22,9 +33,14 @@ public class PersonalHomePageActivity extends BaseActivity {
 
     private RecyclerView taskRecyclerView;
 
-    private ArrayList<Tasks> list;
+    private ArrayList<Tasks> mList;
 
     private ImageView back;
+
+    private String mUserId;
+
+    private TextView name;
+    private TextView mobile;
 
 
     @Override
@@ -35,6 +51,9 @@ public class PersonalHomePageActivity extends BaseActivity {
         taskRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         back = (ImageView) findViewById(R.id.back);
+
+        name = (TextView) findViewById(R.id.name);
+        mobile = (TextView) findViewById(R.id.mobile);
 
 
     }
@@ -48,18 +67,57 @@ public class PersonalHomePageActivity extends BaseActivity {
 
     @Override
     void loadData() {
-        list = new ArrayList<>();
-        Tasks tasks = new Tasks("title", "body", "2015-11-21", "2015-11-1", "12345664", "name", null, "msg", 11.11,22.1,"build");
-        for (int i = 0 ; i< 10 ;i++)
-            list.add(tasks);
         taskRecyclerView.setAdapter(new PersonalHomePageAdapter());
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        mUserId = bundle.getString(Constant.Key.UserId);
+
+        mList = new ArrayList<>();
+        AVQuery<AVUser> userQ = new AVQuery("_User");
+
+        userQ.whereEqualTo("objectId", mUserId);
+        TLog.d(Constant.TAG, "size userId " + mUserId);
+
+        userQ.findInBackground(new FindCallback<AVUser>() {
+            @Override
+            public void done(List<AVUser> list, AVException e) {
+                name.setText(list.get(0).getUsername());
+            }
+        });
+        AVQuery<AVObject> query = new AVQuery<>(Constant.LeancloundTable.TaskTable.tableName);
+        query.orderByDescending("createdAt");
+        query.whereEqualTo(Constant.LeancloundTable.TaskTable.userId, mUserId);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                for (int i = 0; i < list.size(); i++) {
+                    AVObject object = list.get(i);
+                    Tasks tasks = new Tasks();
+                    tasks.setObjectId(object.getObjectId());
+                    tasks.setUserId(object.getString(Constant.LeancloundTable.TaskTable.userId));
+                    tasks.setTitle(object.getString(Constant.LeancloundTable.TaskTable.taskTitle));
+                    tasks.setBody(object.getString(Constant.LeancloundTable.TaskTable.taskDetail));
+                    tasks.setBeginTime(object.getString(Constant.LeancloundTable.TaskTable.taskBeginTime));
+                    tasks.setEndTime(object.getString(Constant.LeancloundTable.TaskTable.taskEndTime));
+                    tasks.setLatitude(object.getNumber(Constant.LeancloundTable.TaskTable.taskLatitude).doubleValue());
+                    tasks.setLongitude(object.getNumber(Constant.LeancloundTable.TaskTable.taskLongitude).doubleValue());
+                    tasks.setPhoneNumber(object.getString(Constant.LeancloundTable.TaskTable.taskMobile));
+                    tasks.setName(object.getString(Constant.LeancloundTable.TaskTable.username));
+                    tasks.setJoinedNum(object.getNumber(Constant.LeancloundTable.TaskTable.joinedNum).intValue());
+                    mList.add(tasks);
+                }
+                taskRecyclerView.getAdapter().notifyDataSetChanged();
+            }
+        });
+
 
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id  == R.id.back) {
+        if (id == R.id.back) {
             onBackPressed();
         }
 
@@ -86,7 +144,7 @@ public class PersonalHomePageActivity extends BaseActivity {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             PersonalHomePageViewHolder vh = (PersonalHomePageViewHolder) holder;
-            Tasks tasks = list.get(position);
+            Tasks tasks = mList.get(position);
 
             vh.titleTextView.setText(tasks.getTitle());
             vh.bodyTextView.setText(tasks.getBody());
@@ -98,7 +156,7 @@ public class PersonalHomePageActivity extends BaseActivity {
 
         @Override
         public int getItemCount() {
-            return null == list ? 0 : list.size();
+            return null == mList ? 0 : mList.size();
         }
 
         class PersonalHomePageViewHolder extends RecyclerView.ViewHolder {

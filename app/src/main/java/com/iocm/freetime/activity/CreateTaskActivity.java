@@ -226,6 +226,8 @@ public class CreateTaskActivity extends BaseActivity {
         task.put(Constant.LeancloundTable.TaskTable.taskEndTime, endTimeMsg);
         task.put(Constant.LeancloundTable.TaskTable.taskLatitude, locationLatitude);
         task.put(Constant.LeancloundTable.TaskTable.taskLongitude, locationLongitude);
+        task.put(Constant.LeancloundTable.TaskTable.username, cache.getStringValue(Constant.User.username));
+        task.put(Constant.LeancloundTable.TaskTable.joinedNum, 0);
 
         task.saveInBackground(new SaveCallback() {
             @Override

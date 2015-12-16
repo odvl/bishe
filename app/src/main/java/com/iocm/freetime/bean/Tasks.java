@@ -10,7 +10,18 @@ import java.io.Serializable;
  * Created by liubo on 2015/1/24.
  */
 @Table(name = "Tasks")
-public class Tasks  extends Model implements Serializable {
+public class Tasks extends Model implements Serializable {
+
+    @Column(name = "objectId")
+    public String objectId;
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
 
     @Column(name = "userId")
     public String userId;
@@ -139,7 +150,7 @@ public class Tasks  extends Model implements Serializable {
 //                ", name='" + name + '\'' +
 //                ", type=" + type +
 //                '}';
-        return name+"@"+title+"@"+body+"@"+beginTime+"@"+endTime+"@"+phoneNumber+"@"+type+"@"+msg+"@"+build+"@"+latitude+"@"+longitude;
+        return name + "@" + title + "@" + body + "@" + beginTime + "@" + endTime + "@" + phoneNumber + "@" + type + "@" + msg + "@" + build + "@" + latitude + "@" + longitude;
     }
 
     public Type getType() {

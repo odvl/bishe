@@ -5,6 +5,7 @@ package com.iocm.freetime.common;
  */
 public final class Constant {
 
+    public static final String TAG = "liubo";
     //任务类型
     public static final class TaskType {
 
@@ -85,6 +86,7 @@ public final class Constant {
 
     public static final class LeancloundTable {
         public static final class TaskTable {
+            public static final String objectId = "objectId";
             public static final String tableName = "TaskTable"; //表名
             public static final String userId = "userId"; // 发布者的Id
             public static final String taskTitle = "taskTitle"; //任务名称
@@ -94,6 +96,8 @@ public final class Constant {
             public static final String taskLatitude = "latitude"; //经纬度
             public static final String taskLongitude = "longitude";
             public static final String taskMobile = "mobile"; //电话
+            public static final String username = "username"; // 用户名
+            public static final String joinedNum = "joinedNum"; //参加人数
 
         }
     }

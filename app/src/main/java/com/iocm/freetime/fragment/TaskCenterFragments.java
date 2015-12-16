@@ -22,6 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.CreateTaskActivity;
 import com.iocm.freetime.activity.MessageCenterActivity;
@@ -72,8 +77,34 @@ public class TaskCenterFragments extends TaskFragments
     }
 
     private void loadData() {
+
+        AVQuery<AVObject> query = new AVQuery<>(Constant.LeancloundTable.TaskTable.tableName);
+        query.orderByDescending("createdAt");
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                mItemArray.clear();
+                for (int i = 0; i < list.size(); i++) {
+                    AVObject object = list.get(i);
+                    Tasks tasks = new Tasks();
+                    tasks.setObjectId(object.getObjectId());
+                    tasks.setUserId(object.getString(Constant.LeancloundTable.TaskTable.userId));
+                    tasks.setTitle(object.getString(Constant.LeancloundTable.TaskTable.taskTitle));
+                    tasks.setBody(object.getString(Constant.LeancloundTable.TaskTable.taskDetail));
+                    tasks.setBeginTime(object.getString(Constant.LeancloundTable.TaskTable.taskBeginTime));
+                    tasks.setEndTime(object.getString(Constant.LeancloundTable.TaskTable.taskEndTime));
+                    tasks.setLatitude(object.getNumber(Constant.LeancloundTable.TaskTable.taskLatitude).doubleValue());
+                    tasks.setLongitude(object.getNumber(Constant.LeancloundTable.TaskTable.taskLongitude).doubleValue());
+                    tasks.setPhoneNumber(object.getString(Constant.LeancloundTable.TaskTable.taskMobile));
+                    tasks.setName(object.getString(Constant.LeancloundTable.TaskTable.username));
+                    tasks.setJoinedNum(object.getNumber(Constant.LeancloundTable.TaskTable.joinedNum).intValue());
+                    mItemArray.add(new ItemData<Tasks>(0, tasks));
+
+                }
+                mRecyclerView.getAdapter().notifyDataSetChanged();
+            }
+        });
         mLikeList = new Select().from(Tasks.class).where("like = ?", true).execute();
-        Log.d("liubo", "mLikeList size" + mLikeList.size());
     }
 
     public void move2Top() {
@@ -101,10 +132,6 @@ public class TaskCenterFragments extends TaskFragments
 
     private void init() {
         mItemArray = new RecyclerArray();
-        for (int i = 0; i < 100; i++) {
-            Tasks _task = new Tasks("title", "body", "begintime", "endeTime", "pho", "name", Tasks.Type.MATCH, "msg", 22.22, 33.22, "build");
-            mItemArray.add(new ItemData<Tasks>(0, _task));
-        }
     }
 
     @Override
@@ -188,7 +215,6 @@ public class TaskCenterFragments extends TaskFragments
             }
 
 
-
         }
     }
 
@@ -215,6 +241,7 @@ public class TaskCenterFragments extends TaskFragments
     @Override
     public void onResume() {
         super.onResume();
+        loadData();
     }
 
     private void jumpActivity(Class clazz, Bundle bundle) {
@@ -254,6 +281,7 @@ public class TaskCenterFragments extends TaskFragments
             _vh.mUsername.setText(_task.getName());
             _vh.mTaskName.setText(_task.getTitle());
             _vh.mTaskContent.setText(_task.getBody());
+            _vh.mTaskPeopleJoinNum.setText(String.format(getString(R.string.joined_person_num), _task.getJoinedNum()));
 
         }
 
