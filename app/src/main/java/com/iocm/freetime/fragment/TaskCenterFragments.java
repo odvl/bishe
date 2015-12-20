@@ -98,6 +98,7 @@ public class TaskCenterFragments extends TaskFragments
                     tasks.setPhoneNumber(object.getString(Constant.LeancloundTable.TaskTable.taskMobile));
                     tasks.setName(object.getString(Constant.LeancloundTable.TaskTable.username));
                     tasks.setJoinedNum(object.getNumber(Constant.LeancloundTable.TaskTable.joinedNum).intValue());
+                    tasks.setBuild(object.getString(Constant.LeancloundTable.TaskTable.build));
                     mItemArray.add(new ItemData<Tasks>(0, tasks));
 
                 }

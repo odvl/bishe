@@ -46,10 +46,35 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/text_view1"
+            android:id="@+id/tv_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_text1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:singleLine="true"
+            android:text="标     题 :"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tv_text2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/tv_text2"
+            android:background="@drawable/edt_bg"
+            android:lineSpacingExtra="5dp"
+            android:text="stringssext"
+            android:textColor="@color/black"
+            android:textSize="15sp"  />
+
+        <TextView
+            android:id="@+id/text_view1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_text2"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:text="任务详情"

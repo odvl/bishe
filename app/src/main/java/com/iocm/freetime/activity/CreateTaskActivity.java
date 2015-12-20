@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.activeandroid.util.Log;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
@@ -218,16 +219,22 @@ public class CreateTaskActivity extends BaseActivity {
 
         AVObject task = new AVObject(Constant.LeancloundTable.TaskTable.tableName);
 
+        AVGeoPoint point = new AVGeoPoint();
+        point.setLatitude(locationLatitude);
+        point.setLongitude(locationLongitude);
+
         task.put(Constant.LeancloundTable.TaskTable.taskTitle, taskNameEditText.getText().toString());
         task.put(Constant.LeancloundTable.TaskTable.userId, cache.getStringValue(Constant.User.userId));
         task.put(Constant.LeancloundTable.TaskTable.taskDetail, taskDetailEditText.getText().toString());
         task.put(Constant.LeancloundTable.TaskTable.taskMobile, mobileEditText.getText().toString());
         task.put(Constant.LeancloundTable.TaskTable.taskBeginTime, beginTimeMsg);
         task.put(Constant.LeancloundTable.TaskTable.taskEndTime, endTimeMsg);
-        task.put(Constant.LeancloundTable.TaskTable.taskLatitude, locationLatitude);
-        task.put(Constant.LeancloundTable.TaskTable.taskLongitude, locationLongitude);
+        task.put(Constant.LeancloundTable.TaskTable.point, point);
         task.put(Constant.LeancloundTable.TaskTable.username, cache.getStringValue(Constant.User.username));
         task.put(Constant.LeancloundTable.TaskTable.joinedNum, 0);
+        task.put(Constant.LeancloundTable.TaskTable.build, locationAddress +"附近");
+
+
 
         task.saveInBackground(new SaveCallback() {
             @Override

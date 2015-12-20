@@ -92,4 +92,11 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
         }
     }
 
+    public void jumpActivity(Class clazz, Bundle bundle) {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), clazz);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
 }

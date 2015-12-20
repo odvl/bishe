@@ -2,11 +2,11 @@ package com.iocm.freetime.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -15,12 +15,13 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.overlayutil.TransitRouteOverlay;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
@@ -32,13 +33,15 @@ import com.baidu.mapapi.search.route.DrivingRouteResult;
 import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
 import com.baidu.mapapi.search.route.PlanNode;
 import com.baidu.mapapi.search.route.RoutePlanSearch;
-import com.baidu.mapapi.search.route.TransitRouteLine;
 import com.baidu.mapapi.search.route.TransitRoutePlanOption;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
-import com.baidu.nplatform.comapi.basestruct.GeoPoint;
+import com.baidu.mapapi.utils.route.BaiduMapRoutePlan;
+import com.baidu.mapapi.utils.route.RouteParaOption;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.bean.LocationInfo;
+import com.iocm.freetime.common.Constant;
+import com.iocm.freetime.util.TLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +58,7 @@ public class MapActivity extends BaseActivity {
 
 
     //添加覆盖物
-//    private BitmapDescriptor mBitmapDescriptor;
+    private BitmapDescriptor mBitmapDescriptor;
     private LocationInfo locationInfo = new LocationInfo();
     private LinearLayout mMarkerLayout;
     private Context context;
@@ -80,6 +83,7 @@ public class MapActivity extends BaseActivity {
     private PoiSearch poiSearch;
 
     OnGetRoutePlanResultListener listener = new OnGetRoutePlanResultListener() {
+
         public void onGetWalkingRouteResult(WalkingRouteResult result) {
             //
         }
@@ -97,55 +101,58 @@ public class MapActivity extends BaseActivity {
                 return;
             }
             if (result.error == SearchResult.ERRORNO.NO_ERROR) {
+                TLog.d(Constant.TAG, "lis");
 
                 List<String> hotelName = new ArrayList<String>();
-                List<GeoPoint> JWpoints = new ArrayList<GeoPoint>();
-                List<TransitRouteLine> line = result.getRouteLines();
-                for (int i = 0; i < 1; i++) {
-                    List<TransitRouteLine.TransitStep> line2 = line.get(i).getAllStep();
-                    for (int k = 0; k < line2.size(); k++) {
-                        System.out.println("1：：：" + line2.get(k).getInstructions());
-                        System.out.println("2：：：" + line2.get(k).getEntrace());
-                        System.out.println("3：：：" + line2.get(k).getExit());
-                        System.out.println("4：：：" + line2.get(k).getStepType());
-                        System.out.println("5：：：" + line2.get(k).getVehicleInfo());
-                        System.out.println("6：：：" + line2.get(k).getWayPoints());
-                        System.out.println("7：：：" + line2.get(k).toString());
-                        System.out.println("________________________________________");
-                        lineList.add(line2.get(k).getInstructions());
-
-                    }
-
-                    TextView s = (TextView) findViewById(R.id.text_show_location_msg);
-                    if (lineList.size() != 0) {
-                        s.setText(lineList.toString());
-                    } else {
-                        s.setText("未找到合适线路");
-                    }
-//                    Toast.makeText(MapActivity.this,"luxian:"+lineList.toString(),Toast.LENGTH_SHORT).show();
-                }
-
-//                for (MKPoiInfo info : result.getAllPoi()) {
-//                    System.out.println("搜索结果位置信息:" + info.address);
-//                    System.out.println("搜索结果城市信息:" + info.city);
-//                    System.out.println("搜索结果name:" + info.name);
-//                    System.out.println("酒店联系电话:" + info.phoneNum);
-//                    System.out.println("搜索结果经纬度:" + info.pt);
-//                    System.out.println("搜索结果ePoiType:" + info.ePoiType);
-//                    bMapView.getController().animateTo(info.pt);
-//                    // 将搜索到的酒店添加到list里面
-//                    hotelName.add(info.name);
-//                    //把所有的点添加到list中
-//                    JWpoints.add(info.pt);
-//                    // break;
+//                List<GeoPoint> JWpoints = new ArrayList<GeoPoint>();
+//                List<TransitRouteLine> line = result.getRouteLines();
+//                for (int i = 0; i < 1; i++) {
+//                    List<TransitRouteLine.TransitStep> line2 = line.get(i).getAllStep();
+//                    for (int k = 0; k < line2.size(); k++) {
+//                        System.out.println("1：：：" + line2.get(k).getInstructions());
+//                        System.out.println("2：：：" + line2.get(k).getEntrace());
+//                        System.out.println("3：：：" + line2.get(k).getExit());
+//                        System.out.println("4：：：" + line2.get(k).getStepType());
+//                        System.out.println("5：：：" + line2.get(k).getVehicleInfo());
+//                        System.out.println("6：：：" + line2.get(k).getWayPoints());
+//                        System.out.println("7：：：" + line2.get(k).toString());
+//                        System.out.println("________________________________________");
+//                        lineList.add(line2.get(k).getInstructions());
+//
+//                    }
+//
+//                    TextView s = (TextView) findViewById(R.id.text_show_location_msg);
+//                    if (lineList.size() != 0) {
+//                        s.setText(lineList.toString());
+//                    } else {
+//                        s.setText("未找到合适线路");
+//                    }
+////                    Toast.makeText(MapActivity.this,"luxian:"+lineList.toString(),Toast.LENGTH_SHORT).show();
 //                }
-                TransitRouteOverlay overlay = new TransitRouteOverlay(baiduMap);
-                baiduMap.setOnMarkerClickListener(overlay);
-                overlay.setData(result.getRouteLines().get(0));
-                overlay.addToMap();
-                overlay.zoomToSpan();
-            }
+//
+////                for (MKPoiInfo info : result.getAllPoi()) {
+////                    System.out.println("搜索结果位置信息:" + info.address);
+////                    System.out.println("搜索结果城市信息:" + info.city);
+////                    System.out.println("搜索结果name:" + info.name);
+////                    System.out.println("酒店联系电话:" + info.phoneNum);
+////                    System.out.println("搜索结果经纬度:" + info.pt);
+////                    System.out.println("搜索结果ePoiType:" + info.ePoiType);
+////                    bMapView.getController().animateTo(info.pt);
+////                    // 将搜索到的酒店添加到list里面
+////                    hotelName.add(info.name);
+////                    //把所有的点添加到list中
+////                    JWpoints.add(info.pt);
+////                    // break;
+////                }
+//                TransitRouteOverlay overlay = new TransitRouteOverlay(baiduMap);
+//                baiduMap.setOnMarkerClickListener(overlay);
+//                overlay.setData(result.getRouteLines().get(0));
+//                overlay.addToMap();
+//                overlay.zoomToSpan();
+//            }
         }
+        }
+
 
         public void onGetDrivingRouteResult(DrivingRouteResult result) {
             //
@@ -196,6 +203,29 @@ public class MapActivity extends BaseActivity {
             public void onClick(View v) {
 
                 Toast.makeText(MapActivity.this, "正在获取线路，请稍等。", Toast.LENGTH_SHORT).show();
+
+//                // 天安门坐标
+//                double mLat1 = 39.915291;
+//                double mLon1 = 116.403857;
+//                // 百度大厦坐标
+//                double mLat2 = 40.056858;
+//                double mLon2 = 116.308194;
+//                LatLng pt_start = new LatLng(mLat1, mLon1);
+//                LatLng pt_end = new LatLng(mLat2, mLon2);
+//                // 构建 route搜索参数以及策略，起终点也可以用name构造
+//                RouteParaOption para = new RouteParaOption()
+//                        .startPoint(pt_start)
+//                        .endPoint(pt_end)
+//                        .busStrategyType(RouteParaOption.EBusStrategyType.bus_recommend_way);
+//                try {
+//                    BaiduMapRoutePlan.openBaiduMapTransitRoute(para, MapActivity.this);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                //结束调启功能时调用finish方法以释放相关资源
+//                BaiduMapRoutePlan.finish(MapActivity.this);
+//
+
                 mSearch = RoutePlanSearch.newInstance();
                 poiSearch = PoiSearch.newInstance();
                 poiSearch.setOnGetPoiSearchResultListener(onGetPoiSearchResultListener);
@@ -204,7 +234,7 @@ public class MapActivity extends BaseActivity {
                 PlanNode stNode = PlanNode.withCityNameAndPlaceName("杭州市", mLocationMsg);
                 PlanNode s = PlanNode.withLocation(new LatLng(mLatitude, mLongitude));
                 System.out.println("my location0 :" + mLocationMsg);
-                PlanNode enNode = PlanNode.withCityNameAndPlaceName("杭州市", endMsg);
+                PlanNode enNode = PlanNode.withCityNameAndPlaceName("杭州市", "六号大街二十五号路口");
                 mSearch.transitSearch((new TransitRoutePlanOption())
                         .from(s)
                         .city("杭州")
@@ -223,16 +253,19 @@ public class MapActivity extends BaseActivity {
 
     private void initDatas() {
         Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
         locationInfo.setAddress("sss");
-        locationInfo.setName("fff");
-        locationInfo.setLatitude(10.001);
-        locationInfo.setLongitude(100.100);
+        mLatitude = bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLatitude);
+        mLongitude = bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLongitude);
+        TLog.d("liubo", "build +" + bundle.getString(Constant.LeancloundTable.TaskTable.build) +" lll"+ bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLatitude));
+        locationInfo.setName(bundle.getString(Constant.LeancloundTable.TaskTable.build));
+        locationInfo.setLatitude(bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLatitude));
+        locationInfo.setLongitude(bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLongitude));
         endMsg = "hahh ";
-        // Toast.makeText(context,"address:"+locationInfo.getAddress(),Toast.LENGTH_SHORT).show();
     }
 
     private void initMarker() {
-//        mBitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.maker);
+        mBitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.maker);
         mMarkerLayout = (LinearLayout) findViewById(R.id.relativeLayout_dialog);
     }
 

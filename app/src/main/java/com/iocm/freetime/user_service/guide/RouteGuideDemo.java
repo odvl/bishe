@@ -4,30 +4,15 @@ package com.iocm.freetime.user_service.guide;
  * Created by Administrator on 2015/3/21.
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.baidu.navisdk.BaiduNaviManager;
-import com.baidu.navisdk.BNaviPoint;
-import com.baidu.navisdk.BaiduNaviManager.OnStartNavigationListener;
-import com.baidu.navisdk.comapi.routeplan.RoutePlanParams.NE_RoutePlan_Mode;
-import com.iocm.administrator.freetime.R;
 
 /**
  * GPS导航Demo
  */
-public class RouteGuideDemo extends Activity{
+public class RouteGuideDemo extends Activity {
+}
 
-    private BNaviPoint mStartPoint = new BNaviPoint(116.30142, 40.05087,
+ /*   private BNaviPoint mStartPoint = new BNaviPoint(116.30142, 40.05087,
             "百度大厦", BNaviPoint.CoordinateType.GCJ02);
     private BNaviPoint mEndPoint = new BNaviPoint(116.39750, 39.90882,
             "北京天安门", BNaviPoint.CoordinateType.GCJ02);
@@ -94,9 +79,9 @@ public class RouteGuideDemo extends Activity{
         }
     }
 
-    /**
+    *//**
      * 启动GPS导航. 前置条件：导航引擎初始化成功
-     */
+     *//*
     private void launchNavigator(){
         //这里给出一个起终点示例，实际应用中可以通过POI检索、外部POI来源等方式获取起终点坐标
         BaiduNaviManager.getInstance().launchNavigator(this,
@@ -120,10 +105,10 @@ public class RouteGuideDemo extends Activity{
                 });
     }
 
-    /**
+    *//**
      * 指定导航起终点启动GPS导航.起终点可为多种类型坐标系的地理坐标。
      * 前置条件：导航引擎初始化成功
-     */
+     *//*
     private void launchNavigator2(){
         //这里给出一个起终点示例，实际应用中可以通过POI检索、外部POI来源等方式获取起终点坐标
         BNaviPoint startPoint = new BNaviPoint(116.307854,40.055878,
@@ -151,10 +136,10 @@ public class RouteGuideDemo extends Activity{
                 });
     }
 
-    /**
+    *//**
      * 增加一个或多个途经点，启动GPS导航.
      * 前置条件：导航引擎初始化成功
-     */
+     *//*
     private void launchNavigatorViaPoints(){
         //这里给出一个起终点示例，实际应用中可以通过POI检索、外部POI来源等方式获取起终点坐标
 //        BNaviPoint startPoint = new BNaviPoint(113.97348, 22.53951, "白石洲");
@@ -185,3 +170,4 @@ public class RouteGuideDemo extends Activity{
                 });
     }
 }
+*/

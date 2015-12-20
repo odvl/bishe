@@ -3,33 +3,12 @@ package com.iocm.freetime.user_service.guide;
 /**
  * Created by Administrator on 2015/3/21.
  */
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import android.annotation.SuppressLint;
 import android.app.ListActivity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
-import com.baidu.lbsapi.auth.LBSAuthManagerListener;
-
-import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
-import com.baidu.navisdk.BaiduNaviManager;
-import com.baidu.navisdk.util.verify.BNKeyVerifyListener;
-import com.iocm.administrator.freetime.R;
 
 public class DemoMainActivity extends ListActivity {
-    /** SDK验证密钥 */
+}
+ /*   *//** SDK验证密钥 *//*
     private final static String ACCESS_KEY = "NX4p2vcBz1rq5SWGh6OSA2Ux";//"LVUOeu2yWl5uHwG6zewGwN0m";
     private static final String CATEGORY_SDK_DEMO = "android.intent.category.BAIDUNAVISDK_DEMO";
 
@@ -167,3 +146,4 @@ public class DemoMainActivity extends ListActivity {
 
 
 }
+*/

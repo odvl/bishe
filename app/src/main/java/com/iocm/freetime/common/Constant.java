@@ -93,11 +93,11 @@ public final class Constant {
             public static final String taskDetail = "taskDetail"; //任务详情
             public static final String taskBeginTime = "beginTime"; //开始时间
             public static final String taskEndTime = "endTime"; //结束时间
-            public static final String taskLatitude = "latitude"; //经纬度
-            public static final String taskLongitude = "longitude";
+            public static final String point = "point";
             public static final String taskMobile = "mobile"; //电话
             public static final String username = "username"; // 用户名
             public static final String joinedNum = "joinedNum"; //参加人数
+            public static final String build = "build"; //建筑物
 
         }
     }

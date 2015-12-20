@@ -1,29 +1,15 @@
 package com.iocm.freetime.user_service.guide;
 
 import android.app.Activity;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.view.View;
 
-import com.baidu.navisdk.BaiduNaviManager;
-import com.baidu.navisdk.comapi.mapcontrol.BNMapController;
-import com.baidu.navisdk.comapi.routeplan.BNRoutePlaner;
-import com.baidu.navisdk.comapi.tts.BNTTSPlayer;
-import com.baidu.navisdk.comapi.tts.BNavigatorTTSPlayer;
-import com.baidu.navisdk.comapi.tts.IBNTTSPlayerListener;
-import com.baidu.navisdk.model.datastruct.LocData;
-import com.baidu.navisdk.model.datastruct.RoutePlanNode;
-import com.baidu.navisdk.model.datastruct.SensorData;
-import com.baidu.navisdk.ui.routeguide.BNavigator;
-import com.baidu.navisdk.ui.routeguide.IBNavigatorListener;
-import com.baidu.navisdk.ui.widget.RoutePlanObserver;
-import com.baidu.nplatform.comapi.map.MapGLSurfaceView;
-
-/**
+/**ø
  * Created by Administrator on 2015/3/21.
  */
 public class BNavigatorActivity extends Activity {
 
+}
+
+/*
     private RoutePlanNode mRoutePlanModel;
 
     private IBNavigatorListener   mIBNavigatorListener  = new IBNavigatorListener() {
@@ -171,3 +157,4 @@ public class BNavigatorActivity extends Activity {
 
 
 }
+*/
