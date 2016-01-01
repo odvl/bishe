@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
 import com.iocm.administrator.freetime.R;
+import com.iocm.freetime.activity.AboutMeActivity;
 import com.iocm.freetime.activity.CollectionsTaskActivity;
 import com.iocm.freetime.activity.UserApplyedActivity;
 import com.iocm.freetime.activity.CreatedTaskListActivity;
@@ -24,13 +26,13 @@ import com.iocm.freetime.bean.User;
 import com.iocm.freetime.cache.Cache;
 import com.iocm.freetime.common.Constant;
 import com.iocm.freetime.util.Setting;
+import com.iocm.freetime.wedgets.dialog.CommonDialog;
 import com.ozn.circleimage.CircleImageView;
 
 /**
  * Created by liubo on 15/7/13.
  */
 public class MeFragment extends TaskFragments implements View.OnClickListener {
-
 
 
     private CircleImageView mUserPhoto;
@@ -40,6 +42,9 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
     private TextView mUserReleaseBtn;
     private TextView mUserApplyBtn;
     private TextView mUserCollect;
+    private TextView aboutMeTextView;
+    private TextView updateTextView;
+
 
     private View mMeContent;
 
@@ -64,8 +69,6 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
         mCache = Cache.getInstance(getActivity());
 
 
-
-
         mUpdateUserInfoTask = new UpdateUserInfoTask();
         mUpdateUserInfoTask.execute(null == null ? R.drawable.bestican_teaser : Integer.parseInt("0"));
 
@@ -85,6 +88,12 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
 
         mUserCollect = (TextView) root.findViewById(R.id.user_collect);
         mUserCollect.setOnClickListener(MeFragment.this);
+
+        aboutMeTextView = (TextView) root.findViewById(R.id.aboutMeTextView);
+        aboutMeTextView.setOnClickListener(MeFragment.this);
+
+        updateTextView = (TextView) root.findViewById(R.id.checkUpdateTextView);
+        updateTextView.setOnClickListener(MeFragment.this);
 
 
         mUserMobile.setText(mCache.getStringValue(Constant.User.username));
@@ -161,7 +170,27 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
                 jumpActivity(CollectionsTaskActivity.class);
                 break;
             }
+            case R.id.aboutMeTextView: {
+                jumpActivity(AboutMeActivity.class);
+                break;
+            }
+            case R.id.checkUpdateTextView: {
+                checkUpdate();
+                break;
+            }
         }
+    }
+
+    private void checkUpdate() {
+        final CommonDialog dialog = new CommonDialog(getActivity());
+        dialog.show();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 1000);
     }
 
     public void jumpActivity(Class clazz) {

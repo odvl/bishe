@@ -6,6 +6,7 @@ import android.app.Application;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 import com.avos.avoscloud.AVOSCloud;
+import com.iocm.freetime.bean.SearchHistory;
 import com.iocm.freetime.bean.Tasks;
 
 /**
@@ -17,7 +18,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Configuration.Builder configurationBuilder = new Configuration.Builder(this);
-        configurationBuilder.addModelClasses(Tasks.class);
+        configurationBuilder.addModelClasses(Tasks.class, SearchHistory.class);
         ActiveAndroid.initialize(configurationBuilder.create());
 
         //引入leanclound

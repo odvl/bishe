@@ -7,18 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.bean.Tasks;
 import com.iocm.freetime.common.Constant;
 import com.iocm.freetime.util.CustomUtils;
-import com.iocm.freetime.util.TLog;
 import com.iocm.freetime.wedgets.CommonToolBar;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
 
 import java.util.Calendar;
 
@@ -117,11 +111,10 @@ public class TaskDetailActivity extends BaseActivity {
         if (id == iv_call.getId()) {
             CustomUtils.makeCall(mContext, tv_mobile.getText().toString().trim());
         } else if (id == iv_location.getId()) {
-            TLog.d("liubo", "build +" + latitude);
 
             Bundle bundle = new Bundle();
-            bundle.putDouble(Constant.LeancloundTable.TaskTable.taskLatitude, latitude);
-            bundle.putDouble(Constant.LeancloundTable.TaskTable.taskLongitude, longitude);
+            bundle.putDouble("latitude", latitude);
+            bundle.putDouble("longitude", longitude);
             bundle.putString(Constant.LeancloundTable.TaskTable.build, build);
             jumpActivity(MapActivity.class, bundle);
 

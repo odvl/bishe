@@ -51,6 +51,26 @@ public class InputEditText extends RelativeLayout implements View.OnClickListene
         mEditText = (EditText) root.findViewById(R.id.edit_text);
         mDeleteView = (ImageView) root.findViewById(R.id.delete);
 
+        mEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s.toString())) {
+                    if (onClearListener != null) {
+                        onClearListener.onClear();
+                    }
+                }
+            }
+        });
         mDeleteView.setOnClickListener(this);
         mEditText.addTextChangedListener(this);
 
@@ -180,5 +200,15 @@ public class InputEditText extends RelativeLayout implements View.OnClickListene
     public void setText(String text) {
         mEditText.setText(text);
         invalidate();
+    }
+
+    OnClearListener onClearListener;
+
+    public void setOnClearListener(OnClearListener onClearListener) {
+        this.onClearListener = onClearListener;
+    }
+
+    public interface OnClearListener {
+        void onClear();
     }
 }

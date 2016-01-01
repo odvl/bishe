@@ -1,6 +1,5 @@
 package com.iocm.freetime.activity;
 
-import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,11 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
-import com.activeandroid.util.Log;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.bean.Tasks;
-import com.iocm.freetime.util.CustomUtils;
-import com.iocm.freetime.util.TLog;
 import com.iocm.freetime.wedgets.CommonToolBar;
 
 import java.util.List;

@@ -1,7 +1,5 @@
 package com.iocm.freetime.fragment;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -9,10 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +21,6 @@ import com.activeandroid.query.Select;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.CreateTaskActivity;
@@ -39,7 +34,6 @@ import com.iocm.freetime.base.TaskFragments;
 import com.iocm.freetime.bean.Tasks;
 import com.iocm.freetime.common.Constant;
 import com.iocm.freetime.util.CustomUtils;
-import com.iocm.freetime.util.TLog;
 
 import java.io.Serializable;
 import java.util.List;
@@ -83,26 +77,28 @@ public class TaskCenterFragments extends TaskFragments
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
-                mItemArray.clear();
-                for (int i = 0; i < list.size(); i++) {
-                    AVObject object = list.get(i);
-                    Tasks tasks = new Tasks();
-                    tasks.setObjectId(object.getObjectId());
-                    tasks.setUserId(object.getString(Constant.LeancloundTable.TaskTable.userId));
-                    tasks.setTitle(object.getString(Constant.LeancloundTable.TaskTable.taskTitle));
-                    tasks.setBody(object.getString(Constant.LeancloundTable.TaskTable.taskDetail));
-                    tasks.setBeginTime(object.getString(Constant.LeancloundTable.TaskTable.taskBeginTime));
-                    tasks.setEndTime(object.getString(Constant.LeancloundTable.TaskTable.taskEndTime));
-                    tasks.setLatitude(object.getNumber(Constant.LeancloundTable.TaskTable.taskLatitude).doubleValue());
-                    tasks.setLongitude(object.getNumber(Constant.LeancloundTable.TaskTable.taskLongitude).doubleValue());
-                    tasks.setPhoneNumber(object.getString(Constant.LeancloundTable.TaskTable.taskMobile));
-                    tasks.setName(object.getString(Constant.LeancloundTable.TaskTable.username));
-                    tasks.setJoinedNum(object.getNumber(Constant.LeancloundTable.TaskTable.joinedNum).intValue());
-                    tasks.setBuild(object.getString(Constant.LeancloundTable.TaskTable.build));
-                    mItemArray.add(new ItemData<Tasks>(0, tasks));
+                if (null != list) {
+                    mItemArray.clear();
+                    for (int i = 0; i < list.size(); i++) {
+                        AVObject object = list.get(i);
+                        Tasks tasks = new Tasks();
+                        tasks.setObjectId(object.getObjectId());
+                        tasks.setUserId(object.getString(Constant.LeancloundTable.TaskTable.userId));
+                        tasks.setTitle(object.getString(Constant.LeancloundTable.TaskTable.taskTitle));
+                        tasks.setBody(object.getString(Constant.LeancloundTable.TaskTable.taskDetail));
+                        tasks.setBeginTime(object.getString(Constant.LeancloundTable.TaskTable.taskBeginTime));
+                        tasks.setEndTime(object.getString(Constant.LeancloundTable.TaskTable.taskEndTime));
+                        tasks.setLatitude(object.getAVGeoPoint(Constant.LeancloundTable.TaskTable.point).getLatitude());
+                        tasks.setLongitude(object.getAVGeoPoint(Constant.LeancloundTable.TaskTable.point).getLongitude());
+                        tasks.setPhoneNumber(object.getString(Constant.LeancloundTable.TaskTable.taskMobile));
+                        tasks.setName(object.getString(Constant.LeancloundTable.TaskTable.username));
+                        tasks.setJoinedNum(object.getNumber(Constant.LeancloundTable.TaskTable.joinedNum).intValue());
+                        tasks.setBuild(object.getString(Constant.LeancloundTable.TaskTable.build));
+                        mItemArray.add(new ItemData<Tasks>(0, tasks));
 
+                    }
+                    mRecyclerView.getAdapter().notifyDataSetChanged();
                 }
-                mRecyclerView.getAdapter().notifyDataSetChanged();
             }
         });
         mLikeList = new Select().from(Tasks.class).where("like = ?", true).execute();

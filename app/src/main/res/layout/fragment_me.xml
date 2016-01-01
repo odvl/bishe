@@ -140,11 +140,42 @@
                 android:text="收藏的任务"
                 android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/aboutMeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_collect"
+                android:background="@drawable/clickable_btn_bg"
+                android:clickable="true"
+                android:drawableLeft="@drawable/ic_about_me"
+                android:drawablePadding="5dp"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="关于我"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/checkUpdateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/aboutMeTextView"
+                android:background="@drawable/clickable_btn_bg"
+                android:clickable="true"
+                android:drawableLeft="@drawable/ic_update"
+                android:drawablePadding="5dp"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="检查更新"
+                android:textSize="16sp"/>
+
             <View
                 android:id="@+id/cut_line4"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/user_collect"
+                android:layout_below="@+id/checkUpdateTextView"
                 android:layout_marginTop="20dp"
                 android:background="#f6f6f6" />
 
@@ -162,7 +193,6 @@
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:text="退出"
-
                 android:textSize="16sp" />
 
             <View

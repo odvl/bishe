@@ -10,16 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.activeandroid.util.Log;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.common.Constant;
 import com.iocm.freetime.util.CustomUtils;
-import com.iocm.freetime.util.TLog;
 
 import java.util.Calendar;
 

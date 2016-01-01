@@ -163,7 +163,7 @@ public class MainActivity extends BaseActivity implements LoginFragment.OnLoginB
      */
     @Override
     public void onLoginBtnClick() {
-        Log.i(TAG, "onLoginClick");
+
         MeFragment fragment = new MeFragment();
         fragment.setLogoutClickListener(this);
         mTaskFragments[1] = fragment;
@@ -178,7 +178,7 @@ public class MainActivity extends BaseActivity implements LoginFragment.OnLoginB
      */
     @Override
     public void logoutClick() {
-        Log.i(TAG, "logoutClick");
+
         LoginFragment fragment = new LoginFragment();
         fragment.setOnLoginBtnClickListener(this);
         mTaskFragments[1] = fragment;

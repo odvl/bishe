@@ -101,7 +101,6 @@ public class MapActivity extends BaseActivity {
                 return;
             }
             if (result.error == SearchResult.ERRORNO.NO_ERROR) {
-                TLog.d(Constant.TAG, "lis");
 
                 List<String> hotelName = new ArrayList<String>();
 //                List<GeoPoint> JWpoints = new ArrayList<GeoPoint>();
@@ -255,13 +254,13 @@ public class MapActivity extends BaseActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         locationInfo.setAddress("sss");
-        mLatitude = bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLatitude);
-        mLongitude = bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLongitude);
-        TLog.d("liubo", "build +" + bundle.getString(Constant.LeancloundTable.TaskTable.build) +" lll"+ bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLatitude));
-        locationInfo.setName(bundle.getString(Constant.LeancloundTable.TaskTable.build));
-        locationInfo.setLatitude(bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLatitude));
-        locationInfo.setLongitude(bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLongitude));
-        endMsg = "hahh ";
+//        mLatitude = bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLatitude);
+//        mLongitude = bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLongitude);
+//        TLog.d("liubo", "build +" + bundle.getString(Constant.LeancloundTable.TaskTable.build) +" lll"+ bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLatitude));
+//        locationInfo.setName(bundle.getString(Constant.LeancloundTable.TaskTable.build));
+//        locationInfo.setLatitude(bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLatitude));
+//        locationInfo.setLongitude(bundle.getDouble(Constant.LeancloundTable.TaskTable.taskLongitude));
+//        endMsg = "hahh ";
     }
 
     private void initMarker() {

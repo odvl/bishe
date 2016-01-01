@@ -3,6 +3,7 @@ package com.iocm.freetime.wedgets.dialog;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.BaseActivity;

@@ -5,29 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.iocm.administrator.freetime.R;
-import com.iocm.freetime.adapter.ExpandAdapter;
 import com.iocm.freetime.activity.TaskDetailActivity;
-import com.iocm.freetime.common.Constant;
+import com.iocm.freetime.adapter.ExpandAdapter;
 import com.iocm.freetime.base.ItemData;
 import com.iocm.freetime.base.RecyclerArray;
 import com.iocm.freetime.bean.TaskTypeName;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.iocm.freetime.common.Constant;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

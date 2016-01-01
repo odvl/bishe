@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:background="@color/theme_light_dark_color"
+    android:orientation="vertical">
+
+    <com.iocm.freetime.wedgets.CommonToolBar
+        android:id="@+id/toolbar"
+        app:toolbarTitle="关于我"
+        app:isLeftImage="true"
+        app:leftImageResource="@drawable/back_image"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"></com.iocm.freetime.wedgets.CommonToolBar>
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginTop="150dp"
+        android:layout_height="wrap_content"
+        android:text="基于LBS的任务发布平台设计" />
+
+    <TextView
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="版本1.0" />
+
+</LinearLayout>

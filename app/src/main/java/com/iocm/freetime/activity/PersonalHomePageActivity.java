@@ -16,10 +16,8 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.iocm.administrator.freetime.R;
-import com.iocm.freetime.base.ItemData;
 import com.iocm.freetime.bean.Tasks;
 import com.iocm.freetime.common.Constant;
-import com.iocm.freetime.util.TLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +75,6 @@ public class PersonalHomePageActivity extends BaseActivity {
         AVQuery<AVUser> userQ = new AVQuery("_User");
 
         userQ.whereEqualTo("objectId", mUserId);
-        TLog.d(Constant.TAG, "size userId " + mUserId);
 
         userQ.findInBackground(new FindCallback<AVUser>() {
             @Override
@@ -100,8 +97,8 @@ public class PersonalHomePageActivity extends BaseActivity {
                     tasks.setBody(object.getString(Constant.LeancloundTable.TaskTable.taskDetail));
                     tasks.setBeginTime(object.getString(Constant.LeancloundTable.TaskTable.taskBeginTime));
                     tasks.setEndTime(object.getString(Constant.LeancloundTable.TaskTable.taskEndTime));
-                    tasks.setLatitude(object.getNumber(Constant.LeancloundTable.TaskTable.taskLatitude).doubleValue());
-                    tasks.setLongitude(object.getNumber(Constant.LeancloundTable.TaskTable.taskLongitude).doubleValue());
+                    tasks.setLatitude(object.getAVGeoPoint(Constant.LeancloundTable.TaskTable.point).getLatitude());
+                    tasks.setLongitude(object.getAVGeoPoint(Constant.LeancloundTable.TaskTable.point).getLongitude());
                     tasks.setPhoneNumber(object.getString(Constant.LeancloundTable.TaskTable.taskMobile));
                     tasks.setName(object.getString(Constant.LeancloundTable.TaskTable.username));
                     tasks.setJoinedNum(object.getNumber(Constant.LeancloundTable.TaskTable.joinedNum).intValue());

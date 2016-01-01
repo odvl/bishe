@@ -18,9 +18,9 @@
             android:value="freetime.db" />
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="1" />
+            android:value="5" />
 
-        <meta-data android:name="AA_MODELS" android:value="com.iocm.freetime.bean.Tasks"/>
+
         <service
         android:name="com.baidu.location.f"
         android:enabled="true"
@@ -107,6 +107,8 @@
 
         <!--个人主页-->
         <activity android:name="com.iocm.freetime.activity.PersonalHomePageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.iocm.freetime.activity.AboutMeActivity"
             android:screenOrientation="portrait"/>
 
 

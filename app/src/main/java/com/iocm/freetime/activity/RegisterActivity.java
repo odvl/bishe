@@ -173,7 +173,7 @@ public class RegisterActivity extends BaseActivity {
                 user.setPassword(mPasswordInput.getText());
                 bundle.putSerializable(Constant.Key.UserInfo, (Serializable) user);
                 intent.putExtras(bundle);
-                TLog.d("liubo", "name" + mUsernameInput.getText());
+
                 setResult(Constant.ResultCode.ResultOk, intent);
                 onBackPressed();
             }
@@ -212,7 +212,7 @@ public class RegisterActivity extends BaseActivity {
         cache.saveValue(pvalue);
 
 
-        TLog.d("liubo", cache.getStringValue(Constant.User.mobile));
+
     }
 
 
