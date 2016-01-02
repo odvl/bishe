@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Table(name = "Tasks")
 public class Tasks extends Model implements Serializable {
 
-    @Column(name = "objectId")
+    @Column(name = "objectId" , unique = true)
     public String objectId;
 
     public String getObjectId() {

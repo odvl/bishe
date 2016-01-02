@@ -12,6 +12,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.activeandroid.util.Log;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
@@ -25,6 +26,7 @@ import com.iocm.freetime.cache.Cache;
 import com.iocm.freetime.common.Constant;
 import com.iocm.freetime.util.CustomUtils;
 import com.iocm.freetime.util.Setting;
+import com.iocm.freetime.util.TLog;
 import com.iocm.freetime.wedgets.InputEditText;
 
 /**
@@ -114,6 +116,7 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
             @Override
             public void done(AVUser avUser, AVException e) {
                 if (null != avUser) {
+                    mUsername = mUsernameInput.getText().toString().trim();
                     saveCache();
                     CustomUtils.showToast(getActivity(), "登陆成功");
                     jumpFragment();
@@ -140,10 +143,9 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
                 public void done(AVUser avUser, AVException e) {
                     if (null != avUser) {
                         saveCache();
-                        CustomUtils.showToast(getActivity(), "登陆成功");
                         jumpFragment();
                     } else {
-                        CustomUtils.showToast(getActivity(), "用户名或密码错误");
+
                         return;
                     }
                 }
@@ -167,6 +169,7 @@ public class LoginFragment extends TaskFragments implements View.OnClickListener
     private void saveCache() {
         Cache cache = Cache.getInstance(getActivity());
         NameValue nameValue = new NameValue(Constant.User.username, mUsername);
+        TLog.d("liubo", "username" + mUsername);
         cache.saveValue(nameValue);
 
         NameValue nameValue1 = new NameValue(Constant.User.login, true);

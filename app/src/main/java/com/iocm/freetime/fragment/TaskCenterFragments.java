@@ -92,7 +92,7 @@ public class TaskCenterFragments extends TaskFragments
                         tasks.setLongitude(object.getAVGeoPoint(Constant.LeancloundTable.TaskTable.point).getLongitude());
                         tasks.setPhoneNumber(object.getString(Constant.LeancloundTable.TaskTable.taskMobile));
                         tasks.setName(object.getString(Constant.LeancloundTable.TaskTable.username));
-                        tasks.setJoinedNum(object.getNumber(Constant.LeancloundTable.TaskTable.joinedNum).intValue());
+                        tasks.setJoinedNum(object.getNumber("upvotes").intValue());
                         tasks.setBuild(object.getString(Constant.LeancloundTable.TaskTable.build));
                         mItemArray.add(new ItemData<Tasks>(0, tasks));
 
@@ -101,7 +101,7 @@ public class TaskCenterFragments extends TaskFragments
                 }
             }
         });
-        mLikeList = new Select().from(Tasks.class).where("like = ?", true).execute();
+        mLikeList = new Select().from(Tasks.class).execute();
     }
 
     public void move2Top() {
@@ -194,7 +194,7 @@ public class TaskCenterFragments extends TaskFragments
                 ItemData<Tasks> itemData = mItemArray.get(viewHolder.getAdapterPosition());
                 Tasks tasks = itemData.getData();
                 if (tasks.isLike()) {
-                    tasks.setLike(false);
+                    tasks.delete();
                     //更新数据库
                     updateDatabase(tasks);
                     //更新列表
@@ -202,7 +202,7 @@ public class TaskCenterFragments extends TaskFragments
                     mRecyclerView.getAdapter().notifyItemChanged(viewHolder.getAdapterPosition());
 
                 } else {
-                    tasks.setLike(true);
+                    tasks.save();
                     updateDatabase(tasks);
                     viewHolder.mTaskFollow.setImageResource(R.drawable.follow);
                     mRecyclerView.getAdapter().notifyItemChanged(viewHolder.getAdapterPosition());
@@ -221,7 +221,6 @@ public class TaskCenterFragments extends TaskFragments
      * @param tasks
      */
     private void updateDatabase(Tasks tasks) {
-        tasks.save();
         if (tasks.isLike()) {
             mLikeList.add(tasks);
         } else {
@@ -270,10 +269,12 @@ public class TaskCenterFragments extends TaskFragments
                 mPosition = position;
             }
 
-            if (mLikeList.contains(_task)) {
-                _vh.mTaskFollow.setImageResource(R.drawable.follow);
-            } else {
-                _vh.mTaskFollow.setImageResource(R.drawable.unfollow);
+            for (Tasks tasks : mLikeList) {
+                if (tasks.getObjectId().equals(_task.getObjectId())) {
+                    _vh.mTaskFollow.setImageResource(R.drawable.follow);
+                } else {
+                    _vh.mTaskFollow.setImageResource(R.drawable.unfollow);
+                }
             }
             _vh.mUsername.setText(_task.getName());
             _vh.mTaskName.setText(_task.getTitle());

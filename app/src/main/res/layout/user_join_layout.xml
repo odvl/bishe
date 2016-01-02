@@ -1,45 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0ffff"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.iocm.freetime.wedgets.CommonToolBar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/shangdi">
-
-        <TextView
-            android:id="@+id/txv_show"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="已参与"
-            android:textColor="#fff"
-            android:textSize="20sp" />
-
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/loading1"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="正在加载，请稍等...." />
+        app:isLeftImage="true"
+        app:leftImageResource="@drawable/back_image"
+        app:toolbarTitle="已申请" />
 
-    <ListView
-        android:id="@+id/ltv_userJoin_showActivity"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/userTaskSwipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="match_parent">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/taskRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-    <ExpandableListView
-
-        android:id="@+id/eplv_userJoin_showLike"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ExpandableListView>
 
 </LinearLayout>

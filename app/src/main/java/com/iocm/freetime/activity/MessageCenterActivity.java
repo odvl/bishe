@@ -10,12 +10,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.GetCallback;
 import com.iocm.administrator.freetime.R;
+import com.iocm.freetime.base.ItemData;
 import com.iocm.freetime.base.RecyclerArray;
+import com.iocm.freetime.bean.MessageModel;
+import com.iocm.freetime.util.TLog;
 import com.iocm.freetime.wedgets.CommonToolBar;
+
+import java.util.List;
 
 /**
  * Created by liubo on 15/7/19.
@@ -67,15 +79,74 @@ public class MessageCenterActivity extends BaseActivity implements SwipeRefreshL
         mToolbar.setOnCommonToolBarClickListener(this);
 
         messageCenterSwipeRefreshLayout.setOnRefreshListener(this);
-
-
-
     }
 
     @Override
     void loadData() {
         mItemArray = new RecyclerArray();
         mRecyclerView.setAdapter(new MessageCenterAdapter());
+        getMessage();
+    }
+
+    private void getMessage() {
+        AVQuery<AVObject> query = new AVQuery<>("Apply");
+
+        messageCenterSwipeRefreshLayout.setRefreshing(true);
+
+        query.whereEqualTo("publishUserId", AVUser.getCurrentUser().getObjectId());
+        query.whereEqualTo("state", 0);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                messageCenterSwipeRefreshLayout.setRefreshing(false);
+                if (list != null) {
+                    mItemArray.clear();
+                    for (AVObject object : list) {
+                        MessageModel model = new MessageModel();
+                        model.setPublishUserId(object.getString("publishUserId"));
+                        model.setPublishUserName(object.getString("publishUserName"));
+                        model.setJoinUserId(object.getString("joinUserId"));
+                        model.setJoinUserName(object.getString("joinUserName"));
+                        model.setState(object.getNumber("state").intValue());
+                        model.setLeaveMessage(object.getString("message"));
+                        model.setTaskName(object.getString("taskName"));
+                        model.setTaskId(object.getString("taskId"));
+                        model.setObjectId(object.getObjectId());
+                        mItemArray.add(new ItemData(TYPE_FROM_APPLY, model));
+                    }
+                    getToApply();
+                }
+            }
+        });
+    }
+
+    private void getToApply() {
+        AVQuery<AVObject> query = new AVQuery<>("Apply");
+
+        messageCenterSwipeRefreshLayout.setRefreshing(true);
+        query.whereEqualTo("joinUserId", AVUser.getCurrentUser().getObjectId());
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                messageCenterSwipeRefreshLayout.setRefreshing(false);
+                if (list != null) {
+                    for (AVObject object : list) {
+                        MessageModel model = new MessageModel();
+                        model.setPublishUserId(object.getString("publishUserId"));
+                        model.setPublishUserName(object.getString("publishUserName"));
+                        model.setJoinUserId(object.getString("joinUserId"));
+                        model.setJoinUserName(object.getString("joinUserName"));
+                        model.setState(object.getNumber("state").intValue());
+                        model.setLeaveMessage(object.getString("message"));
+                        model.setTaskName(object.getString("taskName"));
+                        model.setTaskId(object.getString("taskId"));
+                        model.setObjectId(object.getObjectId());
+                        mItemArray.add(new ItemData(TYPE_TO_APPLY, model));
+                    }
+                }
+                mRecyclerView.getAdapter().notifyDataSetChanged();
+            }
+        });
     }
 
     private void loadActivityAnimation(View _view) {
@@ -96,46 +167,133 @@ public class MessageCenterActivity extends BaseActivity implements SwipeRefreshL
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            switch (viewType) {
-                case TYPE_FROM_APPLY: {
-                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_apply_layout, null);
-                    return new MessageApplyViewHolder(view);
-                }
-            }
-            return null;
+
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_apply_layout, parent, false);
+            return new MessageApplyViewHolder(view);
+
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            MessageApplyViewHolder vh = (MessageApplyViewHolder) holder;
+            ItemData data = mItemArray.get(position);
+            MessageModel model = (MessageModel) data.getData();
+            switch (getItemViewType(position)) {
+                case TYPE_FROM_APPLY:
+                    vh.userName.setText(model.getJoinUserName() + "申请加入! ");
+                    vh.taskName.setText(model.getTaskName());
+                    vh.leaveMessage.setText(model.getLeaveMessage());
+                    break;
+                case TYPE_TO_APPLY:
+                    vh.taskName.setText(model.getTaskName());
+                    if (model.getState() == -1) {
+                        vh.userName.setText(model.getPublishUserName() + "拒绝了您的申请！");
+                        vh.leaveMessage.setText("您暂时不符合要求!");
+                        vh.btnContent.setVisibility(View.GONE);
+                    } else if (model.getState() == 0) {
+                        vh.userName.setText(model.getPublishUserName() + "正在审核中....");
+                        vh.leaveMessage.setText("正在审核中....");
+                        vh.btnContent.setVisibility(View.GONE);
+                    } else if (model.getState() == 1) {
+                        vh.userName.setText(model.getPublishUserName() + "同意您的申请！");
+                        vh.leaveMessage.setText("欢迎您的加入，稍后可以电话联系！！");
+                        vh.btnContent.setVisibility(View.GONE);
+                    }
+                    break;
+            }
 
         }
 
         @Override
         public int getItemViewType(int position) {
-            return 0;
+            return mItemArray.get(position).getType();
         }
 
         @Override
         public int getItemCount() {
-            return 2;
+            return mItemArray.size();
         }
 
         class MessageApplyViewHolder extends RecyclerView.ViewHolder {
 
-            private Spinner mBtn;
+            private TextView userName;
+            private TextView taskName;
+            private TextView leaveMessage;
+            private Button yes;
+            Button no;
+            private LinearLayout btnContent;
+
 
             public MessageApplyViewHolder(View itemView) {
                 super(itemView);
-                mBtn = (Spinner) itemView.findViewById(R.id.message_control_btn);
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MessageCenterActivity.this, R.array.btn_type, android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mBtn.setAdapter(adapter);
+                itemView.setOnClickListener(MessageCenterActivity.this);
+                itemView.setTag(this);
+
+                userName = (TextView) itemView.findViewById(R.id.user_name);
+                taskName = (TextView) itemView.findViewById(R.id.task_name);
+                leaveMessage = (TextView) itemView.findViewById(R.id.user_message_content);
+                btnContent = (LinearLayout) itemView.findViewById(R.id.btn_content);
+
+                yes = (Button) itemView.findViewById(R.id.yes);
+                no = (Button) itemView.findViewById(R.id.no);
+                yes.setTag(this);
+                no.setTag(this);
+                yes.setOnClickListener(MessageCenterActivity.this);
+                no.setOnClickListener(MessageCenterActivity.this);
+
+
             }
         }
     }
 
     @Override
     public void onClick(View view) {
+        int id = view.getId();
+
+        if (id == R.id.yes) {
+            MessageCenterAdapter.MessageApplyViewHolder vh = (MessageCenterAdapter.MessageApplyViewHolder) view.getTag();
+            update(true, vh.getAdapterPosition());
+        } else if (id == R.id.no) {
+            MessageCenterAdapter.MessageApplyViewHolder vh = (MessageCenterAdapter.MessageApplyViewHolder) view.getTag();
+            update(false, vh.getAdapterPosition());
+        }
+
+    }
+
+    AVObject object = new AVObject("Apply");
+    private void update(boolean b, int p) {
+
+        AVQuery<AVObject> query = new AVQuery<>("Apply");
+
+        MessageModel model;
+        model = (MessageModel) mItemArray.get(p).getData();
+        object = AVObject.createWithoutData("Apply", model.getObjectId());
+        if (b) {
+            object.put("state", 1);
+            AVObject task = AVObject.createWithoutData("TaskTable", model.getTaskId());
+            task.increment("upvotes");
+            task.saveInBackground();
+        } else {
+            object.put("state", -1);
+        }
+        object.saveInBackground();
+        mItemArray.remove(p);
+        mRecyclerView.getAdapter().notifyItemRemoved(p);
+
+//        TLog.d("liubo", "objectId" + model.getObjectId() + " p" + p);
+//
+//        try {
+//            query.getInBackground(model.getObjectId(), new GetCallback<AVObject>() {
+//                @Override
+//                public void done(AVObject avObject, AVException e) {
+//                    TLog.d("liubo", "objectId" + avObject.getObjectId());
+//                    object = avObject;
+//                }
+//            });
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 

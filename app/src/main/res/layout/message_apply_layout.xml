@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/messageContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,23 +13,13 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/message_bg">
 
-        <ImageView
-            android:id="@+id/user_photo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:drawable/ic_menu_share" />
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/cut_line"
-            android:layout_alignTop="@+id/user_photo"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/user_photo"
-            android:paddingTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:singleLine="true"
             android:text="呵呵申请加入"
             android:textSize="16sp" />
@@ -37,26 +28,18 @@
             android:id="@+id/cut_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_alignLeft="@+id/user_photo"
-            android:layout_below="@+id/user_photo"
+            android:layout_alignLeft="@+id/user_name"
+            android:layout_below="@+id/user_name"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:layout_toLeftOf="@+id/message_control_btn"
             android:background="@color/cut_line" />
 
-        <Spinner
-            android:id="@+id/message_control_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/task_name_text"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp" />
 
         <TextView
             android:id="@+id/task_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/user_photo"
+            android:layout_alignLeft="@+id/user_name"
             android:layout_below="@+id/cut_line"
             android:layout_marginTop="10dp"
             android:text="任务:"
@@ -79,18 +62,17 @@
             android:id="@+id/cut_line2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_alignLeft="@+id/user_photo"
+            android:layout_alignLeft="@+id/user_name"
             android:layout_below="@+id/task_name_text"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:layout_toLeftOf="@+id/message_control_btn"
             android:background="@color/cut_line" />
 
         <TextView
             android:id="@+id/user_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/user_photo"
+            android:layout_alignLeft="@+id/user_name"
             android:layout_below="@+id/cut_line2"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
@@ -107,6 +89,36 @@
             android:layout_toRightOf="@+id/user_message"
             android:lineSpacingExtra="5dp"
             android:text="这是一个什么样的任务啊，我没有经验，而且还是要很钱的，这牙膏可以吗,还有就是任务的位置具体在那里，我不知道，这个可以在百度地图上找到吗。" />
+
+        <LinearLayout
+            android:id="@+id/btn_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_message_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp">
+
+            <Button
+                android:id="@+id/no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_common_btn"
+                android:text="拒绝" />
+
+            <Button
+                android:id="@+id/yes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_common_btn"
+                android:text="同意" />
+        </LinearLayout>
     </RelativeLayout>
 
     <View

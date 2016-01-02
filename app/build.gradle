@@ -43,7 +43,8 @@ dependencies {
     compile project(':library-circular')
     compile 'com.android.support:design:22.2.0+'
     compile 'com.android.support:recyclerview-v7:+'
-//    compile 'com.squareup.okhttp:okhttp:2.6.0'
+    //    compile 'com.squareup.okhttp:okhttp:2.6.0'
     compile project(':ActiveAndroid-master')
     compile files('libs/avoscloud-sdk-v3.12.jar')
+    compile files('libs/baidumapapi_base_v3_6_1.jar')
 }

@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:isLeftImage="true"
-        app:isRightImage="true"
         app:leftImageResource="@drawable/back_image"
-        app:rightImageResource="@drawable/ic_launcher"
+        app:rightImageResource="@android:drawable/stat_sys_warning"
+        app:isRightImage="true"
         app:toolbarTitle="任务详情" />
 
 

@@ -48,7 +48,7 @@ public class CollectionsTaskActivity extends BaseActivity {
 
     @Override
     void loadData() {
-        mTaskList = new Select().from(Tasks.class).where("like = ?" , true).execute();
+        mTaskList = new Select().from(Tasks.class).execute();
         collectionTaskRecyclerView.setAdapter(new CollectionTaskAdapter());
     }
 

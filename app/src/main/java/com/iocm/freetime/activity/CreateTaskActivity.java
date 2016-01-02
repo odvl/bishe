@@ -229,8 +229,8 @@ public class CreateTaskActivity extends BaseActivity {
         task.put(Constant.LeancloundTable.TaskTable.point, point);
         task.put(Constant.LeancloundTable.TaskTable.username, cache.getStringValue(Constant.User.username));
         task.put(Constant.LeancloundTable.TaskTable.joinedNum, 0);
-        task.put(Constant.LeancloundTable.TaskTable.build, locationAddress +"附近");
-
+        task.put("upvotes", 0);
+        task.put(Constant.LeancloundTable.TaskTable.build, locationAddress + "附近");
 
 
         task.saveInBackground(new SaveCallback() {
@@ -273,8 +273,6 @@ public class CreateTaskActivity extends BaseActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2 && resultCode == 2) {
-
-
             locationName = data.getStringExtra("name");
             locationAddress = data.getStringExtra("address");
             location.setText(locationName + "附近");

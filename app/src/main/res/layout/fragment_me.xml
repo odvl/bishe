@@ -83,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/user_release"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:background="#f6f6f6" />
 
@@ -90,6 +91,7 @@
                 android:id="@+id/cut_line2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginLeft="20dp"
                 android:layout_below="@+id/cut_line"
                 android:layout_marginTop="5dp"
                 android:background="#f6f6f6" />
@@ -99,7 +101,8 @@
                 android:id="@+id/cut_line3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/user_release" />
+                android:layout_below="@+id/user_release"
+                android:layout_marginLeft="20dp" />
 
             <TextView
                 android:id="@+id/user_apply"
@@ -122,6 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/user_apply"
+                android:layout_marginLeft="20dp"
                 android:background="#f6f6f6" />
 
             <TextView
@@ -140,11 +144,18 @@
                 android:text="收藏的任务"
                 android:textSize="16sp" />
 
+            <View
+                android:id="@+id/cut_line7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/user_collect"
+                android:layout_marginLeft="20dp" />
+
             <TextView
                 android:id="@+id/aboutMeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/user_collect"
+                android:layout_below="@+id/cut_line7"
                 android:background="@drawable/clickable_btn_bg"
                 android:clickable="true"
                 android:drawableLeft="@drawable/ic_about_me"
@@ -154,12 +165,20 @@
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:text="关于我"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/cut_line8"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/aboutMeTextView"
+                android:layout_marginLeft="20dp" />
+
             <TextView
                 android:id="@+id/checkUpdateTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/aboutMeTextView"
+                android:layout_below="@+id/cut_line8"
                 android:background="@drawable/clickable_btn_bg"
                 android:clickable="true"
                 android:drawableLeft="@drawable/ic_update"
@@ -169,7 +188,7 @@
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:text="检查更新"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <View
                 android:id="@+id/cut_line4"
