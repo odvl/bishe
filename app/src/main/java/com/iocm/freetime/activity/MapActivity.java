@@ -13,11 +13,14 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BaiduMapOptions;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
@@ -93,8 +96,28 @@ public class MapActivity extends Activity implements BaiduMap.OnMapClickListener
         mLocationClient = new LocationClient(this);
         myLocationListener = new MyLocationListener();
         mLocationClient.registerLocationListener(myLocationListener);
+        initLocation();
     }
 
+
+    private void initLocation() {
+        mLocationClient = new LocationClient(this);
+        myLocationListener = new MyLocationListener();
+        mLocationClient.registerLocationListener(myLocationListener);
+        LocationClientOption option = new LocationClientOption();
+        option.setCoorType("bd09ll");
+        option.setScanSpan(1000);
+        option.setIsNeedAddress(true);
+        option.setOpenGps(true);
+        BaiduMapOptions mapOptions = new BaiduMapOptions();
+        mapOptions.scaleControlEnabled(false); // 隐藏比例尺控件
+        mapOptions.zoomControlsEnabled(false);//隐藏缩放按钮
+        mMapView = new MapView(this, mapOptions);
+        mLocationClient.setLocOption(option);
+        mBaidumap.setMapStatus(MapStatusUpdateFactory.newMapStatus(new MapStatus.Builder().zoom(15).build()));
+
+
+    }
     /**
      * 发起路线规划搜索示例
      *
@@ -412,6 +435,24 @@ public class MapActivity extends Activity implements BaiduMap.OnMapClickListener
     public boolean onMapPoiClick(MapPoi poi) {
         return false;
     }
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        mBaidumap.setMyLocationEnabled(true);
+        if(!mLocationClient.isStarted()){
+            mLocationClient.start();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mBaidumap.setMyLocationEnabled(false);
+        mLocationClient.stop();
+    }
+
 
     @Override
     protected void onPause() {
