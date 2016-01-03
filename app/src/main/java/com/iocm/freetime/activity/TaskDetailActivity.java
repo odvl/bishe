@@ -143,6 +143,10 @@ public class TaskDetailActivity extends BaseActivity {
     }
 
     private void applyTask() {
+        if (AVUser.getCurrentUser().getObjectId().equals(tasks.getUserId())) {
+            CustomUtils.showToast(mContext, "不能参加自己发布的任务！！");
+            return;
+        }
         final InputDialog dialog = new InputDialog(this);
         dialog.show();
         final EditText editText = (EditText) dialog.findViewById(R.id.inputEdit);
@@ -172,7 +176,7 @@ public class TaskDetailActivity extends BaseActivity {
                     @Override
                     public void done(AVException e) {
                         if (e == null) {
-                            CustomUtils.showToast(mContext, "申请成功，请稍后！! ");
+                            CustomUtils.showToast(mContext, "申请成功！! ");
                         } else {
                             CustomUtils.showToast(mContext, "申请失败，可能是您已经申请过了！");
                         }
@@ -195,6 +199,10 @@ public class TaskDetailActivity extends BaseActivity {
     }
 
     private void report() {
+        if (AVUser.getCurrentUser().getObjectId().equals(tasks.getUserId())) {
+            CustomUtils.showToast(mContext, "不能举报自己发布的任务！！");
+            return;
+        }
         AVObject object = new AVObject("Report");
         object.put("name", AVUser.getCurrentUser().getUsername());
         object.put("userId", AVUser.getCurrentUser().getObjectId());
