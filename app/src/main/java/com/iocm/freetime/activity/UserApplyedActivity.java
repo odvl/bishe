@@ -50,6 +50,8 @@ public class UserApplyedActivity extends BaseActivity implements SwipeRefreshLay
     private RecyclerView taskRecyclerView;
     private SwipeRefreshLayout refreshLayout;
 
+    private TextView emptyTextView;
+
     @Override
     void initView() {
         setContentView(R.layout.user_join_layout);
@@ -59,6 +61,7 @@ public class UserApplyedActivity extends BaseActivity implements SwipeRefreshLay
         taskRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.userTaskSwipeRefreshLayout);
+        emptyTextView = (TextView) findViewById(R.id.empty);
 
     }
 
@@ -72,6 +75,12 @@ public class UserApplyedActivity extends BaseActivity implements SwipeRefreshLay
     @Override
     void loadData() {
         taskRecyclerView.setAdapter(new TAdapter());
+        mDialog.show();
+        getApply();
+
+    }
+
+    private void getApply() {
         refreshLayout.setRefreshing(true);
         AVQuery<AVObject> query = new AVQuery<>("Apply");
         query.whereEqualTo("joinUserId", AVUser.getCurrentUser().getObjectId());
@@ -81,6 +90,9 @@ public class UserApplyedActivity extends BaseActivity implements SwipeRefreshLay
             @Override
             public void done(List<AVObject> list, AVException e) {
                 refreshLayout.setRefreshing(false);
+                if (mDialog != null && mDialog.isShowing()) {
+                    mDialog.dismiss();
+                }
                 if (list != null) {
 
                     tList.clear();
@@ -101,10 +113,16 @@ public class UserApplyedActivity extends BaseActivity implements SwipeRefreshLay
 
                     taskRecyclerView.getAdapter().notifyDataSetChanged();
 
+                } else {
+                    emptyTextView.setVisibility(View.VISIBLE);
+                }
+                if (tList.size() == 0) {
+                    emptyTextView.setVisibility(View.VISIBLE);
+                } else {
+                    emptyTextView.setVisibility(View.GONE);
                 }
             }
         });
-
     }
 
 
@@ -126,6 +144,7 @@ public class UserApplyedActivity extends BaseActivity implements SwipeRefreshLay
 
     @Override
     public void onRefresh() {
+        getApply();
 
     }
 
@@ -140,8 +159,8 @@ public class UserApplyedActivity extends BaseActivity implements SwipeRefreshLay
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             MessageModel tasks = tList.get(position);
             TViewHolder vh = (TViewHolder) holder;
-            vh.nameTextView.setText("任务名称："+tasks.getTaskName());
-            vh.joinedPerNumTextView.setText("发布人："+tasks.getPublishUserName());
+            vh.nameTextView.setText("任务名称：" + tasks.getTaskName());
+            vh.joinedPerNumTextView.setText("发布人：" + tasks.getPublishUserName());
 
 
         }

@@ -202,10 +202,7 @@ public class CreateTaskActivity extends BaseActivity {
                 if (locationLatitude == -1.0 || locationLongitude == -1.0) {
                     return;
                 }
-
                 IssueActivity();
-
-
             }
         });
 

@@ -29,6 +29,7 @@ public class CollectionsTaskActivity extends BaseActivity {
 
     private List<Tasks> mTaskList;
 
+    private TextView emptyTextView;
 
     @Override
     void initView() {
@@ -38,6 +39,7 @@ public class CollectionsTaskActivity extends BaseActivity {
 
         collectionTaskRecyclerView = (RecyclerView) findViewById(R.id.collectionTaskRecyclerView);
         collectionTaskRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        emptyTextView = (TextView) findViewById(R.id.empty);
 
     }
 
@@ -50,6 +52,11 @@ public class CollectionsTaskActivity extends BaseActivity {
     void loadData() {
         mTaskList = new Select().from(Tasks.class).execute();
         collectionTaskRecyclerView.setAdapter(new CollectionTaskAdapter());
+        if (mTaskList.size() == 0) {
+            emptyTextView.setVisibility(View.VISIBLE);
+        } else {
+            emptyTextView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -83,7 +90,7 @@ public class CollectionsTaskActivity extends BaseActivity {
             vh.mUsername.setText(tasks.getTitle());
             vh.mTaskContent.setText(tasks.getBody());
             vh.mTaskFollow.setImageResource(R.drawable.follow);
-            vh.mTaskPeopleJoinNum.setText(String.format(getResources().getString(R.string.joined_person_num, 6)));
+            vh.mTaskPeopleJoinNum.setText(String.format(getString(R.string.joined_person_num), tasks.getJoinedNum()));
 
 
         }

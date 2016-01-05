@@ -38,6 +38,8 @@ public class CreatedTaskListActivity extends BaseActivity implements SwipeRefres
 
     private ArrayList<Tasks> tList = new ArrayList<>();
 
+    private TextView emptyTextView;
+
     @Override
     void initView() {
         setContentView(R.layout.user_task_layout);
@@ -48,6 +50,8 @@ public class CreatedTaskListActivity extends BaseActivity implements SwipeRefres
         taskRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         userTaskSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.userTaskSwipeRefreshLayout);
+        emptyTextView = (TextView) findViewById(R.id.empty);
+
     }
 
     @Override
@@ -62,17 +66,27 @@ public class CreatedTaskListActivity extends BaseActivity implements SwipeRefres
     void loadData() {
 
         taskRecyclerView.setAdapter(new TAdapter());
+        mDialog.show();
+        getApply();
+
+    }
+
+    private void getApply() {
+        userTaskSwipeRefreshLayout.setRefreshing(true);
 
         AVQuery<AVObject> query = new AVQuery<>(Constant.LeancloundTable.TaskTable.tableName);
-        userTaskSwipeRefreshLayout.setRefreshing(true);
         query.orderByDescending("createdAt");
         query.whereEqualTo(Constant.LeancloundTable.TaskTable.userId, AVUser.getCurrentUser().getObjectId());
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
+                if (mDialog != null && mDialog.isShowing()) {
+                    mDialog.dismiss();
+                }
                 if (userTaskSwipeRefreshLayout.isRefreshing()) {
                     userTaskSwipeRefreshLayout.setRefreshing(false);
                 }
+
                 if (null != list) {
                     tList.clear();
                     for (int i = 0; i < list.size(); i++) {
@@ -92,10 +106,16 @@ public class CreatedTaskListActivity extends BaseActivity implements SwipeRefres
                         tList.add(tasks);
                     }
                     taskRecyclerView.getAdapter().notifyDataSetChanged();
+                }else {
+                    emptyTextView.setVisibility(View.VISIBLE);
+                }
+                if (tList.size() == 0) {
+                    emptyTextView.setVisibility(View.VISIBLE);
+                } else {
+                    emptyTextView.setVisibility(View.GONE);
                 }
             }
         });
-
     }
 
     @Override

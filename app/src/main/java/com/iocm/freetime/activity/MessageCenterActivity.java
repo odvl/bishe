@@ -19,12 +19,10 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
-import com.avos.avoscloud.GetCallback;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.base.ItemData;
 import com.iocm.freetime.base.RecyclerArray;
 import com.iocm.freetime.bean.MessageModel;
-import com.iocm.freetime.util.TLog;
 import com.iocm.freetime.wedgets.CommonToolBar;
 
 import java.util.List;
@@ -43,6 +41,7 @@ public class MessageCenterActivity extends BaseActivity implements SwipeRefreshL
     private CommonToolBar mToolbar;
     private RecyclerArray mItemArray;
     private RecyclerView mRecyclerView;
+    private TextView emptyTextView;
 
     @Override
     public void initView(Bundle savedInstanceState) {
@@ -69,6 +68,8 @@ public class MessageCenterActivity extends BaseActivity implements SwipeRefreshL
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        emptyTextView = (TextView) findViewById(R.id.empty);
 
         messageCenterSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.messageCenterSwipeRefreshLayout);
 
@@ -143,6 +144,13 @@ public class MessageCenterActivity extends BaseActivity implements SwipeRefreshL
                         model.setObjectId(object.getObjectId());
                         mItemArray.add(new ItemData(TYPE_TO_APPLY, model));
                     }
+                }else {
+                    emptyTextView.setVisibility(View.VISIBLE);
+                }
+                if (mItemArray.size() == 0) {
+                    emptyTextView.setVisibility(View.VISIBLE);
+                } else {
+                    emptyTextView.setVisibility(View.GONE);
                 }
                 mRecyclerView.getAdapter().notifyDataSetChanged();
             }
@@ -160,6 +168,7 @@ public class MessageCenterActivity extends BaseActivity implements SwipeRefreshL
 
     @Override
     public void onRefresh() {
+        getMessage();
 
     }
 
@@ -241,7 +250,6 @@ public class MessageCenterActivity extends BaseActivity implements SwipeRefreshL
                 yes.setOnClickListener(MessageCenterActivity.this);
                 no.setOnClickListener(MessageCenterActivity.this);
 
-
             }
         }
     }
@@ -261,6 +269,7 @@ public class MessageCenterActivity extends BaseActivity implements SwipeRefreshL
     }
 
     AVObject object = new AVObject("Apply");
+
     private void update(boolean b, int p) {
 
         AVQuery<AVObject> query = new AVQuery<>("Apply");
@@ -280,20 +289,6 @@ public class MessageCenterActivity extends BaseActivity implements SwipeRefreshL
         mItemArray.remove(p);
         mRecyclerView.getAdapter().notifyItemRemoved(p);
 
-//        TLog.d("liubo", "objectId" + model.getObjectId() + " p" + p);
-//
-//        try {
-//            query.getInBackground(model.getObjectId(), new GetCallback<AVObject>() {
-//                @Override
-//                public void done(AVObject avObject, AVException e) {
-//                    TLog.d("liubo", "objectId" + avObject.getObjectId());
-//                    object = avObject;
-//                }
-//            });
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
     }
 

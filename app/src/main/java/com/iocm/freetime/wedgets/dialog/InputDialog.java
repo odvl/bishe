@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.iocm.administrator.freetime.R;
 
@@ -13,14 +14,17 @@ import com.iocm.administrator.freetime.R;
  */
 public class InputDialog extends AlertDialog {
 
+    Context context;
     public InputDialog(Context context) {
         super(context);
+        this.context = context;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.dialog_input);
+        View root = LayoutInflater.from(context).inflate(R.layout.dialog_input, null);
+        setContentView(root);
     }
 }

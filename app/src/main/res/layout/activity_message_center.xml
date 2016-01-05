@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/message_center_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/message_center_content"
-    android:background="#fff"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="#fff">
+
     <com.iocm.freetime.wedgets.CommonToolBar
-        android:layout_width="match_parent"
         android:id="@+id/toolbar"
-        app:toolbarTitle="消息中心"
-        app:leftImageResource="@drawable/back_image"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
         app:isLeftImage="true"
-        android:layout_height="?android:attr/actionBarSize"></com.iocm.freetime.wedgets.CommonToolBar>
+        app:leftImageResource="@drawable/back_image"
+        app:toolbarTitle="消息中心"></com.iocm.freetime.wedgets.CommonToolBar>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_below="@+id/toolbar"
         android:id="@+id/messageCenterSwipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawableTop="@drawable/ic_empty"
+        android:text="暂无数据"
+        android:visibility="gone" />
 </RelativeLayout>

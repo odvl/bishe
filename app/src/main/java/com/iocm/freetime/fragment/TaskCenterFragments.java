@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,9 +21,14 @@ import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.CreateTaskActivity;
 import com.iocm.freetime.activity.MessageCenterActivity;
@@ -34,6 +41,7 @@ import com.iocm.freetime.base.TaskFragments;
 import com.iocm.freetime.bean.Tasks;
 import com.iocm.freetime.common.Constant;
 import com.iocm.freetime.util.CustomUtils;
+import com.iocm.freetime.wedgets.dialog.CommonDialog;
 
 import java.io.Serializable;
 import java.util.List;
@@ -57,7 +65,17 @@ public class TaskCenterFragments extends TaskFragments
 
     private List<Tasks> mLikeList;
 
+
     private FloatingActionButton fabtn_show_action;
+    private LocationClient locationClient;
+
+    private boolean isFirst = true;
+    private AVGeoPoint point = new AVGeoPoint();
+
+    private Button distanceBtn;
+    private Button hotBtn;
+    private SwipeRefreshLayout swipe;
+
 
     @Nullable
     @Override
@@ -72,11 +90,43 @@ public class TaskCenterFragments extends TaskFragments
 
     private void loadData() {
 
+        locationClient = new LocationClient(getActivity());
+        // 设置定位条件
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true); // 是否打开GPS
+        option.setCoorType("bd09ll"); // 设置返回值的坐标类型。
+        option.setPriority(LocationClientOption.NetWorkFirst); // 设置定位优先级
+        // option.setProdName("LocationDemo"); //
+        // 设置产品线名称。强烈建议您使用自定义的产品线名称，方便我们以后为您提供更高效准确的定位服务。
+        // option.setScanSpan(UPDATE_TIME);// 设置定时定位的时间间隔。单位毫秒
+        locationClient.setLocOption(option);
+
+        // 注册位置监听器
+        locationClient.registerLocationListener(new BDLocationListener() {
+
+            @Override
+            public void onReceiveLocation(BDLocation location) {
+                // TODO Auto-generated method stub
+                if (location == null) {
+                    return;
+                }
+                if (isFirst) {
+                    point.setLatitude(location.getLatitude());
+                    point.setLongitude(location.getLongitude());
+                    isFirst = false;
+                }
+            }
+        });
+
+
+        final CommonDialog dialog = new CommonDialog(getActivity());
+        dialog.show();
         AVQuery<AVObject> query = new AVQuery<>(Constant.LeancloundTable.TaskTable.tableName);
-        query.orderByDescending("createdAt");
+        query.whereNear("point", point);
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
+                dialog.dismiss();
                 if (null != list) {
                     mItemArray.clear();
                     for (int i = 0; i < list.size(); i++) {
@@ -109,6 +159,21 @@ public class TaskCenterFragments extends TaskFragments
     }
 
     private void setupViews(View root) {
+
+        swipe = (SwipeRefreshLayout) root.findViewById(R.id.swipe);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipe.setRefreshing(false);
+                getDistance();
+            }
+        });
+
+        distanceBtn = (Button) root.findViewById(R.id.distance);
+        hotBtn = (Button) root.findViewById(R.id.hot);
+
+        hotBtn.setOnClickListener(TaskCenterFragments.this);
+        distanceBtn.setOnClickListener(TaskCenterFragments.this);
 
         mSearchView = (TextView) root.findViewById(R.id.input_edit_text);
         mSearchView.setOnClickListener(TaskCenterFragments.this);
@@ -211,6 +276,15 @@ public class TaskCenterFragments extends TaskFragments
                 break;
             }
 
+            case R.id.hot: {
+                getHot();
+                break;
+            }
+            case R.id.distance: {
+                getDistance();
+                break;
+            }
+
 
         }
     }
@@ -245,6 +319,78 @@ public class TaskCenterFragments extends TaskFragments
         intent.setClass(getActivity(), clazz);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    public void getHot() {
+        final CommonDialog dialog = new CommonDialog(getActivity());
+        dialog.show();
+        AVQuery<AVObject> query = new AVQuery<>(Constant.LeancloundTable.TaskTable.tableName);
+        query.orderByDescending("upvotes");
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                dialog.dismiss();
+                if (null != list) {
+                    mItemArray.clear();
+                    for (int i = 0; i < list.size(); i++) {
+                        AVObject object = list.get(i);
+                        Tasks tasks = new Tasks();
+                        tasks.setObjectId(object.getObjectId());
+                        tasks.setUserId(object.getString(Constant.LeancloundTable.TaskTable.userId));
+                        tasks.setTitle(object.getString(Constant.LeancloundTable.TaskTable.taskTitle));
+                        tasks.setBody(object.getString(Constant.LeancloundTable.TaskTable.taskDetail));
+                        tasks.setBeginTime(object.getString(Constant.LeancloundTable.TaskTable.taskBeginTime));
+                        tasks.setEndTime(object.getString(Constant.LeancloundTable.TaskTable.taskEndTime));
+                        tasks.setLatitude(object.getAVGeoPoint(Constant.LeancloundTable.TaskTable.point).getLatitude());
+                        tasks.setLongitude(object.getAVGeoPoint(Constant.LeancloundTable.TaskTable.point).getLongitude());
+                        tasks.setPhoneNumber(object.getString(Constant.LeancloundTable.TaskTable.taskMobile));
+                        tasks.setName(object.getString(Constant.LeancloundTable.TaskTable.username));
+                        tasks.setJoinedNum(object.getNumber("upvotes").intValue());
+                        tasks.setBuild(object.getString(Constant.LeancloundTable.TaskTable.build));
+                        mItemArray.add(new ItemData<Tasks>(0, tasks));
+
+                    }
+                    mRecyclerView.getAdapter().notifyDataSetChanged();
+                }
+            }
+        });
+
+    }
+
+    public void getDistance() {
+        final CommonDialog dialog = new CommonDialog(getActivity());
+        dialog.show();
+        AVQuery<AVObject> query = new AVQuery<>(Constant.LeancloundTable.TaskTable.tableName);
+        query.whereNear("point", point);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                dialog.dismiss();
+                if (null != list) {
+                    mItemArray.clear();
+                    for (int i = 0; i < list.size(); i++) {
+                        AVObject object = list.get(i);
+                        Tasks tasks = new Tasks();
+                        tasks.setObjectId(object.getObjectId());
+                        tasks.setUserId(object.getString(Constant.LeancloundTable.TaskTable.userId));
+                        tasks.setTitle(object.getString(Constant.LeancloundTable.TaskTable.taskTitle));
+                        tasks.setBody(object.getString(Constant.LeancloundTable.TaskTable.taskDetail));
+                        tasks.setBeginTime(object.getString(Constant.LeancloundTable.TaskTable.taskBeginTime));
+                        tasks.setEndTime(object.getString(Constant.LeancloundTable.TaskTable.taskEndTime));
+                        tasks.setLatitude(object.getAVGeoPoint(Constant.LeancloundTable.TaskTable.point).getLatitude());
+                        tasks.setLongitude(object.getAVGeoPoint(Constant.LeancloundTable.TaskTable.point).getLongitude());
+                        tasks.setPhoneNumber(object.getString(Constant.LeancloundTable.TaskTable.taskMobile));
+                        tasks.setName(object.getString(Constant.LeancloundTable.TaskTable.username));
+                        tasks.setJoinedNum(object.getNumber("upvotes").intValue());
+                        tasks.setBuild(object.getString(Constant.LeancloundTable.TaskTable.build));
+                        mItemArray.add(new ItemData<Tasks>(0, tasks));
+
+                    }
+                    mRecyclerView.getAdapter().notifyDataSetChanged();
+                }
+            }
+        });
+
     }
 
     class TaskCenterRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -337,4 +483,17 @@ public class TaskCenterFragments extends TaskFragments
             }
         }
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        locationClient.start();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        locationClient.stop();
+    }
 }
+

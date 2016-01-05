@@ -37,9 +37,7 @@ import java.util.Random;
 public class SearchTaskActivity extends BaseActivity {
 
 
-    String[] strings = new String[]{
-            "android实习", "ios", "带饭上楼", "取快递", "帮忙刷卡", "洗衣服", "衣服"
-    };
+
 
     private List<SearchHistory> searchHistory = new ArrayList<>();
 

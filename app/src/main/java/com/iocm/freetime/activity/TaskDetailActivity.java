@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -150,6 +151,10 @@ public class TaskDetailActivity extends BaseActivity {
         final InputDialog dialog = new InputDialog(this);
         dialog.show();
         final EditText editText = (EditText) dialog.findViewById(R.id.inputEdit);
+        editText.requestFocus();
+        editText.setFocusable(true);
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         Button no = (Button) dialog.findViewById(R.id.no);
         no.setOnClickListener(new View.OnClickListener() {
             @Override

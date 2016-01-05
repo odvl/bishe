@@ -157,44 +157,40 @@ public class RegisterActivity extends BaseActivity {
      */
     private void registerSuccessful() {
 
-        dialog.setContentView(R.layout.dialog_confirm_verify_mobile);
-        dialog.show();
+        saveCache();
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        User user = new User();
+        user.setName(mUsernameInput.getText());
+        user.setPassword(mPasswordInput.getText());
+        bundle.putSerializable(Constant.Key.UserInfo, (Serializable) user);
+        intent.putExtras(bundle);
 
-        Button no = (Button) dialog.findViewById(R.id.no);
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                saveCache();
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                User user = new User();
-                user.setName(mUsernameInput.getText());
-                user.setPassword(mPasswordInput.getText());
-                bundle.putSerializable(Constant.Key.UserInfo, (Serializable) user);
-                intent.putExtras(bundle);
-
-                setResult(Constant.ResultCode.ResultOk, intent);
-                onBackPressed();
-            }
-        });
-
-        Button yes = (Button) dialog.findViewById(R.id.yes);
-        yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                VerifyMobileFragment fragment = new VerifyMobileFragment();
-                getFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_content, fragment).commit();
-
-            }
-        });
-
-
-
-
-
-
+        setResult(Constant.ResultCode.ResultOk, intent);
+        onBackPressed();
+//
+//        dialog.setContentView(R.layout.dialog_confirm_verify_mobile);
+//        dialog.show();
+//
+//        Button no = (Button) dialog.findViewById(R.id.no);
+//        no.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//
+//            }
+//        });
+//
+//        Button yes = (Button) dialog.findViewById(R.id.yes);
+//        yes.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//                VerifyMobileFragment fragment = new VerifyMobileFragment();
+//                getFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragment_content, fragment).commit();
+//
+//            }
+//        });
     }
 
     /**
