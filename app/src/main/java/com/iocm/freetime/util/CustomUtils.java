@@ -2,6 +2,8 @@ package com.iocm.freetime.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -79,5 +81,18 @@ public class CustomUtils {
     public static boolean checkUserLogin(Context context) {
         Cache cache = Cache.getInstance(context);
         return cache.getBooleanValue(Constant.User.login);
+    }
+
+
+    public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
     }
 }

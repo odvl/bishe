@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.cache.Cache;
+import com.iocm.freetime.util.CustomUtils;
 import com.iocm.freetime.wedgets.CommonToolBar;
 import com.iocm.freetime.wedgets.dialog.CommonDialog;
 
@@ -32,6 +33,9 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         mDialog = new CommonDialog(this);
         mContext = this;
+        if(!CustomUtils.isNetworkConnected(this)) {
+            CustomUtils.showToast(mContext, "网络不可用,请打开网络！");
+        }
         cache = Cache.getInstance(mContext);
         initView(savedInstanceState);
         initView();

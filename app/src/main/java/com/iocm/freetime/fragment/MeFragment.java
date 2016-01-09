@@ -5,19 +5,32 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.input.InputManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.SaveCallback;
+import com.baidu.mapapi.map.Text;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.activity.AboutMeActivity;
 import com.iocm.freetime.activity.CollectionsTaskActivity;
+import com.iocm.freetime.activity.FansOrFollowActivity;
+import com.iocm.freetime.activity.FeedBackActivity;
 import com.iocm.freetime.activity.UserApplyedActivity;
 import com.iocm.freetime.activity.CreatedTaskListActivity;
 import com.iocm.freetime.base.TaskFragments;
@@ -25,9 +38,14 @@ import com.iocm.freetime.bean.NameValue;
 import com.iocm.freetime.bean.User;
 import com.iocm.freetime.cache.Cache;
 import com.iocm.freetime.common.Constant;
+import com.iocm.freetime.util.CustomUtils;
 import com.iocm.freetime.util.Setting;
+import com.iocm.freetime.util.TLog;
 import com.iocm.freetime.wedgets.dialog.CommonDialog;
+import com.iocm.freetime.wedgets.dialog.InputDialog;
 import com.ozn.circleimage.CircleImageView;
+
+import java.util.List;
 
 /**
  * Created by liubo on 15/7/13.
@@ -44,9 +62,13 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
     private TextView mUserCollect;
     private TextView aboutMeTextView;
     private TextView updateTextView;
+    private TextView feedBackTextView;
 
 
     private View mMeContent;
+
+    private TextView followTextView;
+    private TextView fansTextView;
 
 
     Cache mCache;
@@ -61,6 +83,8 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
         View _root = inflater.inflate(R.layout.fragment_me, container, false);
         init();
         setupViewInMe(_root);
+        getFans();
+        getFollow();
         return _root;
 
     }
@@ -71,6 +95,41 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
 
         mUpdateUserInfoTask = new UpdateUserInfoTask();
         mUpdateUserInfoTask.execute(null == null ? R.drawable.bestican_teaser : Integer.parseInt("0"));
+
+    }
+
+
+    private void getFollow() {
+        AVQuery<AVObject> query = new AVQuery("Follow");
+        query.whereEqualTo("userId", AVUser.getCurrentUser().getObjectId());
+
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                if (list == null) {
+                    TLog.d("liubo", "null");
+                } else {
+                    followTextView.setText("关注: " + list.size() + "人");
+                }
+            }
+        });
+    }
+
+
+    private void getFans() {
+        AVQuery<AVObject> query = new AVQuery("Follow");
+        query.whereEqualTo("followId", AVUser.getCurrentUser().getObjectId());
+
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                if (list == null) {
+                    TLog.d("liubo", "null");
+                } else {
+                    fansTextView.setText("粉丝: " + list.size() + "人");
+                }
+            }
+        });
 
     }
 
@@ -98,6 +157,16 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
 
         mUserMobile.setText(mCache.getStringValue(Constant.User.username));
         mUsername.setText(mCache.getStringValue(Constant.User.username));
+        mUsername.setOnClickListener(MeFragment.this);
+        feedBackTextView = (TextView) root.findViewById(R.id.feedBackTextView);
+        feedBackTextView.setOnClickListener(MeFragment.this);
+
+        fansTextView = (TextView) root.findViewById(R.id.fansTextView);
+        followTextView = (TextView) root.findViewById(R.id.followTextView);
+
+        fansTextView.setOnClickListener(MeFragment.this);
+        followTextView.setOnClickListener(MeFragment.this);
+
     }
 
     /**
@@ -178,7 +247,77 @@ public class MeFragment extends TaskFragments implements View.OnClickListener {
                 checkUpdate();
                 break;
             }
+            case R.id.username: {
+                updateUsername();
+                break;
+            }
+            case R.id.feedBackTextView: {
+                jumpActivity(FeedBackActivity.class);
+                break;
+            }
+            case R.id.fansTextView: {
+                Intent intent = new Intent(getActivity(), FansOrFollowActivity.class);
+                intent.putExtra(Constant.User.userId, AVUser.getCurrentUser().getObjectId());
+                intent.putExtra("fansOrfollow", 1);
+                startActivity(intent);
+                break;
+            }
+            case R.id.followTextView: {
+                Intent intent = new Intent(getActivity(), FansOrFollowActivity.class);
+                intent.putExtra(Constant.User.userId, AVUser.getCurrentUser().getObjectId());
+                intent.putExtra("fansOrfollow", 2);
+                startActivity(intent);
+                break;
+            }
         }
+    }
+
+
+    private void updateUsername() {
+        final InputDialog dialog = new InputDialog(getActivity());
+        dialog.show();
+
+        final EditText editText = (EditText) dialog.findViewById(R.id.inputEdit);
+        editText.setHint("请输入新用户名");
+
+
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        Button no = (Button) dialog.findViewById(R.id.no);
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        Button yes = (Button) dialog.findViewById(R.id.yes);
+        yes.setText("确定");
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(editText.getText().toString())) {
+                    return;
+                }
+                AVObject avObject = AVObject.createWithoutData("_User", AVUser.getCurrentUser().getObjectId());
+                avObject.put("username", editText.getText().toString());
+                avObject.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(AVException e) {
+                        if (e == null) {
+                            CustomUtils.showToast(getActivity(), "更新成功！");
+                            dialog.dismiss();
+                            mUsername.setText(editText.getText().toString());
+                            mUserMobile.setText(editText.getText().toString());
+                            mCache.saveValue(new NameValue(Constant.User.username, editText.getText().toString()));
+                        } else {
+                            CustomUtils.showToast(getActivity(), "该用户名已被占用，请重试！");
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void checkUpdate() {

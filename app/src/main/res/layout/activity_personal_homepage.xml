@@ -7,8 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@color/theme_light_dark_color">
+        android:layout_height="180dp"
+        android:background="@drawable/ic_common_bg">
 
         <ImageView
             android:id="@+id/back"
@@ -18,14 +18,16 @@
             android:src="@drawable/back_image" />
 
         <LinearLayout
+            android:id="@+id/headContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp">
 
             <com.ozn.circleimage.CircleImageView
                 android:id="@+id/photoImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 app:circleType="circle"
                 app:src="@drawable/school_task" />
@@ -37,20 +39,78 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@color/white"
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="sss" />
+                    android:paddingTop="10dp"
+                    android:text="11"
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/mobile"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="sss" />
+                    android:text="sss"
+                    android:visibility="gone" />
             </LinearLayout>
+
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/headContent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/followTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="floo"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/red" />
+
+            <TextView
+                android:id="@+id/fansTextView"
+                android:text="fansi"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+        ®<Button
+        android:id="@+id/followBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/back"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/back"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_common_btn"
+            android:minWidth="40dp"
+            android:text="关注"
+            android:textSize="14sp" />
+
     </RelativeLayout>
 
     <View
@@ -73,6 +133,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/taskRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
 
 </LinearLayout>

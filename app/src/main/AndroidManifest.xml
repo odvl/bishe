@@ -7,11 +7,11 @@
         android:targetSdkVersion="22" />
 
     <application
+        android:name="com.iocm.freetime.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name="com.iocm.freetime.MyApplication"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <meta-data
             android:name="AA_DB_NAME"
@@ -22,9 +22,9 @@
 
 
         <service
-        android:name="com.baidu.location.f"
-        android:enabled="true"
-        android:process=":remote">
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2"></action>
             </intent-filter>
@@ -32,8 +32,8 @@
 
 
         <meta-data
-        android:name="com.baidu.lbsapi.API_KEY"
-        android:value="dAjr1hktZjLYhqqQV0UaPhwd" />
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="dAjr1hktZjLYhqqQV0UaPhwd" />
 
 
         <activity
@@ -42,6 +42,11 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustNothing">
 
+
+        </activity>
+        <activity
+            android:name="com.iocm.freetime.activity.WelcomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,12 +61,7 @@
         <activity
             android:name="com.iocm.freetime.activity.TaskDetailActivity"
             android:label="@string/yunxuan"></activity>
-        <activity
-            android:name="com.iocm.freetime.activity.FindTaskActivity"
-            android:label="@string/yunxuan"></activity>
-        <activity
-            android:name="com.iocm.freetime.activity.ChangeUserNameActivity"
-            android:label="@string/yunxuan"></activity>
+
 
         <activity
             android:name="com.iocm.freetime.activity.UserApplyedActivity"
@@ -71,9 +71,7 @@
             android:name="com.iocm.freetime.activity.CreatedTaskListActivity"
             android:label="@string/yunxuan"></activity>
 
-        <activity
-            android:name="com.iocm.freetime.user_service.Msg"
-            android:label="@string/yunxuan"></activity>
+
 
         <activity
             android:name="com.iocm.freetime.activity.MapActivity"
@@ -106,9 +104,15 @@
             android:screenOrientation="portrait" />
 
         <!--个人主页-->
-        <activity android:name="com.iocm.freetime.activity.PersonalHomePageActivity"
+        <activity
+            android:name="com.iocm.freetime.activity.PersonalHomePageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.iocm.freetime.activity.AboutMeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.iocm.freetime.activity.FeedBackActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.iocm.freetime.activity.AboutMeActivity"
+        <activity android:name="com.iocm.freetime.activity.FansOrFollowActivity"
             android:screenOrientation="portrait"/>
 
 

@@ -11,6 +11,7 @@ import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.SDKInitializer;
 import com.iocm.freetime.bean.SearchHistory;
 import com.iocm.freetime.bean.Tasks;
+import com.iocm.freetime.cache.Cache;
 
 /**
  * Created by liubo on 15/12/3.
@@ -46,5 +47,11 @@ public class MyApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
         ActiveAndroid.dispose();
+    }
+
+    public String getUserName() {
+        Cache cache = Cache.getInstance(getApplicationContext());
+        return cache.getStringValue("username");
+
     }
 }

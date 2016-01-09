@@ -76,6 +76,8 @@ public class TaskCenterFragments extends TaskFragments
     private Button hotBtn;
     private SwipeRefreshLayout swipe;
 
+    private boolean isLoad = false;
+
 
     @Nullable
     @Override
@@ -123,6 +125,7 @@ public class TaskCenterFragments extends TaskFragments
         dialog.show();
         AVQuery<AVObject> query = new AVQuery<>(Constant.LeancloundTable.TaskTable.tableName);
         query.whereNear("point", point);
+        query.setLimit(50);
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
@@ -186,10 +189,12 @@ public class TaskCenterFragments extends TaskFragments
 
         mRecyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addOnScrollListener(onScrollListener);
         mRecyclerView.setAdapter(new TaskCenterRecyclerAdapter());
 
         fabtn_show_action = (FloatingActionButton) root.findViewById(R.id.fabtn_show_action);
         fabtn_show_action.setOnClickListener(this);
+
     }
 
     private void init() {
@@ -484,6 +489,19 @@ public class TaskCenterFragments extends TaskFragments
         }
     }
 
+    RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+        int position = 0;
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            position = manager.findLastVisibleItemPosition();
+            if (position == mItemArray.size() - 1 && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                CustomUtils.showToast(mContext, "暂无新数据！");
+            }
+
+        }
+    };
     @Override
     public void onStart() {
         super.onStart();

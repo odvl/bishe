@@ -44,6 +44,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="30dp"
                     android:layout_toRightOf="@+id/user_photo"
+                    android:padding="10dp"
                     android:singleLine="true"
                     android:text="测试帐号"
                     android:textSize="19sp" />
@@ -56,7 +57,44 @@
                     android:layout_below="@+id/username"
                     android:layout_marginTop="10dp"
                     android:text="123456789012"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/username"
+                    android:layout_alignLeft="@+id/username"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/followTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="floo"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:id="@+id/fansTextView"
+                        android:text="fansi"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
             </RelativeLayout>
 
 
@@ -91,8 +129,8 @@
                 android:id="@+id/cut_line2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginLeft="20dp"
                 android:layout_below="@+id/cut_line"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:background="#f6f6f6" />
 
@@ -175,10 +213,28 @@
                 android:layout_marginLeft="20dp" />
 
             <TextView
-                android:id="@+id/checkUpdateTextView"
+                android:id="@+id/feedBackTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cut_line8"
+                android:background="@drawable/clickable_btn_bg"
+                android:clickable="true"
+                android:drawableLeft="@drawable/ic_feed_back"
+                android:drawablePadding="5dp"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="反馈"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/checkUpdateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/feedBackTextView"
+                android:layout_marginTop="1dp"
                 android:background="@drawable/clickable_btn_bg"
                 android:clickable="true"
                 android:drawableLeft="@drawable/ic_update"

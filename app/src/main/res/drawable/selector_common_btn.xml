@@ -14,4 +14,18 @@
         </shape>
     </item>
 
+    <item android:state_enabled="true" >
+        <shape >
+            <corners android:radius="20dp"/>
+            <solid android:color="@color/theme_light_color"/>
+        </shape>
+    </item>
+    <item android:state_enabled="false" >
+        <shape>
+            <corners android:radius="20dp"/>
+            <solid android:color="@color/theme_light_dark_color"/>
+        </shape>
+    </item>
+
+
 </selector>

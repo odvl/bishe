@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="#f8f8f8"
     android:layout_height="match_parent">
 
 
@@ -13,14 +14,14 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
-        android:layout_below="@+id/orderContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/orderContent">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
@@ -43,26 +44,27 @@
         android:id="@+id/orderContent"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbar"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/distance"
-            android:text="距离"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
-            android:layout_width="0dp"
             android:layout_weight="1"
             android:background="@drawable/selector_common_btn"
-            android:layout_height="match_parent" />
+            android:text="距离" />
+
         <Button
             android:id="@+id/hot"
-            android:text="热度"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
-            android:layout_width="0dp"
             android:layout_weight="1"
             android:background="@drawable/selector_common_btn"
-            android:layout_height="match_parent" />
-
+            android:text="热度" />
     </LinearLayout>
 </RelativeLayout>

@@ -419,7 +419,6 @@ public class MapActivity extends Activity implements BaiduMap.OnMapClickListener
                 mCity = bdLocation.getCity();
                 mLocationMsg = bdLocation.getAddrStr();
                 System.out.println(bdLocation.getCity()+"coty");
-                Toast.makeText(MapActivity.this,"我的位置"+bdLocation.getAddrStr(),Toast.LENGTH_SHORT).show();
                 isFirstIn = false;
 
             }

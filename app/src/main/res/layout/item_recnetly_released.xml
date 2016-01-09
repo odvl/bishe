@@ -2,20 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/theme_light_color"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
+    android:id="@+id/recycler_item"
+    android:background="@drawable/message_bg"
     android:orientation="vertical">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/cut_line" />
 
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/theme_light_color"
         android:gravity="left"
         android:paddingBottom="5dp"
         android:paddingLeft="20dp"
@@ -72,8 +70,4 @@
             android:text="@string/joined_person_num" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/cut_line" />
 </LinearLayout>

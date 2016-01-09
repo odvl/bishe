@@ -1,5 +1,6 @@
 package com.iocm.freetime.util;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.baidu.mapapi.map.Polyline;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.route.WalkingRouteLine;
+import com.iocm.administrator.freetime.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +61,8 @@ public class WalkingRouteOverlay extends OverlayManager {
                                             .zIndex(10)
                                                     .anchor(0.5f, 0.5f)
                                                             .extraInfo(b)
-                                                                    .icon(BitmapDescriptorFactory
-                                                                            .fromAssetWithDpi("Icon_line_node.png")));
+                                                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_guide)
+                                                                            ));
                 }
 
                 // 最后路段绘制出口点
@@ -70,8 +72,7 @@ public class WalkingRouteOverlay extends OverlayManager {
                             .position(step.getExit().getLocation())
                                     .anchor(0.5f, 0.5f)
                                             .zIndex(10)
-                                                    .icon(BitmapDescriptorFactory
-                                                            .fromAssetWithDpi("Icon_line_node.png")));
+                                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_guide)));
 
                 }
             }
@@ -81,8 +82,7 @@ public class WalkingRouteOverlay extends OverlayManager {
             overlayList.add((new MarkerOptions())
                     .position(mRouteLine.getStarting().getLocation())
                             .icon(getStartMarker() != null ? getStartMarker() :
-                                    BitmapDescriptorFactory
-                                            .fromAssetWithDpi("Icon_start.png")).zIndex(10));
+                                    BitmapDescriptorFactory.fromResource(R.drawable.ic_guide)).zIndex(10));
         }
         // terminal
         if (mRouteLine.getTerminal() != null) {
@@ -90,8 +90,7 @@ public class WalkingRouteOverlay extends OverlayManager {
                     .add((new MarkerOptions())
                             .position(mRouteLine.getTerminal().getLocation())
                                     .icon(getTerminalMarker() != null ? getTerminalMarker() :
-                                            BitmapDescriptorFactory
-                                                    .fromAssetWithDpi("Icon_end.png"))
+                                            BitmapDescriptorFactory.fromResource(R.drawable.ic_guide))
                                                             .zIndex(10));
         }
 

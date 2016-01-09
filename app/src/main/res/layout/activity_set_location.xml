@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/white"
+    android:layout_height="fill_parent">
+
+    <com.iocm.freetime.wedgets.CommonToolBar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        app:isLeftImage="true"
+        app:leftImageResource="@drawable/back_image"
+        app:toolbarTitle="设定位置"
+        android:layout_height="?attr/actionBarSize"></com.iocm.freetime.wedgets.CommonToolBar>
 
     <EditText
         android:id="@+id/key_words"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/input_edit_bg"
-        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/input_edit_bg"
         android:hint="地址"
-        android:paddingLeft="5dp" />
+        android:layout_marginTop="5dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="8dp"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/begin_search"
@@ -28,7 +38,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/selector_common_btn"
         android:text="开始搜索"
-        android:textColor="@color/white"
+        android:textColor="@color/grey800"
         android:textSize="19sp" />
 
     <TextView

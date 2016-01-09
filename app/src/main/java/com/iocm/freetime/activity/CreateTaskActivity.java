@@ -17,10 +17,12 @@ import com.avos.avoscloud.SaveCallback;
 import com.iocm.administrator.freetime.R;
 import com.iocm.freetime.common.Constant;
 import com.iocm.freetime.util.CustomUtils;
+import com.iocm.freetime.wedgets.CommonToolBar;
 
 import java.util.Calendar;
 
 /**
+ * 创建任务
  * Created by liubo on 15/11/21.
  */
 public class CreateTaskActivity extends BaseActivity {
@@ -68,6 +70,9 @@ public class CreateTaskActivity extends BaseActivity {
     @Override
     void initView() {
         setContentView(R.layout.fragment_create_task);
+
+        CommonToolBar toolBar = (CommonToolBar) findViewById(R.id.toolbar);
+        toolBar.setOnCommonToolBarClickListener(this);
 
         taskNameEditText = (EditText) findViewById(R.id.task_name);
         mobileEditText = (EditText) findViewById(R.id.mobile);
@@ -257,7 +262,7 @@ public class CreateTaskActivity extends BaseActivity {
 
     @Override
     public void leftClickListener() {
-
+        finish();
     }
 
     @Override
