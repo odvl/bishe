@@ -1,1 +1,1 @@
-include ':app', ':mylibrary', ':circleimage', ':scrolldatepick', ':circleprogress', ':library-circular', ':ActiveAndroid-master'
+include ':app', ':mylibrary', ':circleimage', ':library-circular', ':ActiveAndroid-master'

@@ -1,15 +1,11 @@
 package com.iocm.freetime.activity;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -18,24 +14,11 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.iocm.administrator.freetime.R;
-import com.iocm.freetime.adapter.UserjoinAdapter;
 import com.iocm.freetime.bean.MessageModel;
-import com.iocm.freetime.bean.Tasks;
-import com.iocm.freetime.common.Constant;
 import com.iocm.freetime.wedgets.CommonToolBar;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 用户申请的任务
